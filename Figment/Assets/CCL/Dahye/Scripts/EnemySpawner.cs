@@ -6,11 +6,5 @@ public class EnemySpawner : MonoBehaviour
 {
     public EnemySO enemySO;
 
-    [System.Serializable]
-    {
-        public string name;
-        public int count;
-        public float rate;
-
-    }
+ 
 }
