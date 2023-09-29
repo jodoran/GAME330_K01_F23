@@ -1,24 +1,30 @@
 ﻿using UnityEngine;
 
-public class ExamplePlayerMovement : MonoBehaviour 
+public class PlayerMovement : MonoBehaviour 
 {
-    public float turnSpeed = 120.0f;
-    public float moveSpeed = 8.0f;
+    public float moveSpeed = 10.0f;
 	
-	// Update is called once per frame
 	void Update () 
     {
-        // Rotate the player by pressing left or right
+        Movement();
+        Shoot();
+       
+    }
+
+    public void Movement()
+    {
         if (FigmentInput.GetButton(FigmentInput.FigmentButton.LeftButton))
         {
-            transform.Rotate(Vector3.up, -turnSpeed * Time.deltaTime);
+            transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
         }
         else if (FigmentInput.GetButton(FigmentInput.FigmentButton.RightButton))
         {
-            transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime);
+            transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
         }
+    }
 
-        // If we press the action button, move forward
+    public void Shoot() //채연
+    {
         if (FigmentInput.GetButton(FigmentInput.FigmentButton.ActionButton))
         {
             transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
