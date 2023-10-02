@@ -14,11 +14,12 @@ public class EnemySO : ScriptableObject
         ShootingGuy
     }
 
-    public string EnemyName;
-    public Transform EnemyPrefab;
+    public EnemyType enemyType;
+    public GameObject EnemyPrefab;
     public float moveSpeed;
     public float hp;
     public float damage;
+    public bool isDead;
 
 
 }
