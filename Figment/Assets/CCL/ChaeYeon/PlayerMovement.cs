@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Shoot() //채연
     {
-        if (FigmentInput.GetButton(FigmentInput.FigmentButton.ActionButton))
+        if (FigmentInput.GetButton(FigmentInput.FigmentButton.ActionButton)) //건들 노노 //GetButton Down/Up
         {
             transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
         }
