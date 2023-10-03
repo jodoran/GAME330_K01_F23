@@ -16,6 +16,7 @@ public class EnemySO : ScriptableObject
 
     public EnemyType enemyType;
     public GameObject EnemyPrefab;
+    //public Vector3 position;
     public float moveSpeed;
     public float hp;
     public float damage;
