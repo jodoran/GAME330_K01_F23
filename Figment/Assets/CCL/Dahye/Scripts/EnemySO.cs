@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu]
-public class EnemySO : ScriptableObject
+namespace Dev_Unit //관리가 수월함
 {
-
+    //외부 접근가능 
     public enum EnemyType
     {
         BigGuy,
@@ -14,13 +12,21 @@ public class EnemySO : ScriptableObject
         ShootingGuy
     }
 
-    public EnemyType enemyType;
-    public GameObject EnemyPrefab;
-    //public Vector3 position;
-    public float moveSpeed;
-    public float hp;
-    public float damage;
-    public bool isDead;
+    [CreateAssetMenu]
+    public class EnemySO : ScriptableObject
+    {
 
+  
+
+        public EnemyType enemyType;
+        public GameObject enemyPrefab;
+        //public Vector3 position;
+        public float moveSpeed;
+        public float hp;
+        public float damage;
+        public bool isDead;
+
+
+    }
 
 }

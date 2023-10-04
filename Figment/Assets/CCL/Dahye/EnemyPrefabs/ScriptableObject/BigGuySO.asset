@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BigGuySO
   m_EditorClassIdentifier: 
   enemyType: 0
-  EnemyPrefab: {fileID: 8471660470576268269, guid: 9ca8d3160c1bb8d4380288ea1d1dd507,
+  enemyPrefab: {fileID: 8471660470576268269, guid: 9ca8d3160c1bb8d4380288ea1d1dd507,
     type: 3}
   moveSpeed: 2
   hp: 100

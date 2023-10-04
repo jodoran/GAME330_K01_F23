@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0fc63c3bffb9d4f808f7ff54ba5843, type: 3}
   m_Name: ShootingGuySO
   m_EditorClassIdentifier: 
-  EnemyName: Big Guy
-  EnemyPrefab: {fileID: 0}
+  enemyType: 2
+  enemyPrefab: {fileID: 0}
   moveSpeed: 0
   hp: 0
   damage: 0
+  isDead: 0
