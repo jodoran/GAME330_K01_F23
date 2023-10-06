@@ -137,6 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6390148580914478773}
   - component: {fileID: 7594315118794826947}
+  - component: {fileID: 6927995962693902806}
   m_Layer: 3
   m_Name: Cat
   m_TagString: Untagged
@@ -159,7 +160,7 @@ Transform:
   - {fileID: 6683091626284609050}
   - {fileID: 3252532740221760726}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 187.681, z: 0}
 --- !u!95 &7594315118794826947
 Animator:
@@ -182,6 +183,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &6927995962693902806
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132770282693229446}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.5557294, y: 0, z: 10.301914}
+  m_Center: {x: -0.07454541, y: 0.5, z: 1.7211932}
 --- !u!1 &1159216709013346181
 GameObject:
   m_ObjectHideFlags: 0

@@ -525,6 +525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 102467725754201525}
   - component: {fileID: 652857641146613031}
+  - component: {fileID: 2292336296143145827}
   m_Layer: 3
   m_Name: LOVEDUCK
   m_TagString: Untagged
@@ -549,7 +550,7 @@ Transform:
   - {fileID: 5326633416070283496}
   - {fileID: 3975327369601610162}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 178.336, z: 0}
 --- !u!95 &652857641146613031
 Animator:
@@ -572,6 +573,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &2292336296143145827
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2504476691039125275}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.4706626, y: 8.611249, z: 4.058392}
+  m_Center: {x: 0.080959, y: 3.8059301, z: 1.4616357}
 --- !u!1 &2781783251342514839
 GameObject:
   m_ObjectHideFlags: 0

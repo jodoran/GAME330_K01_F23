@@ -5300,6 +5300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7934524497806593350}
   - component: {fileID: 4127306397446072835}
+  - component: {fileID: 4898723473256297830}
   m_Layer: 3
   m_Name: FLOWER
   m_TagString: Untagged
@@ -5323,7 +5324,7 @@ Transform:
   - {fileID: 8016643405401206803}
   - {fileID: 2873158698317356587}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!95 &4127306397446072835
 Animator:
@@ -5346,6 +5347,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &4898723473256297830
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924946746704654581}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.284633, y: 1, z: 5.0445642}
+  m_Center: {x: 0.029792333, y: 0, z: -0.2027151}
 --- !u!1 &7994728726823406679
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7527261236854054039}
   - component: {fileID: 461836726440202506}
+  - component: {fileID: 8746285803390121871}
   m_Layer: 3
   m_Name: sheep
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   - {fileID: 6388120924932706059}
   - {fileID: 8624798650842686531}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 178.85, z: 0}
 --- !u!95 &461836726440202506
 Animator:
@@ -57,6 +58,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &8746285803390121871
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105479803287591982}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.4178505, y: 7.651537, z: 6.3014655}
+  m_Center: {x: -0.3678562, y: 3.3257673, z: 0.2822653}
 --- !u!1 &107013927655286881
 GameObject:
   m_ObjectHideFlags: 0
