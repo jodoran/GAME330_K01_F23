@@ -14,7 +14,7 @@ namespace Dev_Unit
         public static UnitManager Instance { get { return instance; } }
 
 
-        // 에디터에서 설정할 수 있는 EnemySO 배열
+        // EnemySO 배열로 모든 Enemy Type들의 SO를 받음
         [SerializeField] private EnemySO[] enemySO;
 
        

@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: SmallGuySO
   m_EditorClassIdentifier: 
   enemyType: 1
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 2504476691039125275, guid: 3290f7d5763eca747888b8a3315f61c2,
+    type: 3}
   moveSpeed: 0
   hp: 0
   damage: 0
   isDead: 0
+  maxCount: 0
+  wave1st: 0
+  wave2nd: 0
+  wave3rd: 70

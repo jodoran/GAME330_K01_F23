@@ -19,3 +19,7 @@ MonoBehaviour:
   hp: 100
   damage: 100
   isDead: 0
+  maxCount: 0
+  wave1st: 90
+  wave2nd: 60
+  wave3rd: 0

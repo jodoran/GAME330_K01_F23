@@ -6,5 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/FigmentTestScene.unity
+    path: Assets/CCL/Subi/FigmentTestScene.unity
     guid: 94fc6c6919f5c7f40be81baf4ddb5791
+  m_configObjects: {}

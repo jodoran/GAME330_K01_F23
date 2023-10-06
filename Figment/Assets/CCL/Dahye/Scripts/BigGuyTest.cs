@@ -139,7 +139,6 @@ namespace Dev_Unit
                         }
                     
                         float distance = Vector3.Distance(transform.position, playerTarget.transform.position);
-                        Debug.Log("플레이어 현재위치 : " + playerTarget.transform.position + "에너미와의 거리 : " + distance);
 
                         if (distance < stopDistance) //특정거리도달
                         {
