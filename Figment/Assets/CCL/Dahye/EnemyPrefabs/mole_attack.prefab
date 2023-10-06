@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8505471949647434681}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dummy002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1694314609580679337}
   - component: {fileID: 6233186347294856158}
-  m_Layer: 0
+  - component: {fileID: 5861605872696871984}
+  m_Layer: 3
   m_Name: Box002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,9 +59,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477617906148731992}
-  m_LocalRotation: {x: 0.00000008146034, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000019070949, y: 0, z: 0}
-  m_LocalScale: {x: 1.13545, y: 1.1651756, z: 1.13545}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.445, y: -5.3064, z: 1.1876}
+  m_LocalScale: {x: 2.2682753, y: 2.327658, z: 2.2682753}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7455407026200772293}
@@ -123,6 +124,27 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0033578873, y: -0.88268185, z: 8.057492}
     m_Extent: {x: 8.221374, y: 7.292635, z: 9.107543}
   m_DirtyAABB: 0
+--- !u!65 &5861605872696871984
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477617906148731992}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.614778, y: 4.981778, z: 4.0934644}
+  m_Center: {x: -6.3681297, y: -0.30250692, z: -0.27584007}
 --- !u!1 &812247871835659673
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 842818953926970634}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dummy001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +186,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2838546327296805249}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bone002(mirrored)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +217,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3108664575733930710}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bone001(mirrored)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3630509883479270959}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bone004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 267977292220479375}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bone001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +314,7 @@ GameObject:
   - component: {fileID: 2695182587437230320}
   - component: {fileID: 3010318735184873224}
   - component: {fileID: 5703902079263477567}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: smog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5027,7 +5049,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 80876017748592115}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bone003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5061,7 +5083,7 @@ GameObject:
   - component: {fileID: 7455407026200772293}
   - component: {fileID: 6465735858450106497}
   - component: {fileID: 5061053432659563398}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: mole_attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5129,7 +5151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 888955082983956548}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bone002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
