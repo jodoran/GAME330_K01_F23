@@ -159,7 +159,7 @@ namespace Dev_Unit
             }
 
         }
-        void SetEnemy()
+        //void SetEnemy()
             //Unit manager 혹은 big guy.cs 
         void FindPlayerTag()
         {

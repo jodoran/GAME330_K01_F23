@@ -15,12 +15,15 @@ namespace Dev_Unit
 
         private float timer;
 
-        EnemySO EnemyType1 = UnitManager.Instance.GetEnemySO(EnemyType.BigGuy);
-        EnemySO EnemyType2 = UnitManager.Instance.GetEnemySO(EnemyType.SmallGuy);
-        EnemySO EnemyType3 = UnitManager.Instance.GetEnemySO(EnemyType.ShootingGuy);
+        EnemySO EnemyType1;
+        EnemySO EnemyType2;
+        EnemySO EnemyType3;
 
         private void Start()
-        {   
+        {
+            EnemyType1 = UnitManager.Instance.GetEnemySO(EnemyType.BigGuy);
+            EnemyType2 = UnitManager.Instance.GetEnemySO(EnemyType.SmallGuy);
+            EnemyType3 = UnitManager.Instance.GetEnemySO(EnemyType.ShootingGuy);
 
             //SO 정보 가져다가 쓸 때 (casting) 최적화 굿
 
@@ -35,6 +38,7 @@ namespace Dev_Unit
 
         void SpawnEnemy()
         {
+            
             timer += Time.deltaTime;
             int rand = Random.Range(0, spawnPoint.Length);
             Quaternion rotation = Quaternion.Euler(0, 180, 0);
