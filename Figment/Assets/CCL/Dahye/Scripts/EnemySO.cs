@@ -38,3 +38,7 @@ namespace Dev_Unit //관리가 수월함
     }
 
 }
+/* Index 놀이
+ * EnemySOArray = EnemySO의 [] 을 인덱스로 가질 
+ * Spawn Position Index = 모든 스폰 포인트 vector3 오브젝트 
+ */

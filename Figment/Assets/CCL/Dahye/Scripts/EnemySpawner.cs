@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static WaveSpawner;
 
 namespace Dev_Unit
 {
@@ -46,10 +45,6 @@ namespace Dev_Unit
                 UnitManager.Instance.GetEnemySO(EnemyType.SmallGuy),
                 UnitManager.Instance.GetEnemySO(EnemyType.ShootingGuy)
             };
-
-            //SO 정보 가져다가 쓸 때 (casting) 최적화 굿
-
-            //currEnemySO. = 10;
             timer = 0;
         }
 
@@ -57,7 +52,29 @@ namespace Dev_Unit
         {
             if(isEnd)
                 return;
+            WaveChanger();
+           
+        }
 
+        // 적 생성 함수
+        void SpawnEnemy(int wave)
+        {
+            // 스폰할 위치 지정
+            var spawnPositionIndex = Random.Range(0, spawnPoints.Length);
+            var spawnPoint = spawnPoints[spawnPositionIndex].position;
+
+            // Rotation 지정
+            Quaternion rotation = Quaternion.Euler(0, 180, 0);
+
+            int enemytypeIndex = SpawnProbabilityChoose(WaveProbabilityArray(wave));
+            EnemySO spawnEnemy = EnemySOArray[enemytypeIndex];
+            Debug.Log("적 스폰 : " + spawnEnemy.enemyType + " 위치 : " + spawnPositionIndex);
+
+            Instantiate(spawnEnemy.enemyPrefab, spawnPoint, rotation);
+        }
+       
+        void WaveChanger()
+        {
             // 진행 시간 추가
             timer += Time.deltaTime;
             enemyTimer += Time.deltaTime;
@@ -86,7 +103,7 @@ namespace Dev_Unit
                 return;
 
             // 인터벌 시간보다 크면 다시 0으로 생성하고 적으로 생성합니다.
-            if(enemyTimer >= this.enemyIntervalTime)
+            if (enemyTimer >= this.enemyIntervalTime)
                 enemyTimer = 0;
 
             // 적 생성
@@ -94,23 +111,7 @@ namespace Dev_Unit
                 SpawnEnemy(wave);
         }
 
-        // 적 생성
-        void SpawnEnemy(int wave)
-        {
-            // 스폰할 위치 지정
-            var spawnPositionIndex = Random.Range(0, spawnPoints.Length);
-            var spawnPoint = spawnPoints[spawnPositionIndex].position;
-
-            // Rotation 지정
-            Quaternion rotation = Quaternion.Euler(0, 180, 0);
-
-            int enemytypeIndex = SpawnProbabilityChoose(WaveProbabilityArray(wave));
-            EnemySO spawnEnemy = EnemySOArray[enemytypeIndex];
-            Debug.Log("적 스폰 : " + spawnEnemy.enemyType + " 위치 : " + spawnPositionIndex);
-
-            Instantiate(spawnEnemy.enemyPrefab, spawnPoint, rotation);
-        }
-       
+        //Wave별 적 생성 확률
         private float[] WaveProbabilityArray(int waveNumber)
         {
             if (waveNumber == 0)
@@ -141,6 +142,7 @@ namespace Dev_Unit
             return new float[] { };
         }
 
+        //스폰 확률 계산기
         private int SpawnProbabilityChoose(float[] probs)
         {
             float total = 0;
