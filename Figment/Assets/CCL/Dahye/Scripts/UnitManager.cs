@@ -45,5 +45,17 @@ namespace Dev_Unit
             EnemySO enemy = System.Array.Find(enemySO, x => x.enemyType == enemyType);
             return enemy;
         }
+
+
+
+
     }
 }
+
+
+//List 로 온 필드 에너미 관리
+//AddUnity 상속구조 UnitEnemy 상속 
+//사망 시 등록해제 
+//스포너에서 에너미 
+//숙제
+//UnitEnemy 상속구조 만들고, UnitManager로 Enemy 관리
