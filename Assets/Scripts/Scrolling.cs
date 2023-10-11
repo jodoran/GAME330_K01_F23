@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scrolling : MonoBehaviour
 {
-    public PlayerMovement player;
+    public Player player;
     public float speed;
     public int startIndex;
     public int endIndex;
@@ -15,7 +15,7 @@ public class Scrolling : MonoBehaviour
     private void Awake()
     {
         viewHeight = Camera.main.orthographicSize * 2;
-        player = player.GetComponent<PlayerMovement>();
+        player = player.GetComponent<Player>();
     }
 
     void Update()

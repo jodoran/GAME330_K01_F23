@@ -8,13 +8,13 @@ public class Btn : MonoBehaviour
 {
     Button button;
 
-    private PlayerMovement player;
+    private Player player;
     private EventTrigger et;
 
     void Start()
     {
         button = GetComponent<Button>();
-        player = GameObject.FindObjectOfType<PlayerMovement>();
+        player = GameObject.FindObjectOfType<Player>();
         et = GetComponent<EventTrigger>();
     }
 
