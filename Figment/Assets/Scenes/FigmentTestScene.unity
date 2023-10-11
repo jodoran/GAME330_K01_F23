@@ -3432,6 +3432,21 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: d3db9fd334104074c95a9f6ee425513d, type: 3}
+    - target: {fileID: 2603997827387973299, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6012487447455793122, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
+        type: 3}
+      propertyPath: m_Name
+      value: shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6012487447455793122, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 193146, guid: 8280ad2f586477b47ac0d3d3e444e3aa, type: 3}
@@ -3469,6 +3484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  snowflakeShooter: {fileID: 2143518290}
 --- !u!135 &871927745
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8226,3 +8242,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: f65ea3d89de15c0468884a75a63c5abd, type: 2}
+--- !u!198 &2143518290 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2603997827387973299, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 871927742}
+  m_PrefabAsset: {fileID: 0}
