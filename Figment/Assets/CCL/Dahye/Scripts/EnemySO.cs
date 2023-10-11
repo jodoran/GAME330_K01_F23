@@ -41,6 +41,7 @@ namespace Dev_Unit //관리가 수월함
 
 }
 /* Index 놀이
- * EnemySOArray = EnemySO의 [] 을 인덱스로 가질 
+ * EnemySOArray = EnemySO의 guys 들을 []로 인덱스
  * Spawn Position Index = 모든 스폰 포인트 vector3 오브젝트 
+ * Enemy Type Index = 확률분포도 기반으로 랜덤인덱스 변환된 정보 담는 적타입
  */
