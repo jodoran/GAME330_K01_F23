@@ -30,6 +30,7 @@ namespace Dev_Unit
         private float rotationSpeed = 3.0f;
         private float stopDistance; //where enemy stop and start attack
         private GameObject playerTarget;
+        private GameObject player;
 
 
 
@@ -65,10 +66,11 @@ namespace Dev_Unit
         {
             //게임 시작 시 5초 뒤 CreateEnemy() 
             Debug.Log("Game Start");
+            playerTarget = GameObject.FindGameObjectWithTag("Player");
         }
         void Update()
         {
-            FindPlayerTag();
+            
             ActionsInStates();
         }
 

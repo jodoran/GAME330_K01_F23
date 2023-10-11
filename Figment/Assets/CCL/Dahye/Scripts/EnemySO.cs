@@ -33,6 +33,8 @@ namespace Dev_Unit //관리가 수월함
         public int wave2nd = 0;
         public int wave3rd = 0;
 
+        //Sounds
+
 
 
     }
