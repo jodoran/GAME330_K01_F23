@@ -20,19 +20,14 @@ public class Scrolling : MonoBehaviour
 
     void Update()
     {
-        Move();
         Scroll();
     }
 
-    void Move()
+    public void Move()
     {
         Vector3 curPos = transform.position;
-
-        if (player.transform.position.y > 0)
-        {
-            curPos += Vector3.down;
-            transform.position = curPos;
-        }
+        curPos += Vector3.down;
+        transform.position = curPos;
     }
 
     void Scroll()
@@ -42,7 +37,7 @@ public class Scrolling : MonoBehaviour
             //#.Sprites ReUse
             Vector3 backSpritePos = sprites[startIndex].localPosition;
             Vector3 frontSpritePos = sprites[endIndex].localPosition;
-            sprites[endIndex].transform.localPosition = backSpritePos + Vector3.up * viewHeight; ;
+            sprites[endIndex].transform.localPosition = backSpritePos + Vector3.up * viewHeight;
 
             //#.Cursor Index Change
             int startIndexSave = startIndex;

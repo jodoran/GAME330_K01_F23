@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         if (direction == new Vector3(0, 0, 0))
         {
             isMoving = false;
+            anim.SetFloat("xDir", 0);
         }
         else
         {
@@ -69,8 +70,7 @@ public class PlayerMovement : MonoBehaviour
         switch (type)
         {
             case "U":
-                pos += Vector3.up;
-                //anim.SetTrigger("isUp");
+                //pos += Vector3.up;
                 anim.SetFloat("inputXDir", 0);
                 anim.SetFloat("inputYDir", 1);
                 anim.SetTrigger("move");
@@ -78,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case "L":
                 pos += Vector3.left;
-                //anim.SetTrigger("isLeft");
                 anim.SetFloat("inputXDir", -1);
                 anim.SetFloat("inputYDir", 0);
                 anim.SetTrigger("move");
@@ -86,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case "R":
                 pos += Vector3.right;
-                //anim.SetTrigger("isRight");
                 anim.SetFloat("inputXDir", 1);
                 anim.SetFloat("inputYDir", 0);
                 anim.SetTrigger("move");
