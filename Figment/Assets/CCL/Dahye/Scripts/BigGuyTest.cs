@@ -5,8 +5,37 @@ using UnityEngine;
 
 namespace Dev_Unit
 {
-    public class BigGuyTest : EnemyBase
+    public class BigGuyTest : MonoBehaviour
     {
+        [SerializeField] EnemySO enemySO;
+        enum EnemyState
+        {
+            Idle,  
+            Move,  
+            Attack, 
+            Dead
+        }
+
+        //Enemy Info
+        private EnemyState enemyCurrentState; // = idle
+        private float hp;
+        //private float moveSpeed = 2f;
+        private float damageAmount;
+        private float idleTime;
+        private bool isStop = false;
+        private bool isDead = false;
+
+        //Attack
+        private float attackCoolTime = 0;
+        private float rotationSpeed = 3.0f;
+        private float stopDistance; //where enemy stop and start attack
+        private GameObject playerTarget;
+        private GameObject player;
+
+
+
+        private Animator enemyAnim;
+
         //Default Enemy Creation
         /*
         public void CreateEnemy(float moveSpeed, float hp, float damage, Vector3 position) 
@@ -32,21 +61,16 @@ namespace Dev_Unit
          * 예시) 생성 후 Idle -> Idle의 기본정보 수치 지정 -> Idle 행동끝났다면 Move
          * 예시) Idle 행동 뒤 Move -> Move의 기본정보 지정 -> 앞으로 이동 행동 -> 조건 만족 시 Attack
          */
-        protected override void Awake()
-        {
-           base.Awake();
-        }
 
-        protected override void Start()
+        void Start()
         {
-            base.Start(); //Enemy Base의 Start 함수
-
             //게임 시작 시 5초 뒤 CreateEnemy() 
             Debug.Log("Game Start");
+            playerTarget = GameObject.FindGameObjectWithTag("Player");
         }
-        protected override void Update()
+        void Update()
         {
-            base.Update();
+            
             ActionsInStates();
         }
 
@@ -56,22 +80,22 @@ namespace Dev_Unit
             Debug.Log("State change" + enemyCurrentState + "->" + desiredState);
             enemyCurrentState = desiredState;
 
-            switch (enemyCurrentState) //State Begin Mode
+            switch(enemyCurrentState) //State Begin Mode
             {
                 case EnemyState.Idle:
                     {
                         Debug.Log("Idle State 진입!");
-                        base.idleTime = 0;
-                        base.stopDistance = 0.5f;
-                        base.isStop = true;
+                        idleTime = 0; 
+                        stopDistance = 0.5f;
+                        isStop = true;
                         break;
 
                     }
                 case EnemyState.Move:
                     {
                         Debug.Log("Move State 진입!");
-                        base.stopDistance = 1.0f; //move until reach here
-                        base.isStop = false;
+                        stopDistance = 1.0f; //move until reach here
+                        isStop = false;  
                         break;
 
                     }
@@ -91,12 +115,13 @@ namespace Dev_Unit
         }
         void ActionsInStates()
         {
-            switch (base.enemyCurrentState)
+            switch(enemyCurrentState)
             {
                 case EnemyState.Idle:
                     {
-                        base.idleTime += Time.deltaTime;
-                        if (base.idleTime > 2.0f)
+                        Debug.Log("Idle State will change it to move soon");
+                        idleTime += Time.deltaTime;
+                        if (idleTime > 2.0f)
                             ChangeState(EnemyState.Move);
                         break;
 
@@ -104,19 +129,20 @@ namespace Dev_Unit
                 case EnemyState.Move:
                     {
                         //Move Forward
-                        Vector3 newPos = Vector3.Lerp(transform.position, transform.position + transform.forward, Time.deltaTime * base.moveSpeed);
-                        this.transform.position = newPos;
+                       Vector3 newPos = Vector3.Lerp(transform.position, transform.position + transform.forward, Time.deltaTime * enemySO.moveSpeed);
+                       this.transform.position = newPos;  
+                        Debug.Log("전진 완료");
 
                         //Move Until
-                        if (base.playerTarget == null)
+                        if (playerTarget == null)
                         {
                             Debug.Log("타켓 미 감지");
                             break;
                         }
+                    
+                        float distance = Vector3.Distance(transform.position, playerTarget.transform.position);
 
-                        float distance = Vector3.Distance(transform.position, base.playerTarget.transform.position);
-
-                        if (distance < base.stopDistance) //특정거리도달
+                        if (distance < stopDistance) //특정거리도달
                         {
                             ChangeState(EnemyState.Attack);
                         }
@@ -135,19 +161,34 @@ namespace Dev_Unit
 
         }
         //void SetEnemy()
-        //Unit manager 혹은 big guy.cs 
+            //Unit manager 혹은 big guy.cs 
+        void FindPlayerTag()
+        {
+            playerTarget = null;
 
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (obj != null && obj.CompareTag("Player"))
+                {
+                    playerTarget = obj; //data type : game object
+                    return;
+                }
+            }
+
+            Debug.Log("Fail to find Player tag");
+        }
 
         /* 만약 단순 돌진 후 성벽HP 깎이는 식이라면 상태변경 없이 HP깎는 상호작용
          * 만약 단순 돌진 후 explosion 과함께 사라지는 형식이라면 에너미 체력 높이고 충돌 시 이펙트 + 제거
          */
-        protected override void TriggerEneterAbstract(Collider other)
+        private void OnTriggerEnter(Collider other) 
         {
-            if (other.CompareTag("Wall"))
+            if(other.CompareTag("Wall"))
             {
                 ChangeState(EnemyState.Attack);
             }
         }
+
     }
 
 }
