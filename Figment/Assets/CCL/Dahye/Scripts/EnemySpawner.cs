@@ -38,8 +38,15 @@ namespace Dev_Unit
 
         bool isEnd = false;
 
+        //임시 사운드 추후 사운드매니저 변경
+        public AudioSource audioSource;
+        public AudioClip enemysfx;
+
         private void Start()
         {
+            audioSource = GetComponent<AudioSource>();
+            enemysfx = GetComponent<AudioClip>();
+
             // 에너미의 정보 배열에 각 정보 넣기
             EnemySOArray = new EnemySO[]{
                 UnitManager.Instance.GetEnemySO(EnemyType.BigGuy),
@@ -77,6 +84,7 @@ namespace Dev_Unit
             obj.GetComponent<EnemyBase>().enemySetting(spawnEnemy);
             //obj.GetComponent<EnemyBase>().enemySetting(EnemySOArray[0]);
 
+            audioSource.PlayOneShot(enemysfx);
         }
        
         void WaveChanger()

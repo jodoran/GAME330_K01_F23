@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Dev_Unit
@@ -35,6 +34,7 @@ namespace Dev_Unit
         protected override void Awake()
         {
            base.Awake();
+            
         }
 
         protected override void Start()
