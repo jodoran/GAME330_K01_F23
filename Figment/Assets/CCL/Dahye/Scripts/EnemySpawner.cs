@@ -33,6 +33,7 @@ namespace Dev_Unit
         // 적 스폰 인터벌 시간 
         public int enemyIntervalTime = 1;
 
+        private int maxSpawnCount = 30;
         private float enemyTimer = 0f;
 
         bool isEnd = false;
@@ -59,6 +60,7 @@ namespace Dev_Unit
         // 적 생성 함수
         void SpawnEnemy(int wave)
         {
+
             // 스폰할 위치 지정
             var spawnPositionIndex = Random.Range(0, spawnPoints.Length);
             var spawnPoint = spawnPoints[spawnPositionIndex].position;
@@ -70,7 +72,11 @@ namespace Dev_Unit
             EnemySO spawnEnemy = EnemySOArray[enemytypeIndex];
             Debug.Log("적 스폰 : " + spawnEnemy.enemyType + " 위치 : " + spawnPositionIndex);
 
-            Instantiate(spawnEnemy.enemyPrefab, spawnPoint, rotation);
+            //생성된 obj 에 EnemyBase 클래스컴포넌트를 가져와서 
+            GameObject obj = Instantiate(spawnEnemy.enemyPrefab, spawnPoint, rotation);
+            obj.GetComponent<EnemyBase>().enemySetting(spawnEnemy);
+            //obj.GetComponent<EnemyBase>().enemySetting(EnemySOArray[0]);
+
         }
        
         void WaveChanger()
