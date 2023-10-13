@@ -8,8 +8,7 @@ public class ObjectManager : MonoBehaviour
     public GameObject enemyMPrefab;
     public GameObject enemySPrefab;
     public GameObject itemCoinPrefab;
-    public GameObject itemPowerPrefab;
-    public GameObject itemUltiPrefab;
+    public GameObject itemExtraLifePrefab;
     public GameObject bulletEnemyAPrefab;
 
     GameObject[] enemyL;
@@ -17,8 +16,7 @@ public class ObjectManager : MonoBehaviour
     GameObject[] enemyS;
 
     GameObject[] itemCoin;
-    GameObject[] itemPower;
-    GameObject[] itemUlti;
+    GameObject[] extraLife;
 
     GameObject[] bulletEnemyA;
 
@@ -30,9 +28,8 @@ public class ObjectManager : MonoBehaviour
         enemyM = new GameObject[10];
         enemyS = new GameObject[20];
 
-        itemCoin = new GameObject[20];
-        itemPower = new GameObject[10];
-        itemUlti = new GameObject[10];
+        itemCoin = new GameObject[10];
+        extraLife = new GameObject[10];
 
         bulletEnemyA = new GameObject[100];
 
@@ -67,17 +64,11 @@ public class ObjectManager : MonoBehaviour
             itemCoin[index].SetActive(false);
         }
 
-        //for (int index = 0; index < itemPower.Length; index++) //#.ItemPower
-        //{
-        //    itemPower[index] = Instantiate(itemPowerPrefab);
-        //    itemPower[index].SetActive(false);
-        //}
-
-        //for (int index = 0; index < itemUlti.Length; index++) //#.ItemUlti
-        //{
-        //    itemUlti[index] = Instantiate(itemUltiPrefab);
-        //    itemUlti[index].SetActive(false);
-        //}
+        for (int index = 0; index < extraLife.Length; index++) //#.ItemPower
+        {
+            extraLife[index] = Instantiate(itemExtraLifePrefab);
+            extraLife[index].SetActive(false);
+        }
 
         //#3.Bullet
         for (int index = 0; index < bulletEnemyA.Length; index++) //#.bulletEnemyA
@@ -103,11 +94,8 @@ public class ObjectManager : MonoBehaviour
             case "ItemCoin":
                 targetPool = itemCoin;
                 break;
-            case "ItemPower":
-                targetPool = itemPower;
-                break;
-            case "ItemUlti":
-                targetPool = itemUlti;
+            case "ExtraLife":
+                targetPool = extraLife;
                 break;
             case "BulletEnemyA":
                 targetPool = bulletEnemyA;
@@ -142,11 +130,8 @@ public class ObjectManager : MonoBehaviour
             case "ItemCoin":
                 targetPool = itemCoin;
                 break;
-            case "ItemPower":
-                targetPool = itemPower;
-                break;
-            case "ItemUlti":
-                targetPool = itemUlti;
+            case "ExtraLife":
+                targetPool = extraLife;
                 break;
             case "BulletEnemyA":
                 targetPool = bulletEnemyA;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5257892228322484415}
   - component: {fileID: 5257892228322484410}
   - component: {fileID: 5257892228322484413}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyM
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -49,10 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: M
   enemyScore: 200
-  speed: 5
+  speed: 3
   Health: 10
   sprites: []
-  maxShotDelay: 0
+  maxShotDelay: 2
   curShotDelay: 0
   bulletObjA: {fileID: 0}
   bulletObjB: {fileID: 0}

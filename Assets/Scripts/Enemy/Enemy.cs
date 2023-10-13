@@ -14,10 +14,6 @@ public class Enemy : MonoBehaviour
     public float curShotDelay;
 
     public GameObject bulletObjA;
-    public GameObject bulletObjB;
-    public GameObject itemCoin;
-    public GameObject itemPower;
-    public GameObject itemUlti;
     public GameObject player;
 
     public ObjectManager objectManager;
@@ -59,33 +55,14 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        if (enemyName == "S")
+        if (enemyName == "M")
         {
             GameObject bullet = objectManager.MakeObj("BulletEnemyA");
             bullet.transform.position = transform.position;
-            //Instantiate(bulletObjA, transform.position, transform.rotation);
 
             Rigidbody2D rb2d = bullet.GetComponent<Rigidbody2D>();
             Vector3 dirVec = Vector3.down;
             rb2d.AddForce(dirVec.normalized * 1, ForceMode2D.Impulse);
-        }
-        else if (enemyName == "L")
-        {
-            //GameObject bulletR = objectManager.MakeObj("BulletEnemyB");
-            //bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-            //Instantiate(bulletObjB, transform.position + Vector3.right * 0.3f, transform.rotation);
-            //GameObject bulletL = objectManager.MakeObj("BulletEnemyB");
-            //bulletL.transform.position = transform.position + Vector3.left * 0.3f;
-            //Instantiate(bulletObjB, transform.position + Vector3.left * 0.3f, transform.rotation);
-
-            //Rigidbody2D rb2dR = bulletR.GetComponent<Rigidbody2D>();
-            //Rigidbody2D rb2dL = bulletL.GetComponent<Rigidbody2D>();
-
-            //Vector3 dirVecR = player.transform.position - (transform.position + Vector3.right * 0.3f);
-            //Vector3 dirVecL = player.transform.position - (transform.position + Vector3.left * 0.3f);
-
-            //rb2dR.AddForce(dirVecR.normalized * 4, ForceMode2D.Impulse);
-            //rb2dL.AddForce(dirVecL.normalized * 4, ForceMode2D.Impulse);
         }
 
         curShotDelay = 0;
@@ -156,16 +133,6 @@ public class Enemy : MonoBehaviour
             gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
         }
-        //else if (collision.gameObject.tag == "PlayerBullet")
-        //{
-        //    Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-        //    OnHit(bullet.dmg);
-
-
-        //    //gameObject.SetActive(false);
-        //    //Destroy(collision.gameObject);
-        //    collision.gameObject.SetActive(false);
-        //}
     }
 
     public void MoveDown()

@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Scrolling : MonoBehaviour
 {
-    public Player player;
+    public static Action scrolling;
+
     public float speed;
     public int startIndex;
     public int endIndex;
+    public int index;
     public Transform[] sprites;
 
     float viewHeight;
 
-    private void Awake()
+    public void Awake()
     {
         viewHeight = Camera.main.orthographicSize * 2;
-        player = player.GetComponent<Player>();
+        scrolling = () => { BGMove(); };
     }
 
     void Update()
@@ -23,11 +26,21 @@ public class Scrolling : MonoBehaviour
         Scroll();
     }
 
-    public void Move()
+    public void BGMove()
     {
-        Vector3 curPos = transform.position;
-        curPos += Vector3.down;
-        transform.position = curPos;
+        if (index == 1)
+        {
+            Vector3 curPos = transform.position;
+            curPos += Vector3.down;
+            transform.position = curPos;
+        }
+        
+        if (index == 2)
+        {
+            Vector3 curPos = transform.position;
+            curPos += Vector3.down;
+            transform.position = curPos;
+        }
     }
 
     void Scroll()

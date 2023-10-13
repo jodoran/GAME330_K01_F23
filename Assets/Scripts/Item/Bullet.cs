@@ -13,4 +13,11 @@ public class Bullet : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public void MoveDown()
+    {
+        Vector3 curPos = transform.position;
+        curPos += Vector3.down;
+        transform.position = curPos;
+    }
 }

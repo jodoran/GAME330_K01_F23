@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -9,19 +10,24 @@ public class Player : MonoBehaviour
 
     public GameManager gm;
     public ObjectManager om;
+    //public Scrolling sc;
 
     public bool isHit;
-    bool dead, won = false;
+    public bool isUp;
+    public bool move;
 
     public float speed = 2.0f;
     public int life;
     public int score;
 
-    private Vector3 pos, previousPos, previousDirection;
+    private Vector3 targetPosition, previousPos, previousDirection;
     private Rigidbody2D rb2d;
 
     [HideInInspector]
     public bool isMoving;
+
+    public float time;
+    public bool Immortal;
 
     void Awake()
     {
@@ -31,7 +37,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        pos = transform.position;
+        targetPosition = transform.position;
         previousDirection = new Vector3(0, 0, 0);
         rb2d = GetComponent<Rigidbody2D>();
     }
@@ -39,13 +45,64 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        ImmortalTime();
     }
 
     public void Move()
     {
-        Vector3 previousPos = transform.position;
+        
+        // Rotate the player by pressing left or right
+        if (FigmentInput.GetButtonDown(FigmentInput.FigmentButton.LeftButton))
+        {
+            if (gm.gameOver)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else if (gm.nextLevel)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                PlayerLeft();
+            }
+        }
+        else if (FigmentInput.GetButtonDown(FigmentInput.FigmentButton.RightButton))
+        {
+            if (gm.gameOver)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else if (gm.nextLevel)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                PlayerRight();
+            }
+        }
 
-        transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);
+        // If we press the action button, move forward
+        if (FigmentInput.GetButtonDown(FigmentInput.FigmentButton.ActionButton))
+        {
+            if (gm.gameOver)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else if (gm.nextLevel)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                PlayerUp();
+            }
+        }
+
+        Vector3 previousPos = transform.position;
+        targetPosition.x = Mathf.Clamp(targetPosition.x, -10.8f, 10.8f);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
 
         Vector3 direction = transform.position - previousPos;
         direction = direction.normalized;
@@ -59,67 +116,127 @@ public class Player : MonoBehaviour
         {
             isMoving = true;
             anim.SetFloat("xDir", direction.x);
-            anim.SetFloat("yDir", direction.y);
             previousDirection = direction;
         }
     }
 
-    public void ButtonDown(string type)
+    public void PlayerUp()
     {
         GameObject[] enemiesL = om.GetPool("EnemyL");
         GameObject[] enemiesM = om.GetPool("EnemyM");
         GameObject[] enemiesS = om.GetPool("EnemyS");
+        GameObject[] enemiesBulletA = om.GetPool("BulletEnemyA");
+        GameObject[] itemCoin = om.GetPool("ItemCoin");
+        GameObject[] extraLife = om.GetPool("ExtraLife");
 
-        switch (type)
+        Scrolling.scrolling();
+        //sc.BGMove();
+
+        if (!isUp)
         {
-            case "U":
-                //pos += Vector3.up;
-                anim.SetFloat("inputXDir", 0);
-                anim.SetFloat("inputYDir", 1);
-                anim.SetTrigger("move");
-
-                for (int index = 0; index < enemiesL.Length; index++)
-                {
-                    if (enemiesL[index].activeSelf)
-                    {
-                        Enemy enemyLogic = enemiesL[index].GetComponent<Enemy>();
-                        enemyLogic.MoveDown();
-                    }
-                }
-                for (int index = 0; index < enemiesM.Length; index++)
-                {
-                    if (enemiesM[index].activeSelf)
-                    {
-                        Enemy enemyLogic = enemiesM[index].GetComponent<Enemy>();
-                        enemyLogic.MoveDown();
-                    }
-                }
-                for (int index = 0; index < enemiesS.Length; index++)
-                {
-                    if (enemiesS[index].activeSelf)
-                    {
-                        Enemy enemyLogic = enemiesS[index].GetComponent<Enemy>();
-                        enemyLogic.MoveDown();
-                    }
-                }
-
-                Debug.Log("UP");
-                break;
-            case "L":
-                pos += Vector3.left;
-                anim.SetFloat("inputXDir", -1);
-                anim.SetFloat("inputYDir", 0);
-                anim.SetTrigger("move");
-                Debug.Log("Left");
-                break;
-            case "R":
-                pos += Vector3.right;
-                anim.SetFloat("inputXDir", 1);
-                anim.SetFloat("inputYDir", 0);
-                anim.SetTrigger("move");
-                Debug.Log("Right");
-                break;
+            if (!move)
+            {
+                isUp = true;
+                move = true;
+                anim.SetTrigger("up");
+                Debug.Log("isUp");
+            }
         }
+        else
+        {
+            if (!move)
+            {
+                isUp = false;
+                move = true;
+                anim.SetTrigger("down");
+                Debug.Log("isDown");
+            }
+        }
+
+        move = false;
+
+        for (int index = 0; index < enemiesL.Length; index++)
+        {
+            if (enemiesL[index].activeSelf)
+            {
+                Enemy enemyLogic = enemiesL[index].GetComponent<Enemy>();
+                enemyLogic.MoveDown();
+            }
+        }
+        for (int index = 0; index < enemiesM.Length; index++)
+        {
+            if (enemiesM[index].activeSelf)
+            {
+                Enemy enemyLogic = enemiesM[index].GetComponent<Enemy>();
+                enemyLogic.MoveDown();
+            }
+        }
+        for (int index = 0; index < enemiesS.Length; index++)
+        {
+            if (enemiesS[index].activeSelf)
+            {
+                Enemy enemyLogic = enemiesS[index].GetComponent<Enemy>();
+                enemyLogic.MoveDown();
+            }
+        }
+        for (int index = 0; index < enemiesBulletA.Length; index++)
+        {
+            if (enemiesBulletA[index].activeSelf)
+            {
+                Bullet bulletLogic = enemiesBulletA[index].GetComponent<Bullet>();
+                bulletLogic.MoveDown();
+            }
+        }
+        for (int index = 0; index < itemCoin.Length; index++)
+        {
+            if (itemCoin[index].activeSelf)
+            {
+                Item itemLogic = itemCoin[index].GetComponent<Item>();
+                itemLogic.MoveDown();
+            }
+        }
+        for (int index = 0; index < extraLife.Length; index++)
+        {
+            if (extraLife[index].activeSelf)
+            {
+                Item itemLogic = extraLife[index].GetComponent<Item>();
+                itemLogic.MoveDown();
+            }
+        }
+    }
+
+    public void PlayerLeft()
+    {
+        targetPosition += Vector3.left;
+        anim.SetFloat("xDir", -1);
+        anim.SetTrigger("move");
+    }
+
+    public void PlayerRight()
+    {
+        targetPosition += Vector3.right;
+        anim.SetFloat("xDir", 1);
+        anim.SetTrigger("move");
+    }
+
+    public void ImmortalTime()
+    {
+        if (Immortal)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, Mathf.Abs(Mathf.Sin(Time.time * 7)));
+
+            time += Time.deltaTime;
+            //print(GetComponent<SpriteRenderer>().color);
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        }
+    }
+
+    public void ImmortalExit()
+    {
+        Immortal = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -141,11 +258,12 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    gm.RespawnPlayer();
+                    Immortal = true;
+                    Invoke("ImmortalExit", 2);
 
+                    gm.OnHit();
                 }
 
-                gameObject.SetActive(false);
                 collision.gameObject.SetActive(false);
             }
         }
@@ -155,29 +273,21 @@ public class Player : MonoBehaviour
             switch (item.type)
             {
                 case "Coin":
-                    score += 1000;
+                    score += 500;
+                    gm.curScore = score;
                     break;
-                //case "Power":
-                //    if (power == maxPower)
-                //    {
-                //        score += 500;
-                //    }
-                //    else
-                //    {
-                //        power++;
-                //    }
-                //    break;
-                //case "Ulti":
-                //    if (ulti == maxUlti)
-                //    {
-                //        score += 500;
-                //    }
-                //    else
-                //    {
-                //        ulti++;
-                //        gm.UpdateUltiIcon(ulti);
-                //    }
-                //    break;
+                case "ExtraLife":
+                    if (life < 3)
+                    {
+                        life++;
+                        gm.UpdateLifeIcon(life);
+                    }
+                    else
+                    {
+                        score += 1000;
+                        gm.curScore = score;
+                    }
+                    break;
             }
 
             collision.gameObject.SetActive(false);
