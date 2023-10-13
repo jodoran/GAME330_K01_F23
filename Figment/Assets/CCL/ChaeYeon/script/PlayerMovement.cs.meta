@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: dd192b58a23ff1945bbfbd02016104fc
-timeCreated: 1506292483
-licenseType: Free
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - snowballPrefab: {fileID: 5117347063956590917, guid: a6c3e9787145ef44a85649ee12781a2a,
+      type: 3}
+  - snowPoint: {fileID: 5183250766660101157, guid: b16a5f08b1910454fb3ba8eea3bdd172,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

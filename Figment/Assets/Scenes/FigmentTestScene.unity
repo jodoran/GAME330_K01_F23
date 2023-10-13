@@ -3410,6 +3410,7 @@ MonoBehaviour:
     type: 3}
   snowPoint: {fileID: 298445510}
   snowSpeed: 10
+  snowSfx: {fileID: 8300000, guid: a58e438b7cfa445498120af0e6169082, type: 3}
 --- !u!135 &871927745
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3910,7 +3911,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53020cc6b6eb4e91afcc065896d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMinute: 2
 --- !u!4 &969951865
 Transform:
   m_ObjectHideFlags: 0
@@ -4914,11 +4914,11 @@ MonoBehaviour:
   - {fileID: 540654203}
   spawnRate: 5
   spawnInterval: 2
-  waveTransferTime: 3
   waveTime: 30
   enemyIntervalTime: 3
-  enemyforsound: {fileID: 8471660470576268269, guid: 9ca8d3160c1bb8d4380288ea1d1dd507,
-    type: 3}
+  maxSpawnCount: 0
+  currSpawnCount: 0
+  audioSource: {fileID: 0}
   enemysfx: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
 --- !u!4 &1227616222
 Transform:

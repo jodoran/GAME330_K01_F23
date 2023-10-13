@@ -9,12 +9,21 @@ public class PlayerMovement : MonoBehaviour
     public Transform snowPoint; // 발사 위치
     public float snowSpeed = 10;
 
+    AudioSource snowSource;
+    public AudioClip snowSfx;
+
+    private void Start()
+    {
+        snowSource = GetComponent<AudioSource>();
+        
+    }
+
 
     void Update () 
     {
         Movement();
         Shoot();
-       
+     
     }
 
     public void Movement()
@@ -31,8 +40,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void Shoot() //채연
     {
-        if (FigmentInput.GetButton(FigmentInput.FigmentButton.ActionButton)) //건들 노노 //GetButton Down/Up
+        if (FigmentInput.GetButtonDown(FigmentInput.FigmentButton.ActionButton)) //건들 노노 //GetButton Down/Up
         {
+
+
             // 스노우볼 인스턴스 생성
             GameObject snowball = Instantiate(snowballPrefab, snowPoint.position, snowPoint.rotation);
 
@@ -42,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(snowPoint.forward * snowSpeed, ForceMode.Impulse);
             }
+
+            //snowSource.PlayOneShot(snowSfx);
+            Destroy(snowball, 10f);
         }
     
     }

@@ -18,22 +18,16 @@ namespace Dev_Unit
         // 웨이브 진행 카운트
         private int currWave;
         private int finalWave;
+        private int waveIndex;
 
         // 에너미의 정보 배열
         EnemySO[] EnemySOArray;
-
-        // 웨이브 쉬는 시간
-        public int waveTransferTime = 3;
 
         // 각 웨이브 총 진행시간
         public int waveTime = 10;
 
         // 적 스폰 인터벌 시간 
         public int enemyIntervalTime = 1;
-        private float searchCountdown = 1f;
-
-
-
 
         [Header("웨이브 별 총 에너미 수량")]
         [SerializeField] private int maxSpawnCount;
@@ -49,13 +43,14 @@ namespace Dev_Unit
 
         
 
-
-
-
         private void Start()
         {
             audioSource = GetComponent<AudioSource>();
-            enemysfx = GetComponent<AudioClip>();
+            //enemysfx = GetComponent<AudioClip>();
+
+            timer = 0;
+            currSpawnCount = 0;
+            currWave = 0;
 
             // 에너미의 정보 배열에 각 정보 넣기
             EnemySOArray = new EnemySO[]{
@@ -63,9 +58,9 @@ namespace Dev_Unit
                 UnitManager.Instance.GetEnemySO(EnemyType.SmallGuy),
                 UnitManager.Instance.GetEnemySO(EnemyType.ShootingGuy)
             };
-            timer = 0;
-            currSpawnCount = 0;
-            currWave = 0;
+
+
+            StartCoroutine(SpawnEnemy());
         }
 
         private void Update()
@@ -77,11 +72,13 @@ namespace Dev_Unit
         }
 
         // 적 생성 함수
-        void SpawnEnemy(int wave)
+        IEnumerator SpawnEnemy()
         {
 
-            if (currSpawnCount != maxSpawnCount && maxSpawnCount != 0)
+            while(currSpawnCount < maxSpawnCount && currWave != finalWave)
             {
+                yield return new WaitForSeconds(enemyIntervalTime);
+
                 // 스폰할 위치 지정
                 var spawnPositionIndex = Random.Range(0, spawnPoints.Length);
                 var spawnPoint = spawnPoints[spawnPositionIndex].position;
@@ -89,7 +86,7 @@ namespace Dev_Unit
                 // Rotation 지정
                 Quaternion rotation = Quaternion.Euler(0, 180, 0);
 
-                int enemytypeIndex = SpawnProbabilityChoose(WaveProbabilityArray(wave));
+                int enemytypeIndex = SpawnProbabilityChoose(WaveProbabilityArray(currWave));
                 EnemySO spawnEnemy = EnemySOArray[enemytypeIndex];
                 Debug.Log("적 스폰 : " + spawnEnemy.enemyType + " 위치 : " + spawnPositionIndex);
 
@@ -103,23 +100,12 @@ namespace Dev_Unit
                 maxSpawnCount -= 1;
                 Debug.Log("현재 생성된에너미 : " + currSpawnCount + "남은 에너미 " + maxSpawnCount);
             }
-            else
-                Debug.Log("스폰 불가");
         }
 
-        bool EnemyIsAlive()
-        {
-            searchCountdown -= Time.deltaTime;
-            if (searchCountdown <= 0f)
-            {
-                searchCountdown = 1f;
-                if (GameObject.FindGameObjectWithTag("Enemy") == null)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        //bool EnemyIsAlive()
+        //{
+           
+        //}
 
 
         void WaveChanger()
@@ -141,21 +127,6 @@ namespace Dev_Unit
                 }
                 Debug.Log("change wave : " + finalWave);
             }
-
-            // 쉬는시간인지 여부
-            bool isSleep = (int)timer % waveTime < waveTransferTime;
-
-            // 쉬는 시간이면 아무것도 안함
-            if (isSleep)
-                return;
-
-            // 인터벌 시간보다 크면 다시 0으로 생성하고 적으로 생성합니다.
-            if (enemyTimer >= this.enemyIntervalTime)
-                enemyTimer = 0;
-
-            // 적 생성
-            if (enemyTimer < Time.deltaTime)
-                SpawnEnemy(currWave);
         }
 
         //Wave별 적 생성 확률
