@@ -3,7 +3,10 @@
 public class PlayerMovement : MonoBehaviour 
 {
     public float moveSpeed = 10.0f;
-    public ParticleSystem snowflakeShooter; // 파티클 시스템 참조
+    // public ParticleSystem snowflakeShooter; // 파티클 시스템 (없앰)
+
+    public SnowballShooter snowballShooter; // SnowballShooter의 참조를 추가
+
 
     void Update () 
     {
@@ -32,7 +35,10 @@ public class PlayerMovement : MonoBehaviour
             
             Debug.Log("Shooting!"); // 로그가 출력되는지 확인
 
-            snowflakeShooter.Play(); // 파티클 시스템 활성화
+            // snowflakeShooter.Play(); // 파티클 시스템 활성화 (없앰)
+
+            snowballShooter.Shoot(); // SnowballShooter의 Shoot 메서드를 호출하여 스노우볼 발사
         }
+    
     }
 }
