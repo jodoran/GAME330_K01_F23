@@ -5363,12 +5363,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.284633, y: 1, z: 5.0445642}
-  m_Center: {x: 0.029792333, y: 0, z: -0.2027151}
+  m_Size: {x: 6.613636, y: 1, z: 5.894252}
+  m_Center: {x: -0.13470945, y: 0, z: 0.22212999}
 --- !u!114 &2826826303878024209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5381,7 +5381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b4264fd6e50b9429977d444536bc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: f65ea3d89de15c0468884a75a63c5abd, type: 2}
 --- !u!1 &7994728726823406679
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,9 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 10.0f;
     // public ParticleSystem snowflakeShooter; // 파티클 시스템 (없앰)
 
-    public SnowballShooter snowballShooter; // SnowballShooter의 참조를 추가
+    public GameObject snowballPrefab; // 눈송이 프리팹
+    public Transform snowPoint; // 발사 위치
+    public float snowSpeed = 10;
 
 
     void Update () 
@@ -31,13 +33,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (FigmentInput.GetButton(FigmentInput.FigmentButton.ActionButton)) //건들 노노 //GetButton Down/Up
         {
-            //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); //액션버튼 누르면 플레이어 전진하는거 
-            
-            Debug.Log("Shooting!"); // 로그가 출력되는지 확인
+            // 스노우볼 인스턴스 생성
+            GameObject snowball = Instantiate(snowballPrefab, snowPoint.position, snowPoint.rotation);
 
-            // snowflakeShooter.Play(); // 파티클 시스템 활성화 (없앰)
-
-            snowballShooter.Shoot(); // SnowballShooter의 Shoot 메서드를 호출하여 스노우볼 발사
+            // 스노우볼에 Rigidbody 컴포넌트가 있다면, 힘을 추가하여 발사
+            Rigidbody rb = snowball.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddForce(snowPoint.forward * snowSpeed, ForceMode.Impulse);
+            }
         }
     
     }
