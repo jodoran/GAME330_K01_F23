@@ -6,31 +6,7 @@ namespace Dev_Unit
 {
     public class BigGuyTest : EnemyBase
     {
-        //Default Enemy Creation
-        /*
-        public void CreateEnemy(float moveSpeed, float hp, float damage, Vector3 position) 
-        {
-            //This Enemy Script = Scriptable Object Info
-            //this.moveSpeed = moveSpeed;
-            this.hp = hp;
-            this.damageAmount = damage;
-            this.isDead = false;
-            this.gameObject.SetActive(true);
-            this.transform.position = position;
-
-            //생성 직후 State = Idle로 지정 
-            //[ToDo] 어디에 생성돼?
-        }*/
-
-        //Dahye's Personal Note
-        /* [완료] 에너미 상태 종류 
-         * [완료] 필요한 준비물 변수 세팅
-         * [완료] 에너미 생성
-         * 어떤 상황에 어떤상태에 진입하는가? 
-         * 상태에 진입했을 때 어떤행동을 하는가? 
-         * 예시) 생성 후 Idle -> Idle의 기본정보 수치 지정 -> Idle 행동끝났다면 Move
-         * 예시) Idle 행동 뒤 Move -> Move의 기본정보 지정 -> 앞으로 이동 행동 -> 조건 만족 시 Attack
-         */
+       
         protected override void Awake()
         {
            base.Awake();

@@ -27,7 +27,7 @@ namespace Dev_Unit
         //Attack
         protected float attackCoolTime = 0;
         protected float stopDistance; //where enemy stop and start attack
-        protected GameObject playerTarget;
+        protected Transform playerTarget;
 
         //Animator
         protected Animator enemyAnim;
@@ -51,7 +51,7 @@ namespace Dev_Unit
         protected virtual void Start()
         {
             //플레이어 찾기
-            playerTarget = GameObject.FindGameObjectWithTag("Player");
+            playerTarget = GameObject.FindGameObjectWithTag("Player").transform;
 
         }
 
