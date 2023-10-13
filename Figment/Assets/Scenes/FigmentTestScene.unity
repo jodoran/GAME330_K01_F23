@@ -4917,7 +4917,8 @@ MonoBehaviour:
   waveTransferTime: 3
   waveTime: 30
   enemyIntervalTime: 3
-  audioSource: {fileID: 0}
+  enemyforsound: {fileID: 8471660470576268269, guid: 9ca8d3160c1bb8d4380288ea1d1dd507,
+    type: 3}
   enemysfx: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
 --- !u!4 &1227616222
 Transform:
