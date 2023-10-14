@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Dev_Unit;
 
-public class PlayerMovement : MonoBehaviour 
+public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 10.0f;
     // public ParticleSystem snowflakeShooter; // 파티클 시스템 (없앰)
@@ -16,15 +16,15 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         snowSource = GetComponent<AudioSource>();
-        
+
     }
 
 
-    void Update () 
+    void Update()
     {
         Movement();
         Shoot();
-     
+
     }
 
     public void Movement()
@@ -58,6 +58,6 @@ public class PlayerMovement : MonoBehaviour
             //snowSource.PlayOneShot(snowSfx);
             Destroy(snowball, 10f);
         }
-    
+
     }
 }
