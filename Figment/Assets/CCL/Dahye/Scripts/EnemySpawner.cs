@@ -17,7 +17,7 @@ namespace Dev_Unit
 
         // 웨이브 진행 카운트
         private int currWave;
-        private int finalWave;
+        [SerializeField] private int finalWave;
         private int waveIndex;
 
         // 에너미의 정보 배열
@@ -48,10 +48,6 @@ namespace Dev_Unit
             audioSource = GetComponent<AudioSource>();
             //enemysfx = GetComponent<AudioClip>();
 
-            timer = 0;
-            currSpawnCount = 0;
-            currWave = 0;
-
             // 에너미의 정보 배열에 각 정보 넣기
             EnemySOArray = new EnemySO[]{
                 UnitManager.Instance.GetEnemySO(EnemyType.BigGuy),
@@ -59,6 +55,10 @@ namespace Dev_Unit
                 UnitManager.Instance.GetEnemySO(EnemyType.ShootingGuy)
             };
 
+
+            timer = 0;
+            currSpawnCount = 0;
+            currWave = 0;
 
             StartCoroutine(SpawnEnemy());
         }
@@ -74,7 +74,6 @@ namespace Dev_Unit
         // 적 생성 함수
         IEnumerator SpawnEnemy()
         {
-
             while(currSpawnCount < maxSpawnCount && currWave != finalWave)
             {
                 yield return new WaitForSeconds(enemyIntervalTime);
@@ -87,12 +86,15 @@ namespace Dev_Unit
                 Quaternion rotation = Quaternion.Euler(0, 180, 0);
 
                 int enemytypeIndex = SpawnProbabilityChoose(WaveProbabilityArray(currWave));
-                EnemySO spawnEnemy = EnemySOArray[enemytypeIndex];
+                EnemySO spawnEnemy = EnemySOArray[0];
+                //EnemySO spawnEnemy = EnemySOArray[enemytypeIndex];
                 Debug.Log("적 스폰 : " + spawnEnemy.enemyType + " 위치 : " + spawnPositionIndex);
 
                 //생성된 obj 에 EnemyBase 클래스컴포넌트를 가져와서 
                 GameObject obj = Instantiate(spawnEnemy.enemyPrefab, spawnPoint, rotation);
                 obj.GetComponent<EnemyBase>().enemySetting(spawnEnemy);
+                obj.GetComponent<EnemyBase>().OnDead += WaveCheck;
+
 
                 audioSource.PlayOneShot(enemysfx);
 
@@ -104,9 +106,19 @@ namespace Dev_Unit
 
         //bool EnemyIsAlive()
         //{
-           
+
         //}
 
+        void WaveCheck()
+        {
+            // 에너미가 다 죽었을 경우
+            if (UnitManager.Instance.EnemyAllDieCheck())
+            {
+                //다음 웨이브 호출
+                //waveIndex++;
+                WaveChanger();
+            }
+        }
 
         void WaveChanger()
         {

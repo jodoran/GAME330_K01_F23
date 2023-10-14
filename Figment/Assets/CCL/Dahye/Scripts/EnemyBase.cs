@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Dev_Unit
 {
@@ -32,9 +33,16 @@ namespace Dev_Unit
         //Animator
         protected Animator enemyAnim;
 
+        //Event
+        public UnityAction OnDead;
+
+
         //Enemy 수치값 초기셋팅
         public void enemySetting(EnemySO enemySO)
         {
+            //Unit Manager Setting 
+            UnitManager.Instance.AddUnit(this);
+
             this.moveSpeed = enemySO.moveSpeed;
             this.hp = enemySO.hp;
             this.damageAmount = enemySO.damage;
@@ -62,12 +70,32 @@ namespace Dev_Unit
 
         }
 
+        public void OnDamaged(float damage)
+        {
+            this.hp -= damage;
+            //hp
+            //damageAmount
+        }
+
+
+
         void OnTriggerEnter(Collider other)
         {
             TriggerEneterAbstract(other);
         }
 
         protected abstract void TriggerEneterAbstract(Collider other);
+
+        
+
+
+
+        private void OnDisable()
+        {
+            UnitManager.Instance.RemoveUnit(this);
+        }
+
+
     }
 
 }

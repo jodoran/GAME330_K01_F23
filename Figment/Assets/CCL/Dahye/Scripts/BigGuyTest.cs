@@ -60,6 +60,8 @@ namespace Dev_Unit
                 case EnemyState.Dead:
                     {
                         Debug.Log("I'm Dead");
+                        base.OnDead?.Invoke(); //이벤트 발동 //? = null 체크 
+                        base.OnDead = null; // 이벤트 사용 시 항상 초기화
                         break;
 
                     }
