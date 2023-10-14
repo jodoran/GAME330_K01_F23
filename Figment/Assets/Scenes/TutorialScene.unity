@@ -2384,6 +2384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53020cc6b6eb4e91afcc065896d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameMinute: 2
 --- !u!4 &969951865
 Transform:
   m_ObjectHideFlags: 0
@@ -2986,8 +2987,6 @@ MonoBehaviour:
   spawnInterval: 2
   waveTime: 30
   enemyIntervalTime: 3
-  maxSpawnCount: 0
-  currSpawnCount: 0
   audioSource: {fileID: 0}
   enemysfx: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
 --- !u!4 &1227616222
@@ -5145,7 +5144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1985791438
 Transform:
   m_ObjectHideFlags: 0
