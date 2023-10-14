@@ -73,11 +73,18 @@ namespace Dev_Unit
         public void OnDamaged(float damage)
         {
             this.hp -= damage;
-            //hp
-            //damageAmount
+            if (hp <= 0f)
+            {
+                Die();
+            }
         }
 
-
+        public void Die()
+        {
+            Destroy(gameObject);
+            //에너미 죽을 때 효과음
+            //에너미 죽을 때 이펙트 
+        }
 
         void OnTriggerEnter(Collider other)
         {
