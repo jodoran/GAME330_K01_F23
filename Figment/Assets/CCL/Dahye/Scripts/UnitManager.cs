@@ -8,6 +8,52 @@ namespace Dev_Unit
     // UnitManager 클래스: 유닛의 생성 및 관리를 담당
     public class UnitManager : MonoBehaviour
     {
+        public void AddUnit(EnemyBase enemy)
+        {
+            enemyList.Add(enemy);
+        }
+
+        public void RemoveUnit(EnemyBase enemy)
+        {
+            if(enemyList.Count > 0)
+            {
+                if(enemyList.Contains(enemy))
+                {
+                    enemyList.Remove(enemy);
+                }
+            }
+        }
+        
+        //에너미 존재여부 체크
+        //List = count / Array = length
+        public bool EnemyAllDieCheck()
+        {
+            if(enemyList == null) return true;
+            if(enemyList.Count <= 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private List<EnemyBase> enemyList = new();
+
+
+
+
         // 싱글턴 패턴을 위한 인스턴스 변수
         private static UnitManager instance;
         // 싱글턴 패턴의 인스턴스를 외부에서 접근할 수 있게 하는 프로퍼티
