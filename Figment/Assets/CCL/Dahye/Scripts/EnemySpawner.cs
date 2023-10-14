@@ -12,30 +12,21 @@ namespace Dev_Unit
         [SerializeField] private float spawnRate = 5f;
         [SerializeField] private float spawnInterval = 5f;
 
-        // 진행 시간
-        private float timer;
+        
+        private float timer;         // 진행 시간
+        private int wave;            // 웨이브 진행 카운트
+       
+        EnemySO[] EnemySOArray;      // 에너미의 정보 배열
+        public int waveTime = 10;    // 각 웨이브 총 진행시간
 
-        // 웨이브 진행 카운트
-        private int currWave;
-        [SerializeField] private int finalWave;
-        private int waveIndex;
+        
+        public int enemyIntervalTime = 1;// 적 스폰 인터벌 시간 
 
-        // 에너미의 정보 배열
-        EnemySO[] EnemySOArray;
-
-        // 각 웨이브 총 진행시간
-        public int waveTime = 10;
-
-        // 적 스폰 인터벌 시간 
-        public int enemyIntervalTime = 1;
-
-        [Header("웨이브 별 총 에너미 수량")]
-        [SerializeField] private int maxSpawnCount;
-        [SerializeField] private int currSpawnCount;
         private float enemyTimer = 0f;
 
 
         bool isEnd = false;
+        bool isSpawning = false;
 
         //임시 사운드 추후 사운드매니저 변경
         public AudioSource audioSource;
@@ -57,24 +48,44 @@ namespace Dev_Unit
 
 
             timer = 0;
-            currSpawnCount = 0;
-            currWave = 0;
+            wave = 0;
 
-            StartCoroutine(SpawnEnemy());
+            StartCoroutine(SpawnEnemy(wave));
         }
 
         private void Update()
         {
-            if(isEnd)
+            if (isEnd)
                 return;
-            WaveChanger();
-           
+
+            // 시간 진행상황
+            timer += Time.deltaTime;
+
+            // 현재 웨이브
+            int currentWave = (int)timer / waveTime;
+            if (wave != currentWave)
+            {
+                wave = currentWave;
+
+                if (wave > 2)
+                {
+                    isEnd = true;
+                    GameManager.Instance.GameOver();
+                    return;
+                }
+
+                if (!isSpawning)
+                {
+                    StartCoroutine(SpawnEnemy(wave));
+                }
+            }
         }
 
         // 적 생성 함수
-        IEnumerator SpawnEnemy()
+        IEnumerator SpawnEnemy(int currWave)
         {
-            while(currSpawnCount < maxSpawnCount && currWave != finalWave)
+            isSpawning = true;
+            while (GameManager.Instance.IsGameActive) // 게임오버 상태가 아니면서, Final Wave가 아닐 땐
             {
                 yield return new WaitForSeconds(enemyIntervalTime);
 
@@ -84,60 +95,32 @@ namespace Dev_Unit
 
                 // Rotation 지정
                 Quaternion rotation = Quaternion.Euler(0, 180, 0);
-
+                 
                 int enemytypeIndex = SpawnProbabilityChoose(WaveProbabilityArray(currWave));
-                EnemySO spawnEnemy = EnemySOArray[0];
-                //EnemySO spawnEnemy = EnemySOArray[enemytypeIndex];
+                //EnemySO spawnEnemy = EnemySOArray[0];
+                EnemySO spawnEnemy = EnemySOArray[enemytypeIndex];
                 Debug.Log("적 스폰 : " + spawnEnemy.enemyType + " 위치 : " + spawnPositionIndex);
 
                 //생성된 obj 에 EnemyBase 클래스컴포넌트를 가져와서 
                 GameObject obj = Instantiate(spawnEnemy.enemyPrefab, spawnPoint, rotation);
                 obj.GetComponent<EnemyBase>().enemySetting(spawnEnemy);
-                obj.GetComponent<EnemyBase>().OnDead += WaveCheck;
+                obj.GetComponent<EnemyBase>().OnDead = WaveCheck;
 
 
                 audioSource.PlayOneShot(enemysfx);
 
-                currSpawnCount++;
-                maxSpawnCount -= 1;
-                Debug.Log("현재 생성된에너미 : " + currSpawnCount + "남은 에너미 " + maxSpawnCount);
+                if (wave != currWave)
+                    break;
             }
+            isSpawning = false;
         }
-
-        //bool EnemyIsAlive()
-        //{
-
-        //}
 
         void WaveCheck()
         {
             // 에너미가 다 죽었을 경우
-            if (UnitManager.Instance.EnemyAllDieCheck())
+            if (UnitManager.Instance.EnemyAllDieCheck() && !isSpawning)
             {
-                //다음 웨이브 호출
-                //waveIndex++;
-                WaveChanger();
-            }
-        }
-
-        void WaveChanger()
-        {
-            //시간 진행상황
-            timer += Time.deltaTime;
-
-            //웨이브 체인저
-            //현재 남아있는 에너미 수량이 0일 시 + 파이널 웨이브가 아니라면 다음 웨이브로 넘어간다. 
-            if (currWave != finalWave && currSpawnCount == 0)
-            {
-                if (finalWave > 2 && currSpawnCount == 0)
-                {
-                    isEnd = true;
-                    GameManager.Instance.GameOver();
-                    Debug.Log("게임매니저에서 가져온 게임오버!");
-
-                    return;
-                }
-                Debug.Log("change wave : " + finalWave);
+                StartCoroutine(SpawnEnemy(wave));
             }
         }
 
@@ -193,8 +176,15 @@ namespace Dev_Unit
             return probs.Length - 1;
         }
 
-        //wave : enemy count 지정 후 모두 hp = 0 한다면 다음 웨이브 -> 새로생성
-        //에너미 파괴시 setActive false
+        private void OnDestroy()
+        {
+            foreach (var enemy in FindObjectsOfType<EnemyBase>())
+            {
+                enemy.OnDead -= WaveCheck;
+            }
+        }
+
+
     }
 
 }

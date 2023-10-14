@@ -13,11 +13,12 @@ namespace Dev_Unit
         {
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();   
-
+                EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+                Debug.Log("에너미 감지!");
                 if (collision != null)
                 {
                     enemy.OnDamaged(bulletDamage);
+                    Debug.Log("데미지 들어감");
                 }
             }
         }

@@ -1,10 +1,30 @@
 //GameManager.cs
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // 싱글톤 패턴을 사용하기 위한 인스턴스 변수
+    public bool IsGameActive { get { return isGameActive; } } //외부 접근 bool
+    private bool isGameActive = true;    
     private static GameManager _instance;
+
+
+    public float gameMinute = 2f; //2mins
+    private void Start()
+    {
+        StartCoroutine(GameOverAfterTime(gameMinute * 60f));
+    }
+
+    IEnumerator GameOverAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameOver();
+    }
+
+
+
+
     // 인스턴스에 접근하기 위한 프로퍼티
     public static GameManager Instance
     {
@@ -38,6 +58,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        isGameActive = false;
         Debug.Log("Game Over!"); // 게임 오버 로직
         // 예를 들어, SceneManager.LoadScene("GameOverScene"); 등
     }

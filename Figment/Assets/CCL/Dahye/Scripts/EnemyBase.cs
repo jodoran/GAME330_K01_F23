@@ -63,8 +63,6 @@ namespace Dev_Unit
 
         }
 
-        // Update is called once per frame
-        // Update is called once per frame
         protected virtual void Update()
         {
 
@@ -73,6 +71,7 @@ namespace Dev_Unit
         public void OnDamaged(float damage)
         {
             this.hp -= damage;
+            Debug.Log("데미지 량 :" + damage + "현재 체력 : " + hp);
             if (hp <= 0f)
             {
                 Die();
@@ -81,6 +80,7 @@ namespace Dev_Unit
 
         public void Die()
         {
+            UnitManager.Instance.RemoveUnit(this);
             Destroy(gameObject);
             //에너미 죽을 때 효과음
             //에너미 죽을 때 이펙트 
