@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6872665314908939119}
   - component: {fileID: 4358322363588944678}
   - component: {fileID: -4053186112709169228}
+  - component: {fileID: -4147382235021710880}
   m_Layer: 0
   m_Name: snowflake
   m_TagString: Untagged
@@ -134,3 +135,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.31, y: 5, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4147382235021710880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5897554029848567746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8919ccb2155a8474d80e77eedd4af15a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

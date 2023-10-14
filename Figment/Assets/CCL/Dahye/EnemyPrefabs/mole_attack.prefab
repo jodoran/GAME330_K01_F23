@@ -5085,6 +5085,7 @@ GameObject:
   - component: {fileID: 5061053432659563398}
   - component: {fileID: -376253276308081267}
   - component: {fileID: -7005829336948049216}
+  - component: {fileID: 6128383909274041354}
   m_Layer: 3
   m_Name: mole_attack
   m_TagString: Untagged
@@ -5266,6 +5267,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6128383909274041354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8471660470576268269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7160e280ed83fa409126a72aa8fb3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraShake: {fileID: 0}
 --- !u!1 &9181154060446047531
 GameObject:
   m_ObjectHideFlags: 0
