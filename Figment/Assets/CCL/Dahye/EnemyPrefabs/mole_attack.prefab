@@ -5067,7 +5067,7 @@ GameObject:
   - component: {fileID: 8854668566289816146}
   m_Layer: 3
   m_Name: mole_attack
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5227,7 +5227,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8471660470576268269}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 100000000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

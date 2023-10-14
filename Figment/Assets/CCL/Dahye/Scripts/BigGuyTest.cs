@@ -54,6 +54,7 @@ namespace Dev_Unit
                 case EnemyState.Attack:
                     {
                         Debug.Log("Attack State 진입!");
+                        base.moveSpeed = 0.1f; //   벽 앞에서 전진 x 
                         break;
 
                     }
@@ -123,6 +124,7 @@ namespace Dev_Unit
         {
             if (other.CompareTag("Wall"))
             {
+                Debug.Log("벽 감지 어택 준비");
                 ChangeState(EnemyState.Attack);
             }
         }

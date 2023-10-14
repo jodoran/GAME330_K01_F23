@@ -40,9 +40,6 @@ namespace Dev_Unit
 
         private List<EnemyBase> enemyList = new();
 
-
-
-
         // 싱글턴 패턴을 위한 인스턴스 변수
         private static UnitManager instance;
         // 싱글턴 패턴의 인스턴스를 외부에서 접근할 수 있게 하는 프로퍼티

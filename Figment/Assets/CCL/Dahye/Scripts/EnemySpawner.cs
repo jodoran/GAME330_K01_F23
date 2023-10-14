@@ -12,20 +12,13 @@ namespace Dev_Unit
         [SerializeField] private float spawnRate = 5f;
         [SerializeField] private float spawnInterval = 5f;
 
-        
-        private float timer;         // 진행 시간
-        private int wave;            // 웨이브 진행 카운트
+        public int waveTime = 10;    // 각 웨이브 총 진행시간
+        public int enemyIntervalTime = 1;// 적 스폰 인터벌 시간 
+        private int savedWave;            // 웨이브 진행 카운트
+        private float timer;         // 진행 시간 웨이브 변경에 사용 
        
         EnemySO[] EnemySOArray;      // 에너미의 정보 배열
-        public int waveTime = 10;    // 각 웨이브 총 진행시간
 
-        
-        public int enemyIntervalTime = 1;// 적 스폰 인터벌 시간 
-
-        private float enemyTimer = 0f;
-
-
-        bool isEnd = false;
         bool isSpawning = false;
 
         //임시 사운드 추후 사운드매니저 변경
@@ -48,35 +41,35 @@ namespace Dev_Unit
 
 
             timer = 0;
-            wave = 0;
+            savedWave = 0;
 
-            StartCoroutine(SpawnEnemy(wave));
+            StartCoroutine(SpawnEnemy(savedWave));
         }
-
+        //savedWave : 현재 저장된 웨이브 1프레임 전 웨이브 
+        //updatedtWave : 새로운 웨이브 1프레임 후 웨이브
         private void Update()
         {
-            if (isEnd)
+            if (GameManager.Instance.IsGameActive)
                 return;
 
             // 시간 진행상황
             timer += Time.deltaTime;
 
             // 현재 웨이브
-            int currentWave = (int)timer / waveTime;
-            if (wave != currentWave)
+            int updatedWave = (int)timer / waveTime;
+            if (savedWave != updatedWave)
             {
-                wave = currentWave;
+                savedWave = updatedWave;
 
-                if (wave > 2)
+                if (savedWave > 2)
                 {
-                    isEnd = true;
                     GameManager.Instance.GameOver();
                     return;
                 }
 
                 if (!isSpawning)
                 {
-                    StartCoroutine(SpawnEnemy(wave));
+                    StartCoroutine(SpawnEnemy(savedWave));
                 }
             }
         }
@@ -109,7 +102,7 @@ namespace Dev_Unit
 
                 audioSource.PlayOneShot(enemysfx);
 
-                if (wave != currWave)
+                if (savedWave != currWave)
                     break;
             }
             isSpawning = false;
@@ -120,7 +113,8 @@ namespace Dev_Unit
             // 에너미가 다 죽었을 경우
             if (UnitManager.Instance.EnemyAllDieCheck() && !isSpawning)
             {
-                StartCoroutine(SpawnEnemy(wave));
+                Debug.Log("생성불가");
+                //StartCoroutine(SpawnEnemy(savedWave));
             }
         }
 
