@@ -2413,6 +2413,7 @@ GameObject:
   - component: {fileID: 980129884}
   - component: {fileID: 980129883}
   - component: {fileID: 980129885}
+  - component: {fileID: 980129888}
   m_Layer: 5
   m_Name: Action Button
   m_TagString: Untagged
@@ -2463,7 +2464,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 980129884}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 980129888}
+        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
+        m_MethodName: scenechange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &980129884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2522,7 +2535,7 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
-          m_CallState: 2
+          m_CallState: 0
 --- !u!222 &980129886
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2551,6 +2564,18 @@ RectTransform:
   m_AnchoredPosition: {x: 619.9, y: -503.68}
   m_SizeDelta: {x: 317, y: 312}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &980129888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980129882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520cca16a02030d46844749d51cf9b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &998577061
 PrefabInstance:
   m_ObjectHideFlags: 0

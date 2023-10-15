@@ -5,18 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
+    
+    //FigmentInput Fig = GameObject.Find("FigmentInput").GetComponent<FigmentInput>();
+    //bool IsPause;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Time.timeScale = 1;
     }
-
+    public void scenechange()
+    {
+        SceneManager.LoadScene(0);
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space)) 
         {
-            SceneManager.LoadScene("FigmentTestScene");
+            
+            //SceneManager.LoadScene("FigmentTestScene");
+            SceneManager.LoadScene(0);
+            Time.timeScale = 1;
+
         }
+
+        
     }
 }

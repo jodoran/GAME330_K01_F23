@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public float gameMinute = 2f; //2mins
     private void Start()
     {
+        //씬전환 중에 자꾸 일시정지가 되서 "Time.timeScale =1;추가했어요!
+        Time.timeScale = 1;
         StartCoroutine(GameOverAfterTime(gameMinute * 60f));
     }
 
