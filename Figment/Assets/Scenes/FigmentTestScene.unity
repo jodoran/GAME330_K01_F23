@@ -2902,9 +2902,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53020cc6b6eb4e91afcc065896d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  round: 2
-  roundTime: 30
-  roundBreakTime: 10
 --- !u!4 &969951865
 Transform:
   m_ObjectHideFlags: 0
@@ -4145,6 +4142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1381468591}
+  - component: {fileID: 1381468592}
   m_Layer: 0
   m_Name: Sound Manager
   m_TagString: Untagged
@@ -4167,6 +4165,18 @@ Transform:
   m_Father: {fileID: 1985791438}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1381468592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381468590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0bc78ee8568dd4dbae69537d0e3d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1387183174 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 231599325682483475, guid: 3c8772670f7f8e9478fa577f8630b365,
