@@ -27,9 +27,12 @@ public class Wall : MonoBehaviour
         lastDamageTime = now;
         HP -= damage;
         Debug.Log("Wall HP : " + HP + " damage : " + damage);
+        // Wall 공격받을 때 VFX + SFX
+
         if (HP <= 0)
         {
             Destroy(gameObject);
+            //Wall 무너질 때 VFX + SFX
         }
     }
 }

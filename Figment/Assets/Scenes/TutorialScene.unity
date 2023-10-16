@@ -3018,7 +3018,10 @@ MonoBehaviour:
   - {fileID: 2029842890}
   - {fileID: 540654203}
   enemyIntervalTime: 3
-  enemySoArray: []
+  enemySoArray:
+  - {fileID: 11400000, guid: f65ea3d89de15c0468884a75a63c5abd, type: 2}
+  - {fileID: 11400000, guid: d70616b89200fe042bd27955f226fe52, type: 2}
+  - {fileID: 11400000, guid: 5986e5b120aa8a947aafead995fe74f4, type: 2}
   audioSource: {fileID: 0}
   enemysfx: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
 --- !u!4 &1227616222

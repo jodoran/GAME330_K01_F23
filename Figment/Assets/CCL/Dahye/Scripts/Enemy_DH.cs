@@ -168,6 +168,7 @@ public class Enemy_DH : MonoBehaviour
             // 쥬금
             case State.Dead:
                 {
+                    Debug.Log("에너미 죽어유~~");
                     UnitManager.Instance.RemoveUnit(this);
                     // SoundManager.Instance.Play(this.deadsfx,"enemy");
 
