@@ -8,9 +8,7 @@ public class Wall : MonoBehaviour
     [Tooltip("HP")]
     public float HP = 1000;
 
-    [Header("Wall Name")]
-    [SerializeField]
-    private string wallName;
+    [SerializeField] private AudioClip wallCrash;
 
     /// <summary>
     /// 마지막으로 데미지 받은 시간
@@ -30,12 +28,13 @@ public class Wall : MonoBehaviour
 
         lastDamageTime = now;
         HP -= damage;
-        Debug.Log(wallName + HP + " damage : " + damage);
         // Wall 공격받을 때 VFX + SFX
 
         if (HP <= 0)
         {
+            SoundManager.Instance.PlayEffectSound(wallCrash);
             Destroy(gameObject);
+
             //Wall 무너질 때 VFX + SFX
         }
     }

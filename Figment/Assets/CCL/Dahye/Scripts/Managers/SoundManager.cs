@@ -1,67 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Sound : MonoBehaviour
+public class SoundManager : MonoBehaviour
 {
-    private static Sound instance = null;
+    private static SoundManager instance = null;
 
-    public static Sound I
+
+    public static SoundManager Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = FindObjectOfType(typeof(Sound)) as Sound;
+                instance = FindObjectOfType(typeof(SoundManager)) as SoundManager;
                 if (instance == null)
                 {
                     GameObject obj = Instantiate(Resources.Load("SoundManager")) as GameObject;
                     obj.name = "SoundManager";
-                    instance = obj.GetComponent<Sound>();
+                    instance = obj.GetComponent<SoundManager>();
                 }
             }
             return instance;
         }
     }
 
-    AudioSource _musicplayer = null;
-    public AudioSource MusicPlayer
-    {
-        get
-        {
-            if (_musicplayer == null)
-            {
-                _musicplayer = Camera.main.GetComponent<AudioSource>();
-            }
-            return _musicplayer;
-        }
-    }
-
-    //AudioSource _musicRun= null;
-    //public AudioSource MusicRun
-    //{
-    //    get
-    //    {
-    //        if (_musicRun == null)
-    //        {
-    //            _musicRun = GetComponent<AudioSource>();
-    //        }
-    //        return _musicRun;
-    //    }
-    //}
-
-    AudioSource _effectsound = null;
-    public AudioSource EffectSound
-    {
-        get
-        {
-            if (_effectsound == null)
-            {
-                _effectsound = GetComponent<AudioSource>();
-            }
-            return _effectsound;
-        }
-    }
+    [Tooltip("BGM Audio Source")]
+    [SerializeField] private AudioSource MusicPlayer = null;
+    [Tooltip("SFX Audio Source")]
+    [SerializeField] private AudioSource EffectSound = null;
 
     float MusicVolume = 1f;
     float EffectVolume = 1f;
@@ -78,6 +43,12 @@ public class Sound : MonoBehaviour
         MusicPlayer.clip = bgm;
         MusicPlayer.loop = bLoop;
         MusicPlayer.Play();
+    }
+
+    public void OffBGM()
+    {
+        //외부 audio source접근으로 off 하지 않고 내부 오프함수로 off 하는게 명확함. (참조+추적이 쉬움)
+        MusicPlayer.Stop();
     }
 
     public void PlayRun(AudioSource audioSource, bool bLoop)

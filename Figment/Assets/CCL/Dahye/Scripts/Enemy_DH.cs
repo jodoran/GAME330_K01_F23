@@ -23,7 +23,8 @@ public class Enemy_DH : MonoBehaviour
     private Collider triggerCollider;
     private Transform target;
 
-    private AudioClip deadsfx;
+    [SerializeField] private AudioClip deadsfx;
+    [SerializeField] private AudioClip attacksfx;
 
     // 에너미 데미지량 == 플레이어가 에너미 죽일 시 얻는 스코어 량
     public int Score { get { return (int)damage; } }
@@ -160,6 +161,7 @@ public class Enemy_DH : MonoBehaviour
                         }
                         this.lastAttackTime = now;
                         // 어택 이펙트 추가 필요
+                        SoundManager.Instance.PlayEffectSound(attacksfx);
                     }
 
                     return;
@@ -168,15 +170,14 @@ public class Enemy_DH : MonoBehaviour
             // 쥬금
             case State.Dead:
                 {
-                    Debug.Log("에너미 죽어유~~");
                     UnitManager.Instance.RemoveUnit(this);
-                    // SoundManager.Instance.Play(this.deadsfx,"enemy");
+                    SoundManager.Instance.PlayEffectSound(this.deadsfx);
 
                     // TODO: add sound
                     // 에너미 죽을 때 효과음
                     // 에너미 죽을 때 이펙트 
 
-                    Destroy(gameObject);
+                    DestroyImmediate(gameObject); // 즉시 죽음
                     return;
                 }
             default:

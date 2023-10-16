@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     /// <summary>
     /// 총 라운드
-    /// </summary>
+    /// </summary> 
     [Tooltip("총 라운드")]
     [SerializeField] private int round = 2;
 
@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("쉬는 시간")]
     [SerializeField] private float roundBreakTime = 10f;
+
+    [SerializeField] private AudioClip gameOverBGM;
+    [SerializeField] private AudioClip gameWinBGM;
 
     /// <summary>
     /// 현재 라운드
@@ -111,12 +114,15 @@ public class GameManager : MonoBehaviour
         {
             //게임실패
             Debug.Log("Game Over  ! [Score : " + UnitManager.Instance.Score + " ]");
-
+            SoundManager.Instance.PlayEffectSound(gameOverBGM);
+            SoundManager.Instance.OffBGM();
         }
         else
         {
             //게임성공
             Debug.Log("Game Clear ! [Score : " + UnitManager.Instance.Score + " ]");
+            SoundManager.Instance.PlayEffectSound(gameWinBGM);
+            SoundManager.Instance.OffBGM();
         }
 
         // 예를 들어, SceneManager.LoadScene("GameOverScene"); 등
