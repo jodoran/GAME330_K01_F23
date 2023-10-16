@@ -38,7 +38,7 @@ public class Scrolling : MonoBehaviour
         if (index == 2)
         {
             Vector3 curPos = transform.position;
-            curPos += Vector3.down;
+            curPos += Vector3.down * 2;
             transform.position = curPos;
         }
     }

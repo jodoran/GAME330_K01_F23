@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public bool Stage3;
     public bool gameOver;
     public bool nextLevel;
+    public bool lastLevel;
 
     public GameObject player;
     public TMP_Text scoreText;
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour
     public ObjectManager objectManager;
     public GameObject GameOverPanel;
     public GameObject NextLevelPanel;
+    public GameObject LastLevelPanel;
+    public Audio audio;
 
     void Awake()
     {
@@ -67,11 +70,11 @@ public class GameManager : MonoBehaviour
     public void SpawnItem()
     {
         int ranItem = Random.Range(0, 10);
-        if (ranItem < 6) //Not Item 60%
+        if (ranItem < 5) //Not Item 50%
         {
             Debug.Log("Not Item");
         }
-        else if (ranItem < 6) //Coin 30%
+        else if (ranItem < 9) //Coin 40%
         {
             GameObject itemCoin = objectManager.MakeObj("ItemCoin");
 
@@ -94,7 +97,7 @@ public class GameManager : MonoBehaviour
                 rb2d.velocity = new Vector2(0, 0);
             }
         }
-        else if (ranItem < 8) //Coin 10%
+        else if (ranItem < 10) //ExtraLife 10%
         {
             GameObject itemLife = objectManager.MakeObj("ExtraLife");
 
@@ -135,6 +138,7 @@ public class GameManager : MonoBehaviour
         {
             enemy.transform.Rotate(Vector3.back * 90);
             rb2d.velocity = new Vector2(enemyLogic.speed * (-1), 0);
+
         }
         else if (ranPoint == 3 || ranPoint == 4 || ranPoint == 5) // Left Spawn
         {
@@ -230,6 +234,7 @@ public class GameManager : MonoBehaviour
 
     public void OnHit()
     {
+        audio.AudioHit();
         player.gameObject.layer = 6;
         Invoke("RespawnPlayer", 2);
     }
@@ -254,13 +259,26 @@ public class GameManager : MonoBehaviour
     {
         if (curScore >= maxScore)
         {
-            Time.timeScale = 0;
-            NextLevelPanel.SetActive(true);
-            nextLevel = true;
-            print("You Win");
+            if (!Stage3)
+            {
+                audio.AudioWin();
+                Time.timeScale = 0;
+                NextLevelPanel.SetActive(true);
+                nextLevel = true;
+                print("You Win");
+            }
+            else
+            {
+                audio.AudioWin();
+                Time.timeScale = 0;
+                LastLevelPanel.SetActive(true);
+                lastLevel = true;
+                print("You Beat");
+            }
         }
         else
         {
+            audio.AudioLose();
             Time.timeScale = 0;
             GameOverPanel.SetActive(true);
             gameOver = true;

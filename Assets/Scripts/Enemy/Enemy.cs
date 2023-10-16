@@ -62,8 +62,8 @@ public class Enemy : MonoBehaviour
             bullet.transform.position = transform.position;
 
             Rigidbody2D rb2d = bullet.GetComponent<Rigidbody2D>();
-            Vector3 dirVec = Vector3.down;
-            rb2d.AddForce(dirVec.normalized * 2, ForceMode2D.Impulse);
+            Vector3 dirVec = Vector3.down * 5;
+            rb2d.AddForce(dirVec.normalized * 5, ForceMode2D.Impulse);
         }
 
         curShotDelay = 0.1F;

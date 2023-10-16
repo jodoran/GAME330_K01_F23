@@ -10,7 +10,11 @@ public class Player : MonoBehaviour
 
     public GameManager gm;
     public ObjectManager om;
+    public Audio audio;
+    public AudioSource audioSource;
     //public Scrolling sc;
+    public Scrolling bgA;
+    public Scrolling bgB;
 
     public bool isHit;
     public bool isUp;
@@ -28,11 +32,6 @@ public class Player : MonoBehaviour
 
     public float time;
     public bool Immortal;
-
-    void Awake()
-    {
-
-    }
 
     void Start()
     {
@@ -62,9 +61,14 @@ public class Player : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
+            else if (gm.lastLevel)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+            }
             else
             {
                 PlayerLeft();
+                audioSource.Play();
             }
         }
         else if (FigmentInput.GetButtonDown(FigmentInput.FigmentButton.RightButton))
@@ -77,9 +81,14 @@ public class Player : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
+            else if (gm.lastLevel)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+            }
             else
             {
                 PlayerRight();
+                audioSource.Play();
             }
         }
 
@@ -94,9 +103,14 @@ public class Player : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
+            else if (gm.lastLevel)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+            }
             else
             {
                 PlayerUp();
+                audioSource.Play();
             }
         }
 
@@ -129,7 +143,22 @@ public class Player : MonoBehaviour
         GameObject[] itemCoin = om.GetPool("ItemCoin");
         GameObject[] extraLife = om.GetPool("ExtraLife");
 
-        Scrolling.scrolling();
+        //Scrolling.scrolling();
+        if (gm.Stage1)
+        {
+            bgA.BGMove();
+            bgB.BGMove();
+        }
+        else if (gm.Stage2)
+        {
+            bgA.BGMove();
+            bgB.BGMove();
+        }
+        else
+        {
+            bgB.BGMove();
+        }
+
         //sc.BGMove();
 
         if (!isUp)
@@ -255,6 +284,7 @@ public class Player : MonoBehaviour
                 if (life <= 0)
                 {
                     gm.GameOver();
+                    anim.SetTrigger("die");
                 }
                 else
                 {
@@ -275,6 +305,7 @@ public class Player : MonoBehaviour
                 case "Coin":
                     score += 200;
                     gm.curScore = score;
+                    audio.AudioCoin();
                     break;
                 case "ExtraLife":
                     if (life < 3)
@@ -284,9 +315,10 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        score += 1000;
+                        score += 500;
                         gm.curScore = score;
                     }
+                    audio.AudioExtra();
                     break;
             }
 
