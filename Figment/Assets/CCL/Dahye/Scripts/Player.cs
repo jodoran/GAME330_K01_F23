@@ -24,12 +24,27 @@ public class Player : MonoBehaviour
     private bool isBlinking = false;
     private SpriteRenderer playerRenderer;
 
+    private ParticleSystem footstepParticles;
+
     private void Start()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
+
+        footstepParticles = GetComponent<ParticleSystem>();
+
         //깜빡
         playerRenderer = GetComponent<SpriteRenderer>();
+
+        // 디버깅을 통해 playerRenderer가 제대로 참조되었는지 확인합니다.
+        if (playerRenderer == null)
+        {
+            Debug.LogError("SpriteRenderer 컴포넌트가 Player 게임 오브젝트에 없습니다.");
+        }
+        else
+        {
+            Debug.Log("SpriteRenderer 컴포넌트가 제대로 참조되었습니다.");
+        }
     }
 
     void Update()
@@ -46,10 +61,14 @@ public class Player : MonoBehaviour
         if (FigmentInput.GetButton(FigmentInput.FigmentButton.LeftButton))
         {
             transform.Translate(-MoveSpeed * Time.deltaTime, 0, 0);
+
+            footstepParticles.Emit(1); // 발자국 입자 발사
         }
         else if (FigmentInput.GetButton(FigmentInput.FigmentButton.RightButton))
         {
             transform.Translate(MoveSpeed * Time.deltaTime, 0, 0);
+
+            footstepParticles.Emit(1); // 발자국 입자 발사
         }
     }
 
@@ -121,4 +140,6 @@ public class Player : MonoBehaviour
         //종료
         isBlinking = false;
     }
+
+
 }
