@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
                 rb2d.velocity = new Vector2(0, 0);
             }
         }
-        else if (ranItem < 10) //Coin 10%
+        else if (ranItem < 8) //Coin 10%
         {
             GameObject itemLife = objectManager.MakeObj("ExtraLife");
 
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
     {
         int ranEnemy = Random.Range(0, 1);
         int ranPoint = Random.Range(0, 6);
-        GameObject enemy = objectManager.MakeObj(enemyObjs[ranEnemy]);
+        GameObject enemy = objectManager.MakeObj(enemyObjs["EnemyS"]);
         enemy.transform.position = spawnPoints[ranPoint].position;
 
         Rigidbody2D rb2d = enemy.GetComponent<Rigidbody2D>();
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
     {
         int ranEnemy = Random.Range(0, 2);
         int ranPoint = Random.Range(0, 6);
-        GameObject enemy = objectManager.MakeObj(enemyObjs[ranEnemy]);
+        GameObject enemy = objectManager.MakeObj(enemyObjs["EnemyM"]);
         enemy.transform.position = spawnPoints[ranPoint].position;
 
         Rigidbody2D rb2d = enemy.GetComponent<Rigidbody2D>();
@@ -169,9 +169,9 @@ public class GameManager : MonoBehaviour
 
     public void STAGE3()
     {
-        int ranEnemy = Random.Range(0, 3);
+        int ranEnemy = Random.Range(0, 3);dddd
         int ranPoint = Random.Range(0, 9);
-        GameObject enemy = objectManager.MakeObj(enemyObjs[ranEnemy]);
+        GameObject enemy = objectManager.MakeObj(enemyObjs["EnemyL"]);
         enemy.transform.position = spawnPoints[ranPoint].position;
 
         Rigidbody2D rb2d = enemy.GetComponent<Rigidbody2D>();

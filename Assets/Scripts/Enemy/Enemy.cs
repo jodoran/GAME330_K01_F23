@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     {
         switch (enemyName)
         {
+           if player
             case "L":
                 Health = 40;
                 break;
@@ -91,7 +92,7 @@ public class Enemy : MonoBehaviour
                 playerLogic.score += enemyScore;
 
                 //#.Random Ratio Item Drop
-                int ran = Random.Range(0, 10);
+                int ran = Random.Range(0, 8);
                 if (ran < 3) //Not Item 30%
                 {
                     Debug.Log("Not Item");
