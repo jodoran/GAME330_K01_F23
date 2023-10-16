@@ -586,7 +586,7 @@ MonoBehaviour:
   speed: 1
   startIndex: 2
   endIndex: 0
-  index: 0
+  index: 1
   sprites:
   - {fileID: 1206438390}
   - {fileID: 1748023967}
@@ -2965,7 +2965,7 @@ MonoBehaviour:
   speed: 1
   startIndex: 2
   endIndex: 0
-  index: 0
+  index: 2
   sprites:
   - {fileID: 2067661333}
   - {fileID: 1677949200}
