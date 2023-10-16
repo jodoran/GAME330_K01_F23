@@ -17,14 +17,22 @@ public class Enemy_DH : MonoBehaviour
     private float hp;
     private float moveSpeed = 2.0f;
     private float attackCoolTime = 1.0f;
+    private float currTime = 0f;
     private float lastAttackTime = 0;
     private float damage = 1;
     private Animator animator;
     private Collider triggerCollider;
     private Transform target;
 
+    [Space(5.0f), Header("SFX")]
     [SerializeField] private AudioClip deadsfx;
     [SerializeField] private AudioClip attacksfx;
+
+    [Space(5.0f), Header("VFX")]
+    [SerializeField] private ParticleSystem spawnvfx;
+    [SerializeField] private ParticleSystem deadvfx;
+    [SerializeField] private ParticleSystem attackvfx;
+
 
     // 에너미 데미지량 == 플레이어가 에너미 죽일 시 얻는 스코어 량
     public int Score { get { return (int)damage; } }
@@ -39,6 +47,7 @@ public class Enemy_DH : MonoBehaviour
         this.state = State.Idle;
         this.damage = enemySO.damage;
         this.deadsfx = enemySO.deadsfx;
+        spawnvfx.Play();
 
         UnitManager.Instance.AddUnit(this);
     }
@@ -80,6 +89,21 @@ public class Enemy_DH : MonoBehaviour
         {
             // Debug.Log("enemy state 변경 : " + this.state + " -> " + state);
             this.state = state;
+        }
+
+        switch (this.state)
+        {
+            case State.Dead:
+                {
+                    UnitManager.Instance.RemoveUnit(this);
+                    SoundManager.Instance.PlayEffectSound(this.deadsfx);
+                    deadvfx?.Play();
+
+                    Destroy(gameObject, 2.0f); // 즉시 죽음
+                    return;
+                }
+            default:
+                break;
         }
     }
 
@@ -146,42 +170,42 @@ public class Enemy_DH : MonoBehaviour
 
                     // 공격할 대상이 있으면 일정 시간 간격으로 어택
                     var now = Time.time;
-                    if (now - this.lastAttackTime > this.attackCoolTime)
+                    currTime += Time.deltaTime;
+
+                    if (currTime > attackCoolTime)
                     {
+                        currTime = 0;
+
                         if (this.triggerCollider.CompareTag("Player"))
                         {
                             var player = this.triggerCollider.GetComponent<Player>();
                             player.OnDamage(this.damage);
                             Debug.Log("적 : 플레이어 어택!");
+
+                            SoundManager.Instance.PlayEffectSound(attacksfx);
+                            attackvfx?.Play();
                         }
                         else if (this.triggerCollider.CompareTag("Wall"))
                         {
                             var wall = this.triggerCollider.GetComponent<Wall>();
                             wall.OnDamage(this.damage);
+
+                            SoundManager.Instance.PlayEffectSound(attacksfx);
+                            attackvfx?.Play();
                         }
                         this.lastAttackTime = now;
-                        // 어택 이펙트 추가 필요
-                        SoundManager.Instance.PlayEffectSound(attacksfx);
                     }
 
+                    //if (now - this.lastAttackTime > this.attackCoolTime)
+                    //{
+
+
+                    //}
+
                     return;
                 }
 
-            // 쥬금
-            case State.Dead:
-                {
-                    UnitManager.Instance.RemoveUnit(this);
-                    SoundManager.Instance.PlayEffectSound(this.deadsfx);
 
-                    // TODO: add sound
-                    // 에너미 죽을 때 효과음
-                    // 에너미 죽을 때 이펙트 
-
-                    DestroyImmediate(gameObject); // 즉시 죽음
-                    return;
-                }
-            default:
-                break;
         }
     }
 }

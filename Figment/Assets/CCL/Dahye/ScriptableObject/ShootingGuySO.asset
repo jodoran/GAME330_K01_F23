@@ -21,4 +21,4 @@ MonoBehaviour:
   deadsfx: {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}
   wave1st: 10
   wave2nd: 40
-  wave3rd: 0
+  wave3rd: 20

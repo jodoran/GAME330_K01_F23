@@ -9282,7 +9282,7 @@ GameObject:
   - component: {fileID: 4021103657954561960}
   - component: {fileID: 4021103657954561941}
   m_Layer: 0
-  m_Name: CFXR Hit A (Red)
+  m_Name: EnemyAttackFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
 
     [Tooltip("총알 발사 위치")]
     public Transform snowPoint;
+
+    [SerializeField] private AudioClip shootsfx;
 
     private float lastDamageTime;
 
@@ -113,6 +115,9 @@ public class Player : MonoBehaviour
         {
             GameObject bullet = Instantiate(BulletPrefeb, snowPoint.position, snowPoint.rotation);
             bullet.GetComponent<Bullet>().Shoot(snowPoint); // Bullet 스크립트의 Shoot 함수 호출
+
+            SoundManager.Instance.PlayEffectSound(shootsfx);
+
         }
 
         // TODO: add sound
