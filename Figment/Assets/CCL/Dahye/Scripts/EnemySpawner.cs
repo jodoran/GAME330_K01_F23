@@ -1,86 +1,61 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Dev_Unit
-{
-    
     public class EnemySpawner : MonoBehaviour
     {
-        //[SerializeField] private EnemySO enemyData;  
+        EnemySO enemySO;
+
+        [Tooltip("스폰되는 위치 배열")]
         [SerializeField] private Transform[] spawnPoints;
-        [SerializeField] private float spawnRate = 5f;
-        [SerializeField] private float spawnInterval = 5f;
 
-        public int waveTime = 10;    // 각 웨이브 총 진행시간
-        public int enemyIntervalTime = 1;// 적 스폰 인터벌 시간 
-        private int savedWave;            // 웨이브 진행 카운트
-        private float timer;         // 진행 시간 웨이브 변경에 사용 
-       
-        EnemySO[] EnemySOArray;      // 에너미의 정보 배열
+        [Tooltip("스폰 주기")]
+        [SerializeField] private float enemyIntervalTime = 1f;
 
-        bool isSpawning = false;
+        [Tooltip("적 정보 배열")]
+        [SerializeField] private EnemySO[] enemySoArray;
 
-        //임시 사운드 추후 사운드매니저 변경
+        /// <summary>
+        /// 임시 사운드 추후 사운드매니저 변경
+        /// </summary>
         public AudioSource audioSource;
         public AudioClip enemysfx;
 
-        
+        /// <summary>
+        /// 주어진 EnemyType에 해당하는 EnemySO를 반환하는 메서드
+        /// </summary>
+        /// <returns> enemySO 배열에서 enemyType과 일치하는 첫 번째 EnemySO를 찾아 반환 </returns>
+        private EnemySO GetEnemySO(EnemyType enemyType)
+        {
+            return System.Array.Find(enemySoArray, x => x.EnemyType == enemyType);
+        }
 
+        /// <summary>
+        /// 적을 생성하는 코루틴을 시작합니다.
+        /// </summary>
         private void Start()
         {
             audioSource = GetComponent<AudioSource>();
             //enemysfx = GetComponent<AudioClip>();
 
-            // 에너미의 정보 배열에 각 정보 넣기
-            EnemySOArray = new EnemySO[]{
-                UnitManager.Instance.GetEnemySO(EnemyType.BigGuy),
-                UnitManager.Instance.GetEnemySO(EnemyType.SmallGuy),
-                UnitManager.Instance.GetEnemySO(EnemyType.ShootingGuy)
-            };
-
-
-            timer = 0;
-            savedWave = 0;
-
-            StartCoroutine(SpawnEnemy(savedWave));
-        }
-        //savedWave : 현재 저장된 웨이브 1프레임 전 웨이브 
-        //updatedtWave : 새로운 웨이브 1프레임 후 웨이브
-        private void Update()
-        {
-            if (GameManager.Instance.IsGameActive)
-                return;
-
-            // 시간 진행상황
-            timer += Time.deltaTime;
-
-            // 현재 웨이브
-            int updatedWave = (int)timer / waveTime;
-            if (savedWave != updatedWave)
-            {
-                savedWave = updatedWave;
-
-                if (savedWave > 2)
-                {
-                    GameManager.Instance.GameOver();
-                    return;
-                }
-
-                if (!isSpawning)
-                {
-                    StartCoroutine(SpawnEnemy(savedWave));
-                }
-            }
+            StartCoroutine(spawnEnemy());
         }
 
-        // 적 생성 함수
-        IEnumerator SpawnEnemy(int currWave)
+        /// <summary>
+        /// 라운드에 맞춰 적을 생성합니다.
+        /// </summary>
+        /// <param name="currWave"></param>
+        IEnumerator spawnEnemy()
         {
-            isSpawning = true;
-            while (GameManager.Instance.IsGameActive) // 게임오버 상태가 아니면서, Final Wave가 아닐 땐
+            // 게임오버 상태가 아니면서, Final Wave가 아닐 땐
+            while (GameManager.Instance.IsGameActive)
             {
+                // 적 스폰 기다림
                 yield return new WaitForSeconds(enemyIntervalTime);
+                if (GameManager.Instance.IsBreak)
+                    continue;
+
+                // 현재 라운드
+                var round = GameManager.Instance.CurrentRound;
 
                 // 스폰할 위치 지정
                 var spawnPositionIndex = Random.Range(0, spawnPoints.Length);
@@ -88,33 +63,21 @@ namespace Dev_Unit
 
                 // Rotation 지정
                 Quaternion rotation = Quaternion.Euler(0, 180, 0);
-                 
-                int enemytypeIndex = SpawnProbabilityChoose(WaveProbabilityArray(currWave));
-                //EnemySO spawnEnemy = EnemySOArray[0];
-                EnemySO spawnEnemy = EnemySOArray[enemytypeIndex];
-                Debug.Log("적 스폰 : " + spawnEnemy.enemyType + " 위치 : " + spawnPositionIndex);
 
-                //생성된 obj 에 EnemyBase 클래스컴포넌트를 가져와서 
-                GameObject obj = Instantiate(spawnEnemy.enemyPrefab, spawnPoint, rotation);
-                obj.GetComponent<EnemyBase>().enemySetting(spawnEnemy);
-                obj.GetComponent<EnemyBase>().OnDead = WaveCheck;
+                // 적 타입의 인덱스 계산
+                int enemytypeIndex = SpawnProbabilityChoose(WaveProbabilityArray(round));
 
+                // 적 타입을 불러옴
+                Debug.Log("index : " + enemytypeIndex);
+                EnemySO enemySO = enemySoArray[enemytypeIndex];
+                Debug.Log("적 스폰 : " + enemySO.EnemyType + " 위치 : " + spawnPositionIndex);
+
+                //생성된 obj 에 EnemyBase 클래스컴포넌트를 가져와서 셋팅
+                var obj = Instantiate(enemySO.Prefeb, spawnPoint, rotation);
+                var enemy = obj.GetComponent<Enemy_DH>();
+                enemy.Setting(enemySO);
 
                 audioSource.PlayOneShot(enemysfx);
-
-                if (savedWave != currWave)
-                    break;
-            }
-            isSpawning = false;
-        }
-
-        void WaveCheck()
-        {
-            // 에너미가 다 죽었을 경우
-            if (UnitManager.Instance.EnemyAllDieCheck() && !isSpawning)
-            {
-                Debug.Log("생성불가");
-                //StartCoroutine(SpawnEnemy(savedWave));
             }
         }
 
@@ -124,25 +87,25 @@ namespace Dev_Unit
             if (waveNumber == 0)
             {
                 return new float[] {
-                    EnemySOArray[0].wave1st,
-                    EnemySOArray[1].wave1st,
-                    EnemySOArray[2].wave1st
+                    enemySoArray[0].wave1st,
+                    enemySoArray[1].wave1st,
+                    enemySoArray[2].wave1st
                 };
             }
             if (waveNumber == 1)
             {
                 return new float[] {
-                    EnemySOArray[0].wave2nd,
-                    EnemySOArray[1].wave2nd,
-                    EnemySOArray[2].wave2nd
+                    enemySoArray[0].wave2nd,
+                    enemySoArray[1].wave2nd,
+                    enemySoArray[2].wave2nd
                 };
             }
             if (waveNumber == 2)
             {
                 return new float[] {
-                    EnemySOArray[0].wave3rd,
-                    EnemySOArray[1].wave3rd,
-                    EnemySOArray[2].wave3rd
+                    enemySoArray[0].wave3rd,
+                    enemySoArray[1].wave3rd,
+                    enemySoArray[2].wave3rd
                 };
             }
 
@@ -169,16 +132,4 @@ namespace Dev_Unit
             }
             return probs.Length - 1;
         }
-
-        private void OnDestroy()
-        {
-            foreach (var enemy in FindObjectsOfType<EnemyBase>())
-            {
-                enemy.OnDead -= WaveCheck;
-            }
-        }
-
-
     }
-
-}

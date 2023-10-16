@@ -5063,7 +5063,6 @@ GameObject:
   - component: {fileID: 5061053432659563398}
   - component: {fileID: -376253276308081267}
   - component: {fileID: -7005829336948049216}
-  - component: {fileID: 6128383909274041354}
   - component: {fileID: 8854668566289816146}
   m_Layer: 3
   m_Name: mole_attack
@@ -5120,7 +5119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8471660470576268269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34b30d73101e0364bb07e2ea37594aeb, type: 3}
+  m_Script: {fileID: 11500000, guid: bf16cc7e2aacba549b19c0146e1cda2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!82 &-376253276308081267
@@ -5246,19 +5245,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 36
   m_CollisionDetection: 0
---- !u!114 &6128383909274041354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8471660470576268269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7160e280ed83fa409126a72aa8fb3ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraShake: {fileID: 0}
 --- !u!65 &8854668566289816146
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5274,7 +5260,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

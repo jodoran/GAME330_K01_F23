@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 6738246468926328649}
   - component: {fileID: 8130272278005259404}
   - component: {fileID: 3283973889466173038}
-  - component: {fileID: 5251007123457009571}
   - component: {fileID: 7486009921150890449}
   - component: {fileID: 3863186322496332744}
   - component: {fileID: 7147911643660753043}
@@ -385,18 +384,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5251007123457009571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2747338157717920724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34b30d73101e0364bb07e2ea37594aeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &7486009921150890449
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -412,7 +399,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -454,10 +441,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2747338157717920724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7160e280ed83fa409126a72aa8fb3ee, type: 3}
+  m_Script: {fileID: 11500000, guid: bf16cc7e2aacba549b19c0146e1cda2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraShake: {fileID: 0}
 --- !u!1 &2802681960492102730
 GameObject:
   m_ObjectHideFlags: 0

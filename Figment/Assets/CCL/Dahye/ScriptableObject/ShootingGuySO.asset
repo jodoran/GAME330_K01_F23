@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0fc63c3bffb9d4f808f7ff54ba5843, type: 3}
   m_Name: ShootingGuySO
   m_EditorClassIdentifier: 
-  enemyType: 2
-  enemyPrefab: {fileID: 2747338157717920724, guid: 3a7820472b5555543a1171cf696c740e,
-    type: 3}
+  EnemyType: 0
+  Prefeb: {fileID: 2900874152454569099, guid: 43a02c63c5a43a246a8f4574e4557f34, type: 3}
   moveSpeed: 1
   hp: 10
   damage: 10
   maxCount: 0
+  deadsfx: {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}
   wave1st: 10
   wave2nd: 40
   wave3rd: 0

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0fc63c3bffb9d4f808f7ff54ba5843, type: 3}
   m_Name: BigGuySO
   m_EditorClassIdentifier: 
-  enemyType: 0
-  enemyPrefab: {fileID: 8471660470576268269, guid: 9ca8d3160c1bb8d4380288ea1d1dd507,
-    type: 3}
+  EnemyType: 0
+  Prefeb: {fileID: 8471660470576268269, guid: 9ca8d3160c1bb8d4380288ea1d1dd507, type: 3}
   moveSpeed: 10
   hp: 100
   damage: 100
   maxCount: 0
+  deadsfx: {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}
   wave1st: 90
   wave2nd: 60
   wave3rd: 0

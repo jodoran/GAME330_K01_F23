@@ -933,6 +933,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 285975873}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &308566405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1164233924567358420, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 871927742}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &309044000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2116,7 +2122,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 175374, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 871927744}
+      addedObject: {fileID: 871927752}
   m_SourcePrefab: {fileID: 100100000, guid: 8280ad2f586477b47ac0d3d3e444e3aa, type: 3}
 --- !u!1 &871927743 stripped
 GameObject:
@@ -2124,23 +2130,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 871927742}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &871927744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871927743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd192b58a23ff1945bbfbd02016104fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 10
-  snowballPrefab: {fileID: 0}
-  snowPoint: {fileID: 0}
-  snowSpeed: 10
-  snowSfx: {fileID: 0}
 --- !u!135 &871927745
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2195,6 +2184,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 871927742}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &871927752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871927743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d99dea276721943aae597edb233e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 10
+  BulletPrefeb: {fileID: 5897554029848567746, guid: a24a5c9063069c248a04d8190ff3d986,
+    type: 3}
+  NoDamageTime: 1
+  HP: 100
+  snowPoint: {fileID: 308566405}
 --- !u!1 &919701602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,7 +2391,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53020cc6b6eb4e91afcc065896d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMinute: 2
+  round: 2
+  roundTime: 30
+  roundBreakTime: 10
 --- !u!4 &969951865
 Transform:
   m_ObjectHideFlags: 0
@@ -3008,10 +3017,8 @@ MonoBehaviour:
   - {fileID: 310267267}
   - {fileID: 2029842890}
   - {fileID: 540654203}
-  spawnRate: 5
-  spawnInterval: 2
-  waveTime: 30
   enemyIntervalTime: 3
+  enemySoArray: []
   audioSource: {fileID: 0}
   enemysfx: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
 --- !u!4 &1227616222
@@ -4098,10 +4105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81649718911d7bf4085fdeda76df81cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO:
-  - {fileID: 11400000, guid: f65ea3d89de15c0468884a75a63c5abd, type: 2}
-  - {fileID: 11400000, guid: 5986e5b120aa8a947aafead995fe74f4, type: 2}
-  - {fileID: 11400000, guid: d70616b89200fe042bd27955f226fe52, type: 2}
 --- !u!4 &1619227707
 Transform:
   m_ObjectHideFlags: 0
@@ -5169,7 +5172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1985791438
 Transform:
   m_ObjectHideFlags: 0

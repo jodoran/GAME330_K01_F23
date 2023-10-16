@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6872665314908939119}
   - component: {fileID: 4358322363588944678}
   - component: {fileID: -4053186112709169228}
-  - component: {fileID: -4147382235021710880}
+  - component: {fileID: 3435654560892950179}
   m_Layer: 0
   m_Name: snowflake
   m_TagString: Untagged
@@ -95,7 +95,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5897554029848567746}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -135,7 +135,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.31, y: 5, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-4147382235021710880
+--- !u!114 &3435654560892950179
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,6 +144,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5897554029848567746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8919ccb2155a8474d80e77eedd4af15a, type: 3}
+  m_Script: {fileID: 11500000, guid: e3e707a32c5d4b145b9321d7984f2665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 25
+  ttl: 5
+  speed: 10

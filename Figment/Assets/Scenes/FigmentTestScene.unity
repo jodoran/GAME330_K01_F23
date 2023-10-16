@@ -1551,7 +1551,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 1.5e-44, z: 5.836e-42, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -2342,7 +2342,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 175374, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 871927744}
+      addedObject: {fileID: 871927753}
   m_SourcePrefab: {fileID: 100100000, guid: 8280ad2f586477b47ac0d3d3e444e3aa, type: 3}
 --- !u!1 &871927743 stripped
 GameObject:
@@ -2350,7 +2350,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 871927742}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &871927744
+--- !u!4 &871927748 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 475374, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 871927742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &871927753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2359,21 +2365,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 871927743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd192b58a23ff1945bbfbd02016104fc, type: 3}
+  m_Script: {fileID: 11500000, guid: e6d99dea276721943aae597edb233e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  snowballPrefab: {fileID: 5897554029848567746, guid: a24a5c9063069c248a04d8190ff3d986,
+  MoveSpeed: 10
+  BulletPrefeb: {fileID: 5897554029848567746, guid: a24a5c9063069c248a04d8190ff3d986,
     type: 3}
+  NoDamageTime: 1
+  HP: 100
   snowPoint: {fileID: 298445510}
-  snowSpeed: 10
-  snowSfx: {fileID: 8300000, guid: a58e438b7cfa445498120af0e6169082, type: 3}
---- !u!4 &871927748 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 475374, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
-    type: 3}
-  m_PrefabInstance: {fileID: 871927742}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &899601233
 GameObject:
   m_ObjectHideFlags: 0
@@ -2743,7 +2743,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c53020cc6b6eb4e91afcc065896d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMinute: 2
+  round: 2
+  roundTime: 30
+  roundBreakTime: 10
 --- !u!4 &969951865
 Transform:
   m_ObjectHideFlags: 0
@@ -2767,6 +2769,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 270822032}
     m_Modifications:
+    - target: {fileID: 1653278214318258, guid: e0bce53101944df4e990726c81763b0e, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 1706746694691936, guid: e0bce53101944df4e990726c81763b0e, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3282,10 +3288,11 @@ MonoBehaviour:
   - {fileID: 310267267}
   - {fileID: 2029842890}
   - {fileID: 540654203}
-  spawnRate: 5
-  spawnInterval: 2
-  waveTime: 30
   enemyIntervalTime: 3
+  enemySoArray:
+  - {fileID: 11400000, guid: f65ea3d89de15c0468884a75a63c5abd, type: 2}
+  - {fileID: 11400000, guid: d70616b89200fe042bd27955f226fe52, type: 2}
+  - {fileID: 11400000, guid: 5986e5b120aa8a947aafead995fe74f4, type: 2}
   audioSource: {fileID: 0}
   enemysfx: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
 --- !u!4 &1227616222
@@ -4485,10 +4492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81649718911d7bf4085fdeda76df81cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO:
-  - {fileID: 11400000, guid: f65ea3d89de15c0468884a75a63c5abd, type: 2}
-  - {fileID: 11400000, guid: 5986e5b120aa8a947aafead995fe74f4, type: 2}
-  - {fileID: 11400000, guid: d70616b89200fe042bd27955f226fe52, type: 2}
 --- !u!4 &1619227707
 Transform:
   m_ObjectHideFlags: 0
