@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 69747394}
   m_Layer: 0
   m_Name: small_wall_right
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,7 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoDamageTime: 1
-  HP: 1000
+  HP: 200
+  wallName: small Wall
 --- !u!1 &70978753
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +368,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2124827229904174606, guid: 0604ce9b58da7114aa77bfa1ef820aea,
     type: 3}
   m_PrefabInstance: {fileID: 1730323938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &108025566 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5413166173246152640, guid: 0d2a77e2f136c52429667f8afd9c8201,
+    type: 3}
+  m_PrefabInstance: {fileID: 1544677737}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &174048496
 GameObject:
@@ -889,7 +896,7 @@ GameObject:
   - component: {fileID: 331247974}
   m_Layer: 0
   m_Name: small_wall_right (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -924,7 +931,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoDamageTime: 1
-  HP: 1000
+  HP: 200
+  wallName: small Wall
 --- !u!4 &344231614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5463420003555823367, guid: 81a373bf062c567419256ed415c47f4b,
@@ -1416,10 +1424,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall-graveyard-pillar
       objectReference: {fileID: 0}
+    - target: {fileID: 5413166173246152640, guid: 0d2a77e2f136c52429667f8afd9c8201,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134035165493473918, guid: 0d2a77e2f136c52429667f8afd9c8201,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5413166173246152640, guid: 0d2a77e2f136c52429667f8afd9c8201,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1882341658}
   m_SourcePrefab: {fileID: 100100000, guid: 0d2a77e2f136c52429667f8afd9c8201, type: 3}
 --- !u!1 &510758244
 GameObject:
@@ -1633,6 +1655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoDamageTime: 1
   HP: 1000
+  wallName: Castle Wall_right
 --- !u!54 &569022841
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1693,6 +1716,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: wall-graveyard-3m (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 221661635745433985, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 601319309112775483, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
         type: 3}
@@ -1776,7 +1804,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 221661635745433985, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 597024407}
+      addedObject: {fileID: 597024411}
   m_SourcePrefab: {fileID: 100100000, guid: cec545ae7bcbbd64fa91a5e881fef7d0, type: 3}
 --- !u!4 &597024403 stripped
 Transform:
@@ -1784,7 +1812,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 597024402}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &597024407
+--- !u!114 &597024411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1797,7 +1825,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoDamageTime: 1
-  HP: 1000
+  HP: 800
+  wallName: small wall
 --- !u!1 &622780224 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 221661635745433985, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
@@ -1980,7 +2009,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 830493702}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &709266774
+--- !u!114 &709266778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1993,7 +2022,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoDamageTime: 1
-  HP: 1000
+  HP: 800
+  wallName: small wall
 --- !u!1001 &721567476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2141,7 +2171,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1557605072}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &728608794
+--- !u!114 &728608798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2154,7 +2184,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoDamageTime: 1
-  HP: 1000
+  HP: 800
+  wallName: small wall
 --- !u!4 &765602015 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5a31da9f7f5d36744865ce23eab9e404,
@@ -2264,6 +2295,12 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &821756443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5413166173246152640, guid: 0d2a77e2f136c52429667f8afd9c8201,
+    type: 3}
+  m_PrefabInstance: {fileID: 1951807874}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &830493702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2276,6 +2313,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: wall-graveyard-3m (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 221661635745433985, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 601319309112775483, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
         type: 3}
@@ -2359,7 +2401,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 221661635745433985, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 709266774}
+      addedObject: {fileID: 709266778}
   m_SourcePrefab: {fileID: 100100000, guid: cec545ae7bcbbd64fa91a5e881fef7d0, type: 3}
 --- !u!1 &836331091
 GameObject:
@@ -2705,6 +2747,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1544677737}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &942613624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108025566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ba3d5324bd07e478f484f5a7106d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoDamageTime: 1
+  HP: 800
+  wallName: small wall
 --- !u!1001 &957351122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3379,6 +3436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoDamageTime: 1
   HP: 1000
+  wallName: Castle Wall_middle
 --- !u!54 &1159583786
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3954,7 +4012,7 @@ GameObject:
   - component: {fileID: 1345882298}
   m_Layer: 0
   m_Name: small_wall_left
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3989,7 +4047,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoDamageTime: 1
-  HP: 1000
+  HP: 200
+  wallName: small Wall
 --- !u!4 &1355193019 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7994776956875500424, guid: be6d9d3cddfea994ba51e3cf425087a2,
@@ -4166,6 +4225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1381468591}
+  - component: {fileID: 1381468592}
   m_Layer: 0
   m_Name: Sound Manager
   m_TagString: Untagged
@@ -4188,6 +4248,18 @@ Transform:
   m_Father: {fileID: 1985791438}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1381468592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381468590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0bc78ee8568dd4dbae69537d0e3d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1387183174 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 231599325682483475, guid: 3c8772670f7f8e9478fa577f8630b365,
@@ -4283,10 +4355,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall-graveyard-pillar
       objectReference: {fileID: 0}
+    - target: {fileID: 5413166173246152640, guid: 0d2a77e2f136c52429667f8afd9c8201,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134035165493473918, guid: 0d2a77e2f136c52429667f8afd9c8201,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5413166173246152640, guid: 0d2a77e2f136c52429667f8afd9c8201,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 942613624}
   m_SourcePrefab: {fileID: 100100000, guid: 0d2a77e2f136c52429667f8afd9c8201, type: 3}
 --- !u!1001 &1557605072
 PrefabInstance:
@@ -4300,6 +4386,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: wall-graveyard-3m (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 221661635745433985, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 601319309112775483, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
         type: 3}
@@ -4383,7 +4474,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 221661635745433985, guid: cec545ae7bcbbd64fa91a5e881fef7d0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 728608794}
+      addedObject: {fileID: 728608798}
   m_SourcePrefab: {fileID: 100100000, guid: cec545ae7bcbbd64fa91a5e881fef7d0, type: 3}
 --- !u!1001 &1580014689
 PrefabInstance:
@@ -5603,6 +5694,27 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1882341654 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5413166173246152640, guid: 0d2a77e2f136c52429667f8afd9c8201,
+    type: 3}
+  m_PrefabInstance: {fileID: 502511269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1882341658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882341654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ba3d5324bd07e478f484f5a7106d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoDamageTime: 1
+  HP: 800
+  wallName: small wall
 --- !u!1 &1929447722
 GameObject:
   m_ObjectHideFlags: 0
@@ -5792,10 +5904,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall-graveyard-pillar
       objectReference: {fileID: 0}
+    - target: {fileID: 5413166173246152640, guid: 0d2a77e2f136c52429667f8afd9c8201,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134035165493473918, guid: 0d2a77e2f136c52429667f8afd9c8201,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5413166173246152640, guid: 0d2a77e2f136c52429667f8afd9c8201,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1951807879}
   m_SourcePrefab: {fileID: 100100000, guid: 0d2a77e2f136c52429667f8afd9c8201, type: 3}
 --- !u!4 &1951807875 stripped
 Transform:
@@ -5803,6 +5929,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1951807874}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1951807879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821756443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ba3d5324bd07e478f484f5a7106d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoDamageTime: 1
+  HP: 800
+  wallName: small wall
 --- !u!1 &1985791437
 GameObject:
   m_ObjectHideFlags: 0
@@ -5916,6 +6057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoDamageTime: 1
   HP: 1000
+  wallName: Castle Wall_Left
 --- !u!65 &2039414516
 BoxCollider:
   m_ObjectHideFlags: 0

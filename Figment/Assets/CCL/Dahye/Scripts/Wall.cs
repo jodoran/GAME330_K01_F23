@@ -8,6 +8,10 @@ public class Wall : MonoBehaviour
     [Tooltip("HP")]
     public float HP = 1000;
 
+    [Header("Wall Name")]
+    [SerializeField]
+    private string wallName;
+
     /// <summary>
     /// 마지막으로 데미지 받은 시간
     /// </summary>
@@ -26,7 +30,7 @@ public class Wall : MonoBehaviour
 
         lastDamageTime = now;
         HP -= damage;
-        Debug.Log("Wall HP : " + HP + " damage : " + damage);
+        Debug.Log(wallName + HP + " damage : " + damage);
         // Wall 공격받을 때 VFX + SFX
 
         if (HP <= 0)
