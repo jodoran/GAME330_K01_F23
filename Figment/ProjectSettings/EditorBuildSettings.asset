@@ -12,9 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/tutorial scene.unity
     guid: 04b39c2767637b84797721304eb0a38e
   - enabled: 1
-    path: Assets/Scenes/FigmentTestScene.unity
-    guid: 89a9265d3c8c4e64a85d8ea95938bda1
-  - enabled: 1
     path: Assets/Scenes/TutorialScene.unity
     guid: 8111e7ba93c7fcd40baa4d8b154f17f9
+  - enabled: 1
+    path: Assets/Scenes/FigmentTestScene.unity
+    guid: 89a9265d3c8c4e64a85d8ea95938bda1
   m_configObjects: {}

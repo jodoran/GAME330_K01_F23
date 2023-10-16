@@ -6740,6 +6740,26 @@ MonoBehaviour:
   NoDamageTime: 1
   HP: 800
   wallCrash: {fileID: 8300000, guid: 61cba420f6e12a4418651d1623e60846, type: 3}
+--- !u!1 &1927130818 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8420001552245628028, guid: e1f32cf587520c548a9ea85133318f35,
+    type: 3}
+  m_PrefabInstance: {fileID: 7004214126271928051}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1927130822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927130818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcad225e7d2474a4db76c77c705010be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0.01
+  shakeMagnitude: 0.02
 --- !u!1 &1929447722
 GameObject:
   m_ObjectHideFlags: 0
@@ -7547,5 +7567,9 @@ PrefabInstance:
     - {fileID: 9055166665111718980, guid: e1f32cf587520c548a9ea85133318f35, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8420001552245628028, guid: e1f32cf587520c548a9ea85133318f35,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1927130822}
   m_SourcePrefab: {fileID: 100100000, guid: e1f32cf587520c548a9ea85133318f35, type: 3}

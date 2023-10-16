@@ -41,13 +41,12 @@ public class CameraShakeDH : MonoBehaviour
     public void Shake()
     {
         Debug.Log("카메라 흔들려");
-        StartCoroutine(StartShake());
+        StartCoroutine(ShakeCam());
     }
 
-    /// <summary>
-    /// 카메라 흔들기를 시작합니다.
-    /// </summary>
-    private IEnumerator StartShake()
+
+
+    private IEnumerator ShakeCam()
     {
         originalPosition = transform.localPosition;
         float elapsed = 0.0f;
