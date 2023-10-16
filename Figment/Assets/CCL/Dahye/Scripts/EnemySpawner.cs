@@ -74,6 +74,7 @@ public class EnemySpawner : MonoBehaviour
             enemy.Setting(enemySO);
 
             SoundManager.Instance.PlayEffectSound(spawnsfx);
+
         }
     }
 

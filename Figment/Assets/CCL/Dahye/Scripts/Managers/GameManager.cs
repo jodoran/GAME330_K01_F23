@@ -19,6 +19,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip gameOverBGM;
     [SerializeField] private AudioClip gameWinBGM;
 
+
+    public GameObject bigwaveText;
+    public GameObject finalwaveText;
+    public GameObject gameoverText;
+
+    public Vector3 position = new Vector3(-2, 24, 0);
+    public Quaternion rotation = Quaternion.identity;
     /// <summary>
     /// 현재 라운드
     /// </summary>
@@ -43,30 +50,66 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Debug.Log("게임 스타트");
-        StartCoroutine(StartRound());
+        StartCoroutine(Round0());
     }
 
-    IEnumerator StartRound()
+    IEnumerator Round0()
     {
         Debug.Log("라운드 시작 : " + this.currentRound);
+
         this.isBreak = false;
         yield return new WaitForSeconds(this.roundTime); // 30
         this.isBreak = true;
+
+
+        GameObject text = Instantiate(bigwaveText, position, rotation);
+        yield return new WaitForSeconds(this.roundBreakTime); // 10
+        this.isBreak = false;
+        Destroy(text);
+
+        Debug.Log("라운드 끝 : " + this.currentRound);
+
+        this.currentRound += 1;
+        StartCoroutine(Round1());
+
+    }
+    IEnumerator Round1()
+    {
+        Debug.Log("라운드 시작 : " + this.currentRound);
+
+        this.isBreak = false;
+        yield return new WaitForSeconds(this.roundTime); // 30
+        this.isBreak = true;
+
+
+        GameObject text = Instantiate(finalwaveText, position, rotation);
+        yield return new WaitForSeconds(this.roundBreakTime); // 10
+        this.isBreak = false;
+        Destroy(text);
+
+        Debug.Log("라운드 끝 : " + this.currentRound);
+        this.currentRound += 1;
+        StartCoroutine(FinalRound2());
+    }
+    IEnumerator FinalRound2()
+    {
+        Debug.Log("라운드 시작 : " + this.currentRound);
+
+        this.isBreak = false;
+        yield return new WaitForSeconds(this.roundTime); // 30
+        this.isBreak = true;
+
         yield return new WaitForSeconds(this.roundBreakTime); // 10
         this.isBreak = false;
 
         Debug.Log("라운드 끝 : " + this.currentRound);
 
-        if (this.currentRound == this.round)
-        {
-            this.isGameActive = false;
-            GameOver();
-        }
-        else
-        {
-            this.currentRound += 1;
-            StartCoroutine(StartRound());
-        }
+        this.isGameActive = false;
+        GameOver();
+        GameObject text = Instantiate(gameoverText, position, rotation);
+        yield return new WaitForSeconds(this.roundBreakTime); // 10
+        Destroy(text);
+
     }
 
     /// <summary>
@@ -114,6 +157,7 @@ public class GameManager : MonoBehaviour
         {
             //게임실패
             Debug.Log("Game Over  ! [Score : " + UnitManager.Instance.Score + " ]");
+            GameObject text = Instantiate(gameoverText, position, rotation);
             SoundManager.Instance.PlayEffectSound(gameOverBGM);
             SoundManager.Instance.OffBGM();
         }
