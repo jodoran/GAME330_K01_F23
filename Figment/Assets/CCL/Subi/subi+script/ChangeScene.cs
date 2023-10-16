@@ -15,7 +15,7 @@ public class ChangeScene : MonoBehaviour
     }
     public void scenechange()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     // Update is called once per frame
     void Update()
@@ -23,9 +23,9 @@ public class ChangeScene : MonoBehaviour
         if (Input.GetKey(KeyCode.Space)) 
         {
             
-            //SceneManager.LoadScene("FigmentTestScene");
-            SceneManager.LoadScene(0);
-            Time.timeScale = 1;
+            SceneManager.LoadScene("FigmentTestScene");
+            //SceneManager.LoadScene(1);
+            //Time.timeScale = 1;
 
         }
 
