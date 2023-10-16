@@ -30,7 +30,6 @@ public class Enemy : MonoBehaviour
     {
         switch (enemyName)
         {
-           if player
             case "L":
                 Health = 40;
                 break;
@@ -41,6 +40,7 @@ public class Enemy : MonoBehaviour
                 Health = 3;
                 break;
         }
+
     }
 
     void Update()
@@ -97,11 +97,19 @@ public class Enemy : MonoBehaviour
                 {
                     Debug.Log("Not Item");
                 }
-                else if (ran < 10) //Coin 70%
+                else if (ran < 8) //Coin 70%
                 {
                     GameObject itemCoin = objectManager.MakeObj("ItemCoin");
                     itemCoin.transform.position = transform.position;
                     //Instantiate(itemCoin, transform.position, itemCoin.transform.rotation);
+                }
+                else
+                {
+                     if (ran < 10) //ExtraLife 20%
+                    {
+                        GameObject extraLife = objectManager.MakeObj("ExtraLife");
+                        extraLife.transform.position = transform.position;
+                    }
                 }
                 //else if (ran < 8) //Power 20%
                 //{

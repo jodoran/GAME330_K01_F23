@@ -4975,7 +4975,7 @@ MonoBehaviour:
   curItemDelay: 0
   maxScore: 1000
   curScore: 0
-  Stage1: 0
+  Stage1: 1
   Stage2: 0
   Stage3: 0
   gameOver: 0

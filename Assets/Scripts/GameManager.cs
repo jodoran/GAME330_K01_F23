@@ -67,15 +67,15 @@ public class GameManager : MonoBehaviour
     public void SpawnItem()
     {
         int ranItem = Random.Range(0, 10);
-        if (ranItem < 6) //Not Item 50%
+        if (ranItem < 6) //Not Item 60%
         {
             Debug.Log("Not Item");
         }
-        else if (ranItem < 9) //Coin 40%
+        else if (ranItem < 9) //Coin 30%
         {
             GameObject itemCoin = objectManager.MakeObj("ItemCoin");
 
-            int ranPoint = Random.Range(0, 8);
+            int ranPoint = Random.Range(0, 9);
             itemCoin.transform.position = ItemspawnPoints[ranPoint].position;
 
             Rigidbody2D rb2d = itemCoin.GetComponent<Rigidbody2D>();
@@ -94,11 +94,11 @@ public class GameManager : MonoBehaviour
                 rb2d.velocity = new Vector2(0, 0);
             }
         }
-        else if (ranItem < 8) //Coin 10%
+        else if (ranItem < 10) //Coin 10%
         {
             GameObject itemLife = objectManager.MakeObj("ExtraLife");
 
-            int ranPoint = Random.Range(0, 8);
+            int ranPoint = Random.Range(0, 9);
             itemLife.transform.position = ItemspawnPoints[ranPoint].position;
 
             Rigidbody2D rb2d = itemLife.GetComponent<Rigidbody2D>();
@@ -120,10 +120,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void STAGE1()
-    {
+    {   
         int ranEnemy = Random.Range(0, 1);
         int ranPoint = Random.Range(0, 6);
-        GameObject enemy = objectManager.MakeObj(enemyObjs["EnemyS"]);
+        GameObject enemy = objectManager.MakeObj(enemyObjs[ranEnemy]);
         enemy.transform.position = spawnPoints[ranPoint].position;
 
         Rigidbody2D rb2d = enemy.GetComponent<Rigidbody2D>();
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
     {
         int ranEnemy = Random.Range(0, 2);
         int ranPoint = Random.Range(0, 6);
-        GameObject enemy = objectManager.MakeObj(enemyObjs["EnemyM"]);
+        GameObject enemy = objectManager.MakeObj(enemyObjs[ranEnemy]);
         enemy.transform.position = spawnPoints[ranPoint].position;
 
         Rigidbody2D rb2d = enemy.GetComponent<Rigidbody2D>();
@@ -169,9 +169,9 @@ public class GameManager : MonoBehaviour
 
     public void STAGE3()
     {
-        int ranEnemy = Random.Range(0, 3);dddd
+        int ranEnemy = Random.Range(0, 3);
         int ranPoint = Random.Range(0, 9);
-        GameObject enemy = objectManager.MakeObj(enemyObjs["EnemyL"]);
+        GameObject enemy = objectManager.MakeObj(enemyObjs[ranEnemy]);
         enemy.transform.position = spawnPoints[ranPoint].position;
 
         Rigidbody2D rb2d = enemy.GetComponent<Rigidbody2D>();

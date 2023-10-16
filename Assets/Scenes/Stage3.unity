@@ -586,6 +586,7 @@ MonoBehaviour:
   speed: 1
   startIndex: 2
   endIndex: 0
+  index: 0
   sprites:
   - {fileID: 1206438390}
   - {fileID: 1748023967}
@@ -2663,7 +2664,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -65.54}
+  m_AnchoredPosition: {x: 0, y: -65.54001}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1106114962
@@ -2964,6 +2965,7 @@ MonoBehaviour:
   speed: 1
   startIndex: 2
   endIndex: 0
+  index: 0
   sprites:
   - {fileID: 2067661333}
   - {fileID: 1677949200}
@@ -5111,7 +5113,7 @@ MonoBehaviour:
   curScore: 0
   Stage1: 0
   Stage2: 0
-  Stage3: 0
+  Stage3: 1
   gameOver: 0
   nextLevel: 0
   player: {fileID: 562585217}
