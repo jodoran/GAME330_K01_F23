@@ -24,14 +24,10 @@ public class Player : MonoBehaviour
     private bool isBlinking = false;
     private SpriteRenderer playerRenderer;
 
-    private ParticleSystem footstepParticles;
-
     private void Start()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
-
-        footstepParticles = GetComponent<ParticleSystem>();
 
         //깜빡
         playerRenderer = GetComponent<SpriteRenderer>();
@@ -62,13 +58,11 @@ public class Player : MonoBehaviour
         {
             transform.Translate(-MoveSpeed * Time.deltaTime, 0, 0);
 
-            footstepParticles.Emit(1); // 발자국 입자 발사
         }
         else if (FigmentInput.GetButton(FigmentInput.FigmentButton.RightButton))
         {
             transform.Translate(MoveSpeed * Time.deltaTime, 0, 0);
 
-            footstepParticles.Emit(1); // 발자국 입자 발사
         }
     }
 
