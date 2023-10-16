@@ -444,6 +444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf16cc7e2aacba549b19c0146e1cda2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadsfx: {fileID: 8300000, guid: b1b9c1f0ea1fcae439ed1a4d44ff05fd, type: 3}
+  attacksfx: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
 --- !u!1 &2802681960492102730
 GameObject:
   m_ObjectHideFlags: 0
