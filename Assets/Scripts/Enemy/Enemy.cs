@@ -31,13 +31,13 @@ public class Enemy : MonoBehaviour
         switch (enemyName)
         {
             case "L":
-                Health = 40;
+                Health = 30;
                 break;
             case "M":
                 Health = 10;
                 break;
             case "S":
-                Health = 3;
+                Health = 10;
                 break;
         }
 
@@ -63,10 +63,10 @@ public class Enemy : MonoBehaviour
 
             Rigidbody2D rb2d = bullet.GetComponent<Rigidbody2D>();
             Vector3 dirVec = Vector3.down;
-            rb2d.AddForce(dirVec.normalized * 1, ForceMode2D.Impulse);
+            rb2d.AddForce(dirVec.normalized * 2, ForceMode2D.Impulse);
         }
 
-        curShotDelay = 0;
+        curShotDelay = 0.1F;
     }
 
     void Reload()

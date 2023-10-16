@@ -273,7 +273,7 @@ public class Player : MonoBehaviour
             switch (item.type)
             {
                 case "Coin":
-                    score += 500;
+                    score += 200;
                     gm.curScore = score;
                     break;
                 case "ExtraLife":

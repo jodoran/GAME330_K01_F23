@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Not Item");
         }
-        else if (ranItem < 9) //Coin 30%
+        else if (ranItem < 6) //Coin 30%
         {
             GameObject itemCoin = objectManager.MakeObj("ItemCoin");
 
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
                 rb2d.velocity = new Vector2(0, 0);
             }
         }
-        else if (ranItem < 10) //Coin 10%
+        else if (ranItem < 8) //Coin 10%
         {
             GameObject itemLife = objectManager.MakeObj("ExtraLife");
 
