@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BG
+    uniqueID: 1994796367
+    locked: 0
+  - name: Box
+    uniqueID: 2783994771
+    locked: 0
+  - name: Circle
+    uniqueID: 798621061
+    locked: 0
