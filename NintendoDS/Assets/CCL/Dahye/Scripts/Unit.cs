@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Unit : MonoBehaviour
 {
+    /* 이동과 드롭의 기능을 가진 유닛의 행동 스크립트
+    */
+
     //--------------------------------------
     //Key Inputs
     private string Akey = "Fire2";
@@ -21,6 +25,8 @@ public class Movement : MonoBehaviour
     Rigidbody2D rigid;
     //Animator anim;
 
+    public event EventHandler OnAbuttonPressed;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -34,13 +40,13 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+
         if (Input.GetButtonDown(Akey))
         {
-            //이벤트 핸들러 실행 코드 추후변경
-            Drop();
-            isMove = false;
-            inBox = true;
+            //OnAbuttonPressed?.Invoke(this, EventArgs.Empty);
+            GameManager.Instance.AButtonPressed();
         }
+
     }
 
     //지속적인 키 입력은 FixedUpdate에서 하는 것
@@ -59,10 +65,6 @@ public class Movement : MonoBehaviour
         else
         { }
 
-        //Restrict movement over borders
-        float leftBorder = -0.56f;
-        float rightBorger = 0.56f;
-
 
 
 
@@ -75,12 +77,38 @@ public class Movement : MonoBehaviour
 
 
     }
-    void Drop()
+    private void OnEnable()
     {
-        rigid.simulated = true;
-        //오브젝트 드롭 sfx 추가
-
+        GameManager.Instance.OnAbuttonPressed += HandleAbuttonPressed;
+        Debug.Log("Subscribed to OnAbuttonPressed event.");
     }
+    private void OnDisable()
+    {
+        GameManager.Instance.OnAbuttonPressed -= HandleAbuttonPressed;
+    }
+    private void HandleAbuttonPressed(object sender, EventArgs e)
+    {
+        if (GameManager.Instance.lastUnit == null) // 드롭을 하기위해선 오브젝트가 있어야하는데, 생성된 오브젝트가 null 이라면 return으로 나가고, 생성받고 와라.
+            return;
+
+        Debug.Log("HandleAbuttonPressed method called.");
+        Drop();
+        GameManager.Instance.lastUnit = null;
+
+
+        Debug.Log("이벤트 드롭 마무리");
+    }
+    public void Drop()
+    {
+        isMove = false;
+        rigid.simulated = true;
+        Debug.Log("유닛 드롭 발동");
+        //오브젝트 드롭 sfx 추가
+    }
+
+
+
+
 
 }
 
