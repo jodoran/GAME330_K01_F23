@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
     void NextUnit() // 다음 유닛 생성 함수
     {
         Unit newUnit = GetUnits(); // 새로운 유닛 생성을 위해 겟유닛 함수 호출
+
+
         lastUnitPrefab = newUnit; // 생성된 유닛을 일시 보관
 
         StartCoroutine("WaitNext");
@@ -106,7 +108,4 @@ public class GameManager : MonoBehaviour
                 Debug.Log("No subscribers for event");
         }
     }
-
-
-
 }

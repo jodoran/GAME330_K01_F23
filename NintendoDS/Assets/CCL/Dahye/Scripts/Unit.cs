@@ -10,7 +10,6 @@ public class Unit : MonoBehaviour
 
 {
 
-    //[SerializeField] private Vector2 thisObj;
     [SerializeField]
     private float speed = 3.0f;
 
@@ -26,16 +25,17 @@ public class Unit : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
 
-        rigid.simulated = false;
         isMove = true;
         inBox = false;
-        // OnEnable(); // Event Subscription ON! 
+        rigid.simulated = false;
+        //OnEnable(); // Event Subscription ON! 
 
         //anim = GetComponent<Animator>();
     }
 
     void Update()
     {
+        // Debug.Log(rigid.simulated);
         //if (Input.GetButtonDown(GameManager.Instance.Akey))
         //    GameManager.Instance.AButtonPressed();
     }
@@ -73,32 +73,19 @@ public class Unit : MonoBehaviour
             return;
         Drop();
 
-        Debug.Log("이벤트 드롭 후 Null 처리 끝 ");
+        Debug.Log("이벤트 드롭 후 Null 처리 끝");
     }
     public void Drop()
     {
-        isMove = false;
-        rigid.simulated = true;
-        Debug.Log("드롭 발동");
-        GameManager.Instance.lastUnitPrefab = null;
+        isMove = false; // 드롭된 오브젝트 좌우 컨트롤 불가
+        rigid.simulated = true; // 드롭 
         //오브젝트 드롭 sfx 추가
+
+        GameManager.Instance.lastUnitPrefab = null; // 드롭 됐으니 오브젝트 널 처리
+        OnDisable(); // 드롭된 오브젝트 드롭기능 제거 
+
     }
 
-
-
-
-
+    //---------------------------------------------------------
 }
-
-
-
-
-
-
-//  ***Study Notes***
-// [TODO] 드롭한 후에는 이동 컨트롤 불가 로직 추가
-//  - 특정 range 안에서만 이동 가능 -> rigidbody simulation 온오프로 해결! 
-//  - 박스 range 안에 감지 후 이동 불가능
-//  - Screen tap printer 에서 스타일러 사용 시 인풋설정 변화하는 법?
-
 
