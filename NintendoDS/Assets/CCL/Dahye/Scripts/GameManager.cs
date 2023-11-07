@@ -48,11 +48,10 @@ public class GameManager : MonoBehaviour
     public string horizontal = "Horizontal";
     public string vertical = "Vertical";
 
+
     //---------------------------------------------
     //이벤트 핸들러
     public event EventHandler OnAbuttonPressed;
-
-    public GameObject unitPrefabs;
 
     public Unit lastUnitPrefab;
     public Transform unitGroups;
@@ -65,14 +64,37 @@ public class GameManager : MonoBehaviour
     {
         AButtonPressed();
     }
+    //---------------------------------------------
+    // 유닛 생성 관리
 
-    Unit GetUnits()
+    public GameObject[] unitPrefabs;
+
+    public Unit GetUnits()
     {   // 유닛 생성 함수
         // 유닛 프리팹을 생성 후에 유닛그룹 폴더 안에 넣겠다는 의미.
         // 유닛그룹은 스폰위치를 담당하기도 한다. 
-        GameObject instant = Instantiate(unitPrefabs, unitGroups);
+
+        GameObject prefabToSpawn = GetRandomUnitPrefab();
+
+        GameObject instant = Instantiate(prefabToSpawn, unitGroups);
+
         Unit instantUnit = instant.GetComponent<Unit>();
+
         return instantUnit;
+    }
+    public GameObject GetRandomUnitPrefab()
+    {
+        if (unitPrefabs == null || unitPrefabs.Length == 0)
+        {
+            Debug.LogError("UnitPrefabs array is not set or empty!");
+            return null;
+        }
+
+        // 랜덤 인덱스 생성
+        int randomIndex = UnityEngine.Random.Range(0, unitPrefabs.Length);
+
+        // 랜덤 인덱스에 해당하는 프리팹 반환
+        return unitPrefabs[randomIndex];
     }
 
     void NextUnit() // 다음 유닛 생성 함수
@@ -95,9 +117,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         NextUnit();
     }
-
-
-
 
     public void AButtonPressed()
     {

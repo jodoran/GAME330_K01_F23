@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private float speed = 3.0f;
 
-    private bool isMove;
+    private bool canMove;
     private bool inBox;
 
 
@@ -25,7 +25,7 @@ public class Unit : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
 
-        isMove = true;
+        canMove = true;
         inBox = false;
         rigid.simulated = false;
         //OnEnable(); // Event Subscription ON! 
@@ -35,9 +35,6 @@ public class Unit : MonoBehaviour
 
     void Update()
     {
-        // Debug.Log(rigid.simulated);
-        //if (Input.GetButtonDown(GameManager.Instance.Akey))
-        //    GameManager.Instance.AButtonPressed();
     }
 
     void FixedUpdate() //지속적인 키 입력은 FixedUpdate
@@ -47,7 +44,8 @@ public class Unit : MonoBehaviour
 
     void horizontalMove()
     {
-        if (isMove && !inBox)
+        Debug.Log(inBox);
+        if (canMove && !inBox)
         {
             var movement = Input.GetAxis(GameManager.Instance.horizontal);
             Vector3 newPosition = transform.position + new Vector3(movement, 0, 0) * Time.deltaTime * speed;
@@ -70,7 +68,7 @@ public class Unit : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             // If the unit collides with a wall, stop its movement
-            isMove = false;
+            canMove = false;
         }
     }
 
@@ -80,7 +78,7 @@ public class Unit : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             // If the unit stops colliding with a wall, allow movement again
-            isMove = true;
+            canMove = true;
         }
     }
 
@@ -107,13 +105,14 @@ public class Unit : MonoBehaviour
     }
     public void Drop()
     {
-        isMove = false; // 드롭된 오브젝트 좌우 컨트롤 불가
+        canMove = false; // 드롭된 오브젝트 좌우 컨트롤 불가
+        inBox = true;
         rigid.simulated = true; // 드롭 
         //오브젝트 드롭 sfx 추가
 
         GameManager.Instance.lastUnitPrefab = null; // 드롭 됐으니 오브젝트 널 처리
         OnDisable(); // 드롭된 오브젝트 드롭기능 제거 
-
+        Debug.Log(canMove);
     }
 
     //---------------------------------------------------------

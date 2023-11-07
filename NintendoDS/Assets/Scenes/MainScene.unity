@@ -2375,10 +2375,14 @@ MonoBehaviour:
   Xkey: Jump
   horizontal: Horizontal
   vertical: Vertical
-  unitPrefabs: {fileID: 6813519080821623276, guid: cb5126caa7f50c645810fb8979ed517f,
-    type: 3}
   lastUnitPrefab: {fileID: 0}
   unitGroups: {fileID: 1192132688}
+  unitPrefabs:
+  - {fileID: 6813519080821623276, guid: cb5126caa7f50c645810fb8979ed517f, type: 3}
+  - {fileID: 6813519080821623276, guid: 38d03aa841aa51b4b8069dc156c8dc52, type: 3}
+  - {fileID: 6813519080821623276, guid: a0ad64687bb5b3d4d81728f9efb6228c, type: 3}
+  - {fileID: 6813519080821623276, guid: d9a35a094f2e2cb43881869f0aa8d0a6, type: 3}
+  - {fileID: 6813519080821623276, guid: 9f7fe6b5e4d1b5848b5dc42c3f71eb20, type: 3}
 --- !u!1 &1423795622
 GameObject:
   m_ObjectHideFlags: 0
