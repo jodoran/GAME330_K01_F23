@@ -44,15 +44,45 @@ public class Unit : MonoBehaviour
     {
         horizontalMove();
     }
+
     void horizontalMove()
     {
-        if (isMove && inBox == false)
+        if (isMove && !inBox)
         {
             var movement = Input.GetAxis(GameManager.Instance.horizontal);
-            transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * speed;
+            Vector3 newPosition = transform.position + new Vector3(movement, 0, 0) * Time.deltaTime * speed;
+
+            // Before moving, check if the new position would collide with a wall
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(movement, 0), Mathf.Abs(movement) * Time.deltaTime * speed);
+            if (hit.collider != null && hit.collider.CompareTag("Wall"))
+            {
+                // If a wall is hit, don't move
+                return;
+            }
+
+            // If no wall is hit, proceed with the move
+            transform.position = newPosition;
+        }
+    }
+    //----------충돌관련--------------------------------------------
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Wall"))
+        {
+            // If the unit collides with a wall, stop its movement
+            isMove = false;
         }
     }
 
+    // Add a OnCollisionExit2D to handle when the unit stops colliding with walls
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Wall"))
+        {
+            // If the unit stops colliding with a wall, allow movement again
+            isMove = true;
+        }
+    }
 
     //-----------Event Subscribe-----------------------------------
 
