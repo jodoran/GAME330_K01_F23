@@ -15,6 +15,7 @@ public class Unit : MonoBehaviour
 
     private bool canMove;
     private bool inBox;
+    private bool isMerge;
 
 
     Rigidbody2D rigid;
@@ -77,8 +78,12 @@ public class Unit : MonoBehaviour
     {
         if (collision.collider.CompareTag("Wall"))
         {
-            // If the unit stops colliding with a wall, allow movement again
-            canMove = true;
+            canMove = true;     // If the unit stops colliding with a wall, allow movement again
+        }
+        if (collision.gameObject.tag == "Unit")
+        {
+            Unit other = collision.gameObject.GetComponent<Unit>();//유닛 두개 합치는 로직
+
         }
     }
 

@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         AButtonPressed();
     }
     //---------------------------------------------
-    // 蜡粗 积己 包府
+    // 蜡粗 罚待 拌魂 棺 积己 包府 力芭包府
 
     public GameObject[] unitPrefabs;
 
