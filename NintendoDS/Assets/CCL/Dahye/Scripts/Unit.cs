@@ -16,32 +16,15 @@ public class Unit : MonoBehaviour
     public float speed = 3.0f;
 
     private Rigidbody2D rigid;
-    public Rigidbody2D Rigid
-    {
-        get { return rigid; }
-        set { rigid = value; }
-    }
+    public Rigidbody2D Rigid;
 
     private bool canMove;
-    public bool CanMove
-    {
-        get { return canMove; }
-        set { canMove = value; }
-    }
+    public bool CanMove; // 게임오버 시 이동 비활성화
 
     private bool inBox;
-    public bool InBox
-    {
-        get { return inBox; }
-        set { inBox = value; }
-    }
+    public bool InBox;   // 게임오버 조건에 사용
 
-    private bool isMerge;
-    public bool IsMerge
-    {
-        get { return isMerge; }
-        set { isMerge = value; }
-    }
+    public bool IsMerge;
 
     //Animator anim;
 

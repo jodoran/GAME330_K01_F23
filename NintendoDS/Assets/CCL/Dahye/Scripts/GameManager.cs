@@ -1,44 +1,48 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     /*  Score 
      *  GameOver Condition 
      *  Restart 
+     *  - void AddScore(int score)
+        - 카운트 추가용
+        - bool IsGameOver( )
+        - 게임 진행상황 여부 판단
+        - void Restart(bool isRestart)
+        - 선 라인과 유닛 태그 충돌 시  게임오버 진행 (after job)
      */
 
-    public bool isGameOver;
+    // public bool IsGameOver;
+    // public bool IsRestart;
+    public int Score;
 
-
-    //-------------외부참조-----------------------
-
-    private static GameManager _instance; // 내부
-    public static GameManager Instance // 외부
+    /// <summary>
+    /// 카운트 추가용
+    /// </summary>
+    public void AddScore(int score)
     {
-        get
-        {
-            // 인스턴스가 없는 경우에 접근하려 하면 인스턴스를 할당해준다.
-            if (_instance is null)
-            {
-                _instance = FindObjectOfType<GameManager>();
-            }
-            return _instance;
-        }
+        this.Score += score;
+        Debug.Log(Score); // 현재 스코어 합산 출력 
     }
-    private void Awake()
+
+    private void UIRestartMassage() // 게임 결과 및 재시작 UI 
     {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        // 인스턴스가 존재하는 경우 새로생기는 인스턴스를 삭제한다.
-        else if (_instance != this)
-        {
-            Debug.Log("게임매니저 인스턴스 중복! 삭제하겠습니당~");
-            Destroy(gameObject);
-        }
-        // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
 
     }
+
+    public bool IsGameOver() // 게임오버 조건
+    {
+
+
+        return false;
+    }
+
+
+
+
+
+
+
+
 }

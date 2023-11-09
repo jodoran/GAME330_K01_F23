@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class UnitManager : MonoBehaviour
+public class UnitManager : SingletonMonoBehaviour<UnitManager>
 {
     /*  Unit Management
      *  Object Pool
@@ -10,46 +10,7 @@ public class UnitManager : MonoBehaviour
      *  Merge obj spawn         
      *  New spawn random calculation with ratio 
      */
-    //-------------외부참조-----------------------
 
-    private static UnitManager _instance; // 내부
-    public static UnitManager Instance // 외부
-    {
-        get
-        {
-            if (_instance is null)
-            {
-                _instance = FindObjectOfType<UnitManager>();
-            }
-            return _instance;
-        }
-    }
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (_instance != this)
-        {
-            Debug.Log("유닛매니저 인스턴스 중복! 삭제하겠습니당~");
-            Destroy(gameObject);
-        }
-    }
-
-    //--------------------------------------
-
-
-
-
-    void Start()
-    {
-        GameManager.Instance.isGameOver = false;
-        if (!GameManager.Instance.isGameOver)
-            NextUnit();
-    }
-    //---------------------------------------------
     // 유닛 랜덤 계산 및 생성 관리 제거관리
 
     [SerializeField] private GameObject[] unitPrefabs;
@@ -58,6 +19,13 @@ public class UnitManager : MonoBehaviour
     public Unit lastUnitPrefab;
     public Unit myUnit;
 
+
+    void Start()
+    {
+        //GameManager.Instance.isGameOver = false;
+        //if (!GameManager.Instance.isGameOver)
+        NextUnit();
+    }
     public Unit GetUnits()
     {   // 유닛 생성 함수
         // 유닛 프리팹을 생성 후에 유닛그룹 폴더 안에 넣겠다는 의미.

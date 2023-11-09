@@ -1,28 +1,7 @@
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
-    private static SoundManager instance = null;
-
-
-    public static SoundManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType(typeof(SoundManager)) as SoundManager;
-                if (instance == null)
-                {
-                    GameObject obj = Instantiate(Resources.Load("SoundManager")) as GameObject;
-                    obj.name = "SoundManager";
-                    instance = obj.GetComponent<SoundManager>();
-                }
-            }
-            return instance;
-        }
-    }
-
     [Tooltip("BGM Audio Source")]
     [SerializeField] private AudioSource MusicPlayer = null;
     [Tooltip("SFX Audio Source")]
