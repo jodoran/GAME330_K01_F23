@@ -1,6 +1,7 @@
 //GameManager.cs
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -49,13 +50,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        Debug.Log("게임 스타트");
         StartCoroutine(Round0());
     }
 
     IEnumerator Round0()
     {
-        Debug.Log("라운드 시작 : " + this.currentRound);
 
         this.isBreak = false;
         yield return new WaitForSeconds(this.roundTime); // 30
@@ -67,7 +66,6 @@ public class GameManager : MonoBehaviour
         this.isBreak = false;
         Destroy(text);
 
-        Debug.Log("라운드 끝 : " + this.currentRound);
 
         this.currentRound += 1;
         StartCoroutine(Round1());
@@ -75,7 +73,6 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator Round1()
     {
-        Debug.Log("라운드 시작 : " + this.currentRound);
 
         this.isBreak = false;
         yield return new WaitForSeconds(this.roundTime); // 30
@@ -87,13 +84,11 @@ public class GameManager : MonoBehaviour
         this.isBreak = false;
         Destroy(text);
 
-        Debug.Log("라운드 끝 : " + this.currentRound);
         this.currentRound += 1;
         StartCoroutine(FinalRound2());
     }
     IEnumerator FinalRound2()
     {
-        Debug.Log("라운드 시작 : " + this.currentRound);
 
         this.isBreak = false;
         yield return new WaitForSeconds(this.roundTime); // 30
@@ -102,7 +97,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(this.roundBreakTime); // 10
         this.isBreak = false;
 
-        Debug.Log("라운드 끝 : " + this.currentRound);
 
         this.isGameActive = false;
         GameOver();
@@ -152,23 +146,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        //게임이 오버가 호출됐는데 게임오버가 아니거나, 게임오버이지만 에너미가 모두 죽지 않았을 경우
-        if (isGameActive || (!isGameActive && !UnitManager.Instance.IsEnemyAllDie()))
-        {
-            //게임실패
-            Debug.Log("Game Over  ! [Score : " + UnitManager.Instance.Score + " ]");
-            GameObject text = Instantiate(gameoverText, position, rotation);
-            SoundManager.Instance.PlayEffectSound(gameOverBGM);
-            SoundManager.Instance.OffBGM();
-        }
-        else
-        {
-            //게임성공
-            Debug.Log("Game Clear ! [Score : " + UnitManager.Instance.Score + " ]");
-            SoundManager.Instance.PlayEffectSound(gameWinBGM);
-            SoundManager.Instance.OffBGM();
-        }
 
-        // 예를 들어, SceneManager.LoadScene("GameOverScene"); 등
+        SceneManager.LoadScene("GameOver");
+
     }
 }

@@ -75,7 +75,6 @@ public class Enemy_DH : MonoBehaviour
     public void OnDamaged(float damage)
     {
         this.hp -= damage;
-        Debug.Log("데미지 량 :" + damage + "현재 체력 : " + hp);
         if (hp <= 0f)
             changeState(State.Dead);
     }
@@ -115,12 +114,13 @@ public class Enemy_DH : MonoBehaviour
         if (other == null)
             return;
 
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall"))
         {
             changeState(State.Attack);
             triggerCollider = other;
         }
     }
+
 
     /// <summary>
     /// 에너미가 아무것도 안닿아 있으면 움직입니다.
@@ -143,7 +143,6 @@ public class Enemy_DH : MonoBehaviour
                 {
                     if (target == null)
                     {
-                        Debug.Log("타켓 미 감지");
                         return;
                     }
 
@@ -179,8 +178,7 @@ public class Enemy_DH : MonoBehaviour
                         if (this.triggerCollider.CompareTag("Player"))
                         {
                             var player = this.triggerCollider.GetComponent<Player>();
-                            player.OnDamage(this.damage);
-                            Debug.Log("적 : 플레이어 어택!");
+                            //player.OnDamage(this.damage);
 
                             SoundManager.Instance.PlayEffectSound(attacksfx);
                             attackvfx?.Play();

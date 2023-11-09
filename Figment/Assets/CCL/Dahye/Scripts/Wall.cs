@@ -33,7 +33,7 @@ public class Wall : MonoBehaviour
         if (HP <= 0)
         {
             SoundManager.Instance.PlayEffectSound(wallCrash);
-            CameraShakeDH.Instance.Shake();
+            //CameraShakeDH.Instance.Shake();
             Destroy(gameObject);
 
             //Wall 무너질 때 VFX + SFX

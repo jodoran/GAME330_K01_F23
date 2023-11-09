@@ -64,9 +64,7 @@ public class EnemySpawner : MonoBehaviour
             int enemytypeIndex = SpawnProbabilityChoose(WaveProbabilityArray(round));
 
             // 적 타입을 불러옴
-            Debug.Log("index : " + enemytypeIndex);
             EnemySO enemySO = enemySoArray[enemytypeIndex];
-            Debug.Log("적 스폰 : " + enemySO.EnemyType + " 위치 : " + spawnPositionIndex);
 
             //생성된 obj 에 EnemyBase 클래스컴포넌트를 가져와서 셋팅
             var obj = Instantiate(enemySO.Prefeb, spawnPoint, rotation);

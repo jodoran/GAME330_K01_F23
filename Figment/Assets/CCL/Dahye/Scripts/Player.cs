@@ -67,34 +67,9 @@ public class Player : MonoBehaviour
 
         }
     }
-
-    /// <summary>
-    /// 플레이어 데미지 받음
-    /// </summary>
-    public void OnDamage(float damage)
+    void OnCollisionEnter(Collision collision) // 충돌 시
     {
-        Debug.Log("데미지 받음");
-        var now = Time.time;
-        if (now - lastDamageTime <= NoDamageTime)
-        {
-            Debug.Log("무적 상태"); // 무적 상태 이펙트 추가 // 무적 상태 bgm 추가
-            return;
-        }
-
-        lastDamageTime = now;
-        HP -= damage;
-        Debug.Log("Player HP : " + HP);
-        //Camera.Instance.Shake(); // 카메라 쉐이크 기능 추가
-
-        //깜빡
-        if (!isBlinking)
-        {
-            StartCoroutine(BlinkPlayer());
-        }
-
-
-
-        if (HP <= 0)
+        if (collision.collider.CompareTag("Enemy"))
         {
             GameManager.Instance.GameOver();
         }
