@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 // UnitManager 클래스: 유닛의 생성 및 관리를 담당
 public class UnitManager : MonoBehaviour
 {
@@ -65,4 +69,5 @@ public class UnitManager : MonoBehaviour
             DontDestroyOnLoad(instance);
         }
     }
+
 }
