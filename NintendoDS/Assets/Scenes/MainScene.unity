@@ -1134,12 +1134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6144cd0f7516af04bae04af4e8fe1fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Akey: Fire2
-  Bkey: Fire1
-  Ykey: Fire3
-  Xkey: Jump
-  horizontal: Horizontal
-  vertical: Vertical
 --- !u!1 &537422530
 GameObject:
   m_ObjectHideFlags: 0
@@ -2111,6 +2105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1060170532}
   - component: {fileID: 1060170533}
+  - component: {fileID: 1060170534}
   m_Layer: 0
   m_Name: UnitManager
   m_TagString: Untagged
@@ -2145,15 +2140,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad417ad7047e6f47b06d17b0b596247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefabs:
-  - {fileID: 6813519080821623276, guid: cb5126caa7f50c645810fb8979ed517f, type: 3}
-  - {fileID: 6813519080821623276, guid: 38d03aa841aa51b4b8069dc156c8dc52, type: 3}
-  - {fileID: 6813519080821623276, guid: a0ad64687bb5b3d4d81728f9efb6228c, type: 3}
-  - {fileID: 6813519080821623276, guid: d9a35a094f2e2cb43881869f0aa8d0a6, type: 3}
-  - {fileID: 6813519080821623276, guid: 9f7fe6b5e4d1b5848b5dc42c3f71eb20, type: 3}
-  unitGroups: {fileID: 1192132688}
+  unitGroups: {fileID: 0}
+  myUnit: {fileID: 1060170534}
+  mySO:
+  - {fileID: 11400000, guid: 33358e6492ce65143818773db27d3c05, type: 2}
+  - {fileID: 11400000, guid: e0e1b8853e4743e4aa2edca1a9446a4a, type: 2}
+  - {fileID: 11400000, guid: 1d00f57ef4b0a9348a0d5ea25fa99107, type: 2}
+  - {fileID: 11400000, guid: 07358e57ee9b5154f91ab32a6a22e7ca, type: 2}
+  - {fileID: 11400000, guid: ad6619a832813e54bb9d0744ff032b06, type: 2}
   lastUnitPrefab: {fileID: 0}
-  myUnit: {fileID: 0}
+--- !u!114 &1060170534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060170531}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b08ebcf0835f6a47933c1188a704aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  CanMove: 0
+  InBox: 0
+  IsMerge: 0
 --- !u!1 &1090741813
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,6 @@ public class Unit : MonoBehaviour
     public float speed = 3.0f;
 
     private Rigidbody2D rigid;
-    public Rigidbody2D Rigid;
 
     private bool canMove;
     public bool CanMove; // 게임오버 시 이동 비활성화
@@ -97,7 +96,6 @@ public class Unit : MonoBehaviour
 
         UnitManager.Instance.lastUnitPrefab = null; // 드롭 됐으니 오브젝트 널 처리
         OnDisable(); // 드롭된 오브젝트 드롭기능 제거 
-        Debug.Log(canMove);
     }
 
 
@@ -111,6 +109,18 @@ public class Unit : MonoBehaviour
         {
             canMove = false;    // If the unit collides with a wall, stop its movement
         }
+        if (collision.gameObject.tag == "Unit")
+        {
+            Unit other = collision.gameObject.GetComponent<Unit>(); // other 유닛 정의
+
+            //if (UnitManager.Instance.unitPrefabs == other.gameObject)
+            //{ 같은 레벨 타입일 시 합치기
+            //}
+
+        }
+
+
+
     }
 
     void OnCollisionExit2D(Collision2D collision) // 충돌 해제 시
@@ -118,11 +128,6 @@ public class Unit : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             canMove = true;     // If the unit stops colliding with a wall, allow movement again
-        }
-        if (collision.gameObject.tag == "Unit")
-        {
-            // Unit other = collision.gameObject.GetComponent<Unit>();//유닛 두개 합치는 로직
-
         }
     }
 

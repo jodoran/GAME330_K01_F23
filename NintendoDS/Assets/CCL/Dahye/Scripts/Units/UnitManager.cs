@@ -13,11 +13,12 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
 
     // 유닛 랜덤 계산 및 생성 관리 제거관리
 
-    [SerializeField] private GameObject[] unitPrefabs;
     [SerializeField] private Transform unitGroups;
 
+    [SerializeField] internal Unit myUnit;
+    [SerializeField] internal UnitScriptableObject[] mySO;
+
     public Unit lastUnitPrefab;
-    public Unit myUnit;
 
 
     void Start()
@@ -41,17 +42,17 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
     }
     public GameObject GetRandomUnitPrefab()
     {
-        if (unitPrefabs == null || unitPrefabs.Length == 0)
+        if (mySO == null || mySO.Length == 0)
         {
             Debug.LogError("UnitPrefabs array is not set or empty!");
             return null;
         }
 
         // 랜덤 인덱스 생성
-        int randomIndex = UnityEngine.Random.Range(0, unitPrefabs.Length);
+        int randomIndex = UnityEngine.Random.Range(0, mySO.Length);
 
         // 랜덤 인덱스에 해당하는 프리팹 반환
-        return unitPrefabs[randomIndex];
+        return mySO[randomIndex].UnitPrefabs;
     }
 
     void NextUnit() // 다음 유닛 생성 함수

@@ -9,12 +9,12 @@ public class InputManager : SingletonMonoBehaviour<InputManager>
 
     //--------------------------------------
     //Key Inputs
-    public string Akey = "Fire2";
-    public string Bkey = "Fire1";
-    public string Ykey = "Fire3";
-    public string Xkey = "Jump";
-    public string horizontal = "Horizontal";
-    public string vertical = "Vertical";
+    [NonSerialized] public string Akey = "Fire2";
+    [NonSerialized] public string Bkey = "Fire1";
+    [NonSerialized] public string Ykey = "Fire3";
+    [NonSerialized] public string Xkey = "Jump";
+    [NonSerialized] public string horizontal = "Horizontal";
+    [NonSerialized] public string vertical = "Vertical";
     //---------------------------------------------
     //이벤트 핸들러
     public event EventHandler OnAbuttonPressed;
