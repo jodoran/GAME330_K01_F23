@@ -2231,7 +2231,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d00f57ef4b0a9348a0d5ea25fa99107, type: 2}
   - {fileID: 11400000, guid: 07358e57ee9b5154f91ab32a6a22e7ca, type: 2}
   - {fileID: 11400000, guid: ad6619a832813e54bb9d0744ff032b06, type: 2}
-  lastUnitPrefab: {fileID: 0}
+  - {fileID: 11400000, guid: 1224d145eb6e1d94eb7dcde584dd0265, type: 2}
+  - {fileID: 11400000, guid: 6989d25e3dfb7114c81fefb93198ccf5, type: 2}
+  - {fileID: 11400000, guid: 23db362eb03378640a419fdfd3f3ed00, type: 2}
+  - {fileID: 11400000, guid: 72768e6addbacb64db4efaa987b3da10, type: 2}
+  - {fileID: 11400000, guid: 529632384b6d2e5449de27c45149b2cb, type: 2}
+  - {fileID: 11400000, guid: ada6df7e7bb622245870c723472322ab, type: 2}
 --- !u!1 &1090741813
 GameObject:
   m_ObjectHideFlags: 0

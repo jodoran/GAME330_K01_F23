@@ -10,7 +10,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     float MusicVolume = 1f;
     float EffectVolume = 1f;
 
-    private void Awake()
+    protected override void Init()
     {
         MusicVolume = 1f - PlayerPrefs.GetFloat("GameMusicVolume");
         EffectVolume = 1f - PlayerPrefs.GetFloat("GameEffectVolume");

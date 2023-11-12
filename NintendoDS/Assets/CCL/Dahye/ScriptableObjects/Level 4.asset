@@ -16,4 +16,4 @@ MonoBehaviour:
   UnitPrefabs: {fileID: 6813519080821623276, guid: d9a35a094f2e2cb43881869f0aa8d0a6,
     type: 3}
   UnitName: 
-  Score: 0
+  Score: 10

@@ -2,186 +2,178 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Unit
+/// </summary>
 public class Unit : MonoBehaviour
 {
-    /*  Unit Conditions         ^^
-     *  Unit Movement           ^^
-     *  Drop Event Subscriber   ^^
-     *  Unit Collision Report
-     *  Unit Destroy 
-     *  
-     *  Destroy animation
-     *  Sound effects 
-     */
-    //public Vector3 contactPos;
-    public float speed = 3.0f;
+    [Tooltip("Unit Speed")]
+    [SerializeField]
+    private float speed = 3.0f;
 
-    private Rigidbody2D rigid;
+    private UnitLevel Level; // 유닛 레벨
+    private new Rigidbody2D rigidbody;
     private CircleCollider2D circleCollider;
+    private bool isMovable = false; // 움직일 수 있는가?
 
-
-    private bool canMove;
-    public bool CanMove; // ���ӿ��� �� �̵� ��Ȱ��ȭ
-
-    private bool inBox;
-    public bool InBox;   // ���ӿ��� ���ǿ� ���
-
-    public bool IsMerge;
-
-
-    //Animator anim;
-    public UnitLevel Level;
-
-    void Awake() // ���� �ʱ�ȭ
+    /// <summary>
+    /// 처음에는 움직일 수 없고, 시뮬레이션이 아닌 상태
+    /// </summary>
+    void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        circleCollider = GetComponent<CircleCollider2D>();
+        this.isMovable = false;
+        this.rigidbody = GetComponent<Rigidbody2D>();
+        this.rigidbody.simulated = false;
+        this.circleCollider = GetComponent<CircleCollider2D>();
+    }
 
-        if (rigid == null)
+    /// <summary>
+    /// 초기 값으로 생성된 오브젝트가 유닛 타입과 머지로 생성된 타입인지 분류 및 저장
+    /// </summary>
+    /// <param name="UnitLevel">유닛 타입</param>
+    /// <param name="isMerged"></param>
+    public void Init(UnitLevel unitLevel, bool isMerged)
+    {
+        this.Level = unitLevel;
+        this.isMovable = false;
+
+        // 머지로 생성된 아이는 시뮬레이션을 하고, 움직일 수 없다.
+        if (isMerged)
         {
-            Debug.LogError("Rigidbody2D ������Ʈ�� ã�� �� �����ϴ�.");
+            this.rigidbody.simulated = true;
+            this.isMovable = false;
+            Debug.Log("create merged Unit");
         }
+        // 위에서 생긴 객체는 구독을 하며, 시뮬레이션이 아니며, 움직일 수 있다.
         else
         {
-            canMove = false;
-            inBox = false;
-            rigid.simulated = false;
-            //anim = GetComponent<Animator>();
+            InputManager.Instance.OnAbuttonPressed += dropping;
+            this.rigidbody.simulated = false;
+            this.isMovable = true;
+            Debug.Log("create new unit");
         }
-
     }
-    void FixedUpdate() //�������� Ű �Է��� FixedUpdate
+
+    /// <summary>
+    /// 정교한 Update()
+    /// </summary>
+    void FixedUpdate()
     {
         horizontalMove();
     }
-    public void Init(bool isMergedObject)
+
+    /// <summary>
+    /// 키보드로 유닛을 움직인다.
+    /// </summary>
+    private void horizontalMove()
     {
-        if (isMergedObject)
-        {
-            canMove = false;
-            rigid.simulated = true;
-        }
-        else
-        {
-            canMove = true;
-            rigid.simulated = false;
-        }
-    }
-    //--------------Move Ability----------------------------------
-
-    public void horizontalMove()
-    {
-        if (canMove)
-        {
-            var movement = Input.GetAxis(InputManager.Instance.horizontal);
-            Vector3 newPosition = transform.position + new Vector3(movement, 0, 0) * Time.deltaTime * speed;
-
-            // Before moving, check if the new position would collide with a wall
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(movement, 0), Mathf.Abs(movement) * Time.deltaTime * speed);
-            if (hit.collider != null && hit.collider.CompareTag("Wall"))
-            {
-                // If a wall is hit, don't move
-                return;
-            }
-
-            // If no wall is hit, proceed with the move
-            transform.position = newPosition;
-        }
-    }
-
-    //-----------Event Subscriber-----------------------------------
-
-    private void OnEnable()
-    {
-        InputManager.Instance.OnAbuttonPressed += HandleAbuttonPressed;
-        Debug.Log("���� ��");
-    }
-
-    public void HandleAbuttonPressed(object sender, EventArgs e) // A Ű ������ �� �Ұǵ�?
-    {
-        // ��� �Ϸ��� ������Ʈ�� �־���ϴµ�, null �̶�� return���� ������, �����ް� �ٽÿͶ�.
-        if (UnitManager.Instance.lastUnitPrefab == null)
+        // 움직일수 없으면 리턴
+        if (!this.isMovable)
             return;
 
-        Drop();
+        // axis를 받아서 그만큼 움직인다.
+        var movement = Input.GetAxis(InputManager.Instance.horizontal);
+        Vector3 newPosition = transform.position + new Vector3(movement, 0, 0) * Time.deltaTime * speed;
 
-        Debug.Log("�̺�Ʈ ��� �� Null ó�� ��");
-    }
-
-    public void Drop()
-    {
-        InputManager.Instance.OnAbuttonPressed -= HandleAbuttonPressed;
-        Debug.Log("���� ����");
-
-        canMove = false; // ��ӵ� ������Ʈ �¿� ��Ʈ�� �Ұ�
-        inBox = true;
-        rigid.simulated = true; // ��� 
-                                //������Ʈ ��� sfx �߰�
-
-        UnitManager.Instance.lastUnitPrefab = null; // ��� ������ ������Ʈ �� ó��
-    }
-
-
-
-
-
-    //----------�浹����--------------------------------------------
-    void OnCollisionEnter2D(Collision2D collision) // �浹 ��
-    {
-        if (collision.collider.CompareTag("Wall"))
+        // Before moving, check if the new position would collide with a wall
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(movement, 0), Mathf.Abs(movement) * Time.deltaTime * speed);
+        if (hit.collider != null && hit.collider.CompareTag("Wall"))
         {
-            canMove = false;    // If the unit collides with a wall, stop its movement
+            // If a wall is hit, don't move
             return;
         }
+
+        // 실제 움직임 작동 코드
+        transform.position = newPosition;
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    /// <summary>
+    /// A button을 누르면 input manager가 이 함수를 호출한다.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void dropping(object sender, EventArgs e) // 구독자
     {
-        if (collision.gameObject.tag == "Unit")
+        Debug.Log("dropping unit");
+        // 호출은 한번만 이므로, 구독을 해제한다.
+        InputManager.Instance.OnAbuttonPressed -= dropping;
+
+        // 이제 유닛은 움직일 수 없으며, 시뮬레이션을 시작한다.
+        this.isMovable = false;
+        this.rigidbody.simulated = true;
+
+        // A키를 눌럿다는 사실을 유닛 매니저에게 알려서 다음 유닛을 생성시킨다.
+        UnitManager.Instance.DropComplete();
+    }
+
+    /// <summary>
+    /// 충돌이 시작되면!
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnCollisionEnter2D(Collision2D collision) // �浹 ��
+    {
+        // 이 아래 함수는 유닛과 유닛이 충돌했을 경우에만 실행하도록, 유닛 - 유닛 충돌이 아니라면 함수를 끝낸다.
+        if (!collision.collider.CompareTag("Unit"))
+            return;
+
+        // 충돌한 객체의  유닛레벨 등의 정보 관리를 위해 컴포넌트를 가져온다.
+        Unit otherUnit = collision.gameObject.GetComponent<Unit>();
+        if (otherUnit == null)
         {
-            Unit other = collision.gameObject.GetComponent<Unit>(); // other ���� ����
-
-            if (this.Level == other.Level && !IsMerge && !other.IsMerge && this.Level < UnitLevel.Level11)
-            {
-                // ���� ����� ��ġ ��������
-                float meX = transform.position.x;
-                float meY = transform.position.y;
-                float otherX = other.transform.position.x;
-                float otherY = other.transform.position.y;
-
-                if (meY < otherY || (meY == otherY && meX > otherX))
-                {   // �浹 �� ���� �ൿ
-                    Vector2 contactPos = collision.GetContact(0).point;
-                    // vfx ����
-                    this.Hide(other.transform.position);
-                    other.Hide(this.transform.position);
-
-
-                    Debug.Log("collision point : " + contactPos);
-
-                    this.LevelUp(contactPos);
-
-                }
-            }
+            Debug.Log("Collision null unit");
+            return;
         }
 
+        if (otherUnit.Level != this.Level)
+            return;
+
+        float meX = transform.position.x;
+        float meY = transform.position.y;
+        float otherX = otherUnit.transform.position.x;
+        float otherY = otherUnit.transform.position.y;
+
+        if (meY < otherY || (meY == otherY && meX > otherX))
+        {
+            // 충돌 포인트를 검색한다.
+            Vector2 contactPos = collision.GetContact(0).point;
+
+            // 자신과, 충돌한 객체를 숨긴다.
+            this.Hide(otherUnit.transform.position);
+            otherUnit.Hide(this.transform.position);
+
+            // 충돌 지점 출력
+            Debug.Log("collision point : " + contactPos);
+
+            // 충돌했으면 다음 레벨을 시작한다.
+            this.generateNextLevelUnit(contactPos);
+        }
     }
+
+    /// <summary>
+    /// 객체를 숨기는 행위.
+    /// </summary>
+    /// <param name="targetPos"></param>
     public void Hide(Vector3 targetPos)
     {
-        IsMerge = true;
-
-        rigid.simulated = false;
-        circleCollider.enabled = false;
+        // 숨기는 객체는 시뮬레이션하지 않으며, 충돌도 일어나지 않습니다.
+        this.rigidbody.simulated = false;
+        this.circleCollider.enabled = false;
 
         StartCoroutine(HideRoutine(targetPos));
 
     }
 
+    /// <summary>
+    /// 객체를 숨길 때 행할 행동 : 두 객체를 점점 가까이 하다가 삭제합니다.
+    /// </summary>
+    /// <param name="targetPos"></param>
+    /// <returns></returns>
     IEnumerator HideRoutine(Vector3 targetPos)
     {
         int frameCount = 0;
-        float mergeForce = 0.005f;
+        float mergeForce = 0.1f;
 
+        // 가깝게 움직임
         while (frameCount < 20)
         {
             frameCount++;
@@ -189,54 +181,36 @@ public class Unit : MonoBehaviour
             yield return null;
         }
 
-        IsMerge = false;
-        gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        this.gameObject.SetActive(false);
+
+        // 삭제
+        Destroy(this.gameObject, 5.0f);
     }
 
-    void LevelUp(Vector2 contactPos)
+    /// <summary>
+    /// 다음 레벨 유닛 생성 (머지로 인한 생성)
+    /// </summary>
+    /// <param name="contactPos"></param>
+    private void generateNextLevelUnit(Vector2 contactPos)
     {
-        IsMerge = true;
-        rigid.velocity = Vector2.zero;
-        rigid.angularVelocity = 0;
+        Debug.Log("generate next level unit");
+        // 움직이지 않도록 속도를 0으로 합니다.
+        this.rigidbody.velocity = Vector2.zero;
+        this.rigidbody.angularVelocity = 0;
 
         StartCoroutine(LevelUpRoutine(contactPos));
     }
 
+    /// <summary>
+    /// 다음 레벨 유닛 생성 (머지로 인한 생성, 코루틴)
+    /// </summary>
+    /// <param name="contactPos"></param>
+    /// <returns></returns>
     IEnumerator LevelUpRoutine(Vector2 contactPos)
     {
         yield return new WaitForSeconds(0.1f);
-        // Merge vfx 
 
-        var nextLevelPrefab = UnitManager.Instance.LevelPrefab(this.Level + 1);
-
-        var nextLevelUnit = Instantiate(nextLevelPrefab,
-            new Vector3(contactPos.x, contactPos.y, 0),
-            Quaternion.identity).GetComponent<Unit>();
-        nextLevelUnit.Init(true);
-
-        //yield return new WaitForSeconds(0.1f);
-
-        IsMerge = false;
-
+        UnitManager.Instance.MergeComplate(this.Level + 1, new Vector3(contactPos.x, contactPos.y, 0));
     }
-
-    UnitLevel nextLevel(UnitLevel level)
-    {
-        return level + 1;
-    }
-
-
-
-
-
-
-    void OnCollisionExit2D(Collision2D collision) // �浹 ���� ��
-    {
-        if (collision.collider.CompareTag("Wall"))
-        {
-            canMove = true;     // If the unit stops colliding with a wall, allow movement again
-        }
-    }
-
-
 }

@@ -3,46 +3,90 @@ using UnityEngine;
 
 public class UnitManager : SingletonMonoBehaviour<UnitManager>
 {
-    /*  Unit Management
-     *  Object Pool
-     *  Add unit / Remove unit
-     *  New obj spawn                               ^^ 
-     *  Merge obj spawn         
-     *  New spawn random calculation with ratio 
-     */
-
-    // À¯´Ö ·£´ı °è»ê ¹× »ı¼º °ü¸® Á¦°Å°ü¸®
-
     [SerializeField] private Transform unitGroups;
-
     [SerializeField] private Unit myUnit;
     [SerializeField] private UnitScriptableObject[] mySO;
 
-    public Unit lastUnitPrefab;
-    //[SerializeField, HideInInspector]
+    private bool isDropped = true;
 
     void Start()
     {
-        //GameManager.Instance.isGameOver = false;
-        //if (!GameManager.Instance.isGameOver)
-        NextUnit();
+        Debug.Log("Scriptable Object Length : " + mySO.Length);
+        nextUnit();
     }
-    private int getNextUnitTypeIndex()
+
+    /// <summary>
+    /// ìœ ë‹›ì„ ë¨¸ì§€í•  ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
+    /// </summary>
+    /// <param name="unitLevel"></param>
+    public void MergeComplate(UnitLevel unitLevel, Vector3 posotion)
     {
-        if (mySO == null || mySO.Length == 0)
-        {
-            Debug.LogError("UnitPrefabs array is not set or empty!");
-            return -1; // == null ½ÇÆĞ
-        }
+        var nextLevelPrefab = LevelPrefab(unitLevel);
+        if (nextLevelPrefab == null)
+            Debug.Log("next level prefab is null");
 
-        return 0;
+        var nextLevelUnit = Instantiate(nextLevelPrefab, posotion, Quaternion.identity).GetComponent<Unit>();
+        if (nextLevelUnit == null)
+            Debug.Log("level up routine next null");
 
-        return UnityEngine.Random.Range(0, mySO.Length);
+        nextLevelUnit.Init(unitLevel, true);
+
+        GameManager.Instance.AddScore(this.LevelScore(unitLevel));
+    }
+
+    /// <summary>
+    /// ë“œë¡­ì´ ëë‚«ì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
+    /// </summary>
+    public void DropComplete()
+    {
+        StartCoroutine(PauseFunctionForSeconds(0.5f));
+    }
+
+    private IEnumerator PauseFunctionForSeconds(float seconds)
+    {
+        // í•¨ìˆ˜ ì‹¤í–‰ ì „ì— ì •ì§€ ëŒ€ê¸°
+        yield return new WaitForSeconds(seconds);
+
+        // ì¼ì • ì‹œê°„ì´ ì§€ë‚œ í›„ì— í•¨ìˆ˜ ì‹¤í–‰
+        this.isDropped = true;
+        Debug.Log("Drop Complate");
+    }
+
+    /// <summary>
+    /// ë ˆë²¨ì— ë§ëŠ” ê²Œì„ ì˜¤ë¸Œì íŠ¸ ìƒì„±
+    /// </summary>
+    /// <param name="level"></param>
+    /// <returns></returns>
+    public GameObject LevelPrefab(UnitLevel level)
+    {
+        // condition ? true : false;
+
+        return level > UnitLevel.Level11 ? mySO[(int)UnitLevel.Level11].UnitPrefabs : mySO[(int)level].UnitPrefabs;
+    }
+
+
+    /// <summary>
+    /// ë ˆë²¨ì— ë§ëŠ” ê²Œì„ ìŠ¤ì½”ì–´ ìƒì„±
+    /// </summary>
+    /// <param name="level"></param>
+    /// <returns></returns>
+    private int LevelScore(UnitLevel level)
+    {
+        return mySO[(int)level].Score;
+    }
+
+    /// <summary>
+    /// ë‹¤ìŒì— ë‚˜ì˜¬ ìœ ë‹›ì˜ ì¸ë±ìŠ¤ë¥¼ ìƒì„±
+    /// </summary>
+    /// <returns></returns>
+    private int getNextUnitLevelIndex()
+    {
+        return UnityEngine.Random.Range(0, 5);
     }
     /// <summary>
-    /// ·£´ı ÀÎµ¦½º¿¡ ¸Â°Ô ÇÁ¸®ÆÕ ¹İÈ¯
+    /// ìœ ë‹› í”„ë¦¬í©ì„ ìƒì„±
     /// </summary>
-    /// <param name="index">·£´ı ÀÎµ¦½º</param>
+    /// <param name="index"></param>
     /// <returns></returns>
     private GameObject getUnitPrefab(int index)
     {
@@ -50,14 +94,16 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
     }
 
     /// <summary>
-    /// À¯´Ö »ı¼º ÈÄ Unit ÄÄÆ÷³ÍÆ®µµ ³Ö¾îÁİ´Ï´Ù.
+    /// ìœ ë‹›ì„ ìƒì„±
     /// </summary>
     /// <returns></returns>
     private Unit getUnit()
     {
-        int unitRandomIndex = getNextUnitTypeIndex();
+        int unitRandomIndex = getNextUnitLevelIndex();
         if (unitRandomIndex == -1)
             return null;
+
+        this.isDropped = false;
 
         var unitPrefabs = getUnitPrefab(unitRandomIndex);
 
@@ -65,68 +111,29 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
         if (unitInstant == null)
             return null;
 
-        unitInstant.Init(false);
-
-        // »ı¼ºÇÑ ·£´ı ÇÁ¸®ÆÕÀÇ ·¹º§
-        unitInstant.Level = this.mySO[unitRandomIndex].UnitLevel;
+        // ëœë¤ ì¸ë±ìŠ¤ë¡œ ê³„ì‚°ëœ (ìƒì„±ëœ unitPrefabsì˜) ë ˆë²¨ íƒ€ì…ì„ Init í•¨ìˆ˜ì— ì „ë‹¬í•©ë‹ˆë‹¤.
+        unitInstant.Init(this.mySO[unitRandomIndex].UnitLevel, false);
         Debug.Log(unitInstant);
+
         return unitInstant;
     }
-    public Unit GetUnits()
-    {   // À¯´Ö »ı¼º ÇÔ¼ö
-        // À¯´Ö ÇÁ¸®ÆÕÀ» »ı¼º ÈÄ¿¡ À¯´Ö±×·ì Æú´õ ¾È¿¡ ³Ö°Ú´Ù´Â ÀÇ¹Ì.
-        // À¯´Ö±×·ìÀº ½ºÆùÀ§Ä¡¸¦ ´ã´çÇÏ±âµµ ÇÑ´Ù. 
-        if (mySO == null || mySO.Length == 0)
-        {
-            Debug.LogError("UnitPrefabs array is not set or empty!");
-            return null;
-        }
 
-        // ·£´ı ÀÎµ¦½º »ı¼º
-        int randomIndex = UnityEngine.Random.Range(0, mySO.Length);
-
-        GameObject prefabToSpawn = mySO[randomIndex].UnitPrefabs;
-        if (prefabToSpawn == null)
-            return null;
-
-        GameObject instant = Instantiate(prefabToSpawn, unitGroups);
-
-        Unit instantUnit = instant.GetComponent<Unit>();
-
-        instantUnit.Level = mySO[randomIndex].UnitLevel;
-
-        if (instantUnit == null) // ·±Å¸ÀÓ ¿À·ù ¹æÁö
-        {
-            Debug.LogError("Instantiated object does not have a Unit component.");
-            return null;
-        }
-
-        return instantUnit;
-    }
-
-    void NextUnit() // ´ÙÀ½ À¯´Ö »ı¼º ÇÔ¼ö
+    /// <summary>
+    /// ìœ ë‹› ìƒì„±
+    /// </summary>
+    private void nextUnit()
     {
-        lastUnitPrefab = getUnit(); // »ı¼ºµÈ À¯´ÖÀ» ÀÏ½Ã º¸°ü
+        Unit unit = getUnit();
 
-
-        StartCoroutine("WaitNext");
+        StartCoroutine("waitNext");
     }
 
-    IEnumerator WaitNext()
+    private IEnumerator waitNext()
     {
-        while (lastUnitPrefab != null) // µå·Ó ¿Ï·á ÀÌÈÄ
-        {
-            yield return null; // ¹«ÇÑ¹İº¹ ¹æÁö. µå·Ó ÀÌÈÄ ³ª°¡¶ó
+        Debug.Log("waitNext :" + this.isDropped);
+        while (!this.isDropped)
+            yield return new WaitForSeconds(0.5f);
 
-        }
-        yield return new WaitForSeconds(1.5f);
-        NextUnit();
+        nextUnit();
     }
-    // ÇÕÃÄ º¾î(À§Ä¡, Å¸ÀÔ)
-
-    public GameObject LevelPrefab(UnitLevel level)
-    {
-        return mySO[(int)level].UnitPrefabs;
-    }
-
 }
