@@ -1,7 +1,7 @@
 using UnityEngine;
 
 //외부 접근가능 
-public enum UnitType
+public enum UnitLevel
 {
     Level1,
     Level2,
@@ -20,7 +20,7 @@ public enum UnitType
 [CreateAssetMenu]
 public class UnitScriptableObject : ScriptableObject
 {
-    public UnitType UnitType;
+    public UnitLevel UnitLevel;
     public GameObject UnitPrefabs;
     public string UnitName;
     public int Score;

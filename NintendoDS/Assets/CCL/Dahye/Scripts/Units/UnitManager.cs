@@ -27,29 +27,55 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
         //if (!GameManager.Instance.isGameOver)
         NextUnit();
     }
+    private int getNextUnitTypeIndex()
+    {
+        if (mySO == null || mySO.Length == 0)
+        {
+            Debug.LogError("UnitPrefabs array is not set or empty!");
+            return -1; // == null 실패
+        }
+
+        return 0;
+
+        return UnityEngine.Random.Range(0, mySO.Length);
+    }
+    /// <summary>
+    /// 랜덤 인덱스에 맞게 프리팹 반환
+    /// </summary>
+    /// <param name="index">랜덤 인덱스</param>
+    /// <returns></returns>
+    private GameObject getUnitPrefab(int index)
+    {
+        return this.mySO[index].UnitPrefabs;
+    }
+
+    /// <summary>
+    /// 유닛 생성 후 Unit 컴포넌트도 넣어줍니다.
+    /// </summary>
+    /// <returns></returns>
+    private Unit getUnit()
+    {
+        int unitRandomIndex = getNextUnitTypeIndex();
+        if (unitRandomIndex == -1)
+            return null;
+
+        var unitPrefabs = getUnitPrefab(unitRandomIndex);
+
+        var unitInstant = Instantiate(unitPrefabs, unitGroups).GetComponent<Unit>();
+        if (unitInstant == null)
+            return null;
+
+        unitInstant.Init(false);
+
+        // 생성한 랜덤 프리팹의 레벨
+        unitInstant.Level = this.mySO[unitRandomIndex].UnitLevel;
+        Debug.Log(unitInstant);
+        return unitInstant;
+    }
     public Unit GetUnits()
     {   // 유닛 생성 함수
         // 유닛 프리팹을 생성 후에 유닛그룹 폴더 안에 넣겠다는 의미.
         // 유닛그룹은 스폰위치를 담당하기도 한다. 
-
-        GameObject prefabToSpawn = GetRandomUnitPrefab();
-        if (prefabToSpawn == null)
-            return null;
-
-        GameObject instant = Instantiate(prefabToSpawn, unitGroups);
-
-        Unit instantUnit = instant.GetComponent<Unit>();
-
-        if (instantUnit == null) // 런타임 오류 방지
-        {
-            Debug.LogError("Instantiated object does not have a Unit component.");
-            return null;
-        }
-
-        return instantUnit;
-    }
-    public GameObject GetRandomUnitPrefab()
-    {
         if (mySO == null || mySO.Length == 0)
         {
             Debug.LogError("UnitPrefabs array is not set or empty!");
@@ -59,16 +85,28 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
         // 랜덤 인덱스 생성
         int randomIndex = UnityEngine.Random.Range(0, mySO.Length);
 
-        // 랜덤 인덱스에 해당하는 프리팹 반환
-        return mySO[randomIndex].UnitPrefabs;
+        GameObject prefabToSpawn = mySO[randomIndex].UnitPrefabs;
+        if (prefabToSpawn == null)
+            return null;
+
+        GameObject instant = Instantiate(prefabToSpawn, unitGroups);
+
+        Unit instantUnit = instant.GetComponent<Unit>();
+
+        instantUnit.Level = mySO[randomIndex].UnitLevel;
+
+        if (instantUnit == null) // 런타임 오류 방지
+        {
+            Debug.LogError("Instantiated object does not have a Unit component.");
+            return null;
+        }
+
+        return instantUnit;
     }
 
     void NextUnit() // 다음 유닛 생성 함수
     {
-        Unit newUnit = GetUnits(); // 새로운 유닛 생성을 위해 겟유닛 함수 호출
-
-
-        lastUnitPrefab = newUnit; // 생성된 유닛을 일시 보관
+        lastUnitPrefab = getUnit(); // 생성된 유닛을 일시 보관
 
 
         StartCoroutine("WaitNext");
@@ -84,7 +122,11 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
         yield return new WaitForSeconds(1.5f);
         NextUnit();
     }
+    // 합쳐졋어(위치, 타입)
 
-
+    public GameObject LevelPrefab(UnitLevel level)
+    {
+        return mySO[(int)level].UnitPrefabs;
+    }
 
 }

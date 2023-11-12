@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40578daff09e98145a2e465929f039a4, type: 3}
   m_Name: Level 11
   m_EditorClassIdentifier: 
-  UnitType: 10
+  UnitLevel: 10
   UnitPrefabs: {fileID: 6813519080821623276, guid: b66fd93e6141a1540b80a22f31c751d8,
     type: 3}
   UnitName: 
-  Score: 0
+  Score: 66
