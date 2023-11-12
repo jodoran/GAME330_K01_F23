@@ -111,10 +111,10 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &1338436286405811488
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -162,7 +162,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b08ebcf0835f6a47933c1188a704aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4.5
-  CanMove: 0
-  InBox: 0
-  IsMerge: 0
+  dropSpeed: -1

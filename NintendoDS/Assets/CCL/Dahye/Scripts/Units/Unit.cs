@@ -7,9 +7,12 @@ using UnityEngine;
 /// </summary>
 public class Unit : MonoBehaviour
 {
-    [Tooltip("Unit Speed")]
+    [Tooltip("Unit Control Speed")]
+    private float speed = 4f;
+
+    [Tooltip("Unit Falling Speed")]
     [SerializeField]
-    private float speed = 3.0f;
+    private float dropSpeed = -1;
 
     private UnitLevel Level; // 유닛 레벨
     private new Rigidbody2D rigidbody;
@@ -24,6 +27,7 @@ public class Unit : MonoBehaviour
         this.isMovable = false;
         this.rigidbody = GetComponent<Rigidbody2D>();
         this.rigidbody.simulated = false;
+        this.rigidbody.velocity = new Vector3(0, dropSpeed, 0);
         this.circleCollider = GetComponent<CircleCollider2D>();
     }
 
@@ -174,18 +178,18 @@ public class Unit : MonoBehaviour
         float mergeForce = 0.1f;
 
         // 가깝게 움직임
-        while (frameCount < 20)
+        while (frameCount < 3)
         {
             frameCount++;
             transform.position = Vector3.Lerp(transform.position, targetPos, mergeForce);
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.01f);
         this.gameObject.SetActive(false);
 
         // 삭제
-        Destroy(this.gameObject, 5.0f);
+        Destroy(this.gameObject);
     }
 
     /// <summary>
@@ -209,7 +213,7 @@ public class Unit : MonoBehaviour
     /// <returns></returns>
     IEnumerator LevelUpRoutine(Vector2 contactPos)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.005f);
 
         UnitManager.Instance.MergeComplate(this.Level + 1, new Vector3(contactPos.x, contactPos.y, 0));
     }
