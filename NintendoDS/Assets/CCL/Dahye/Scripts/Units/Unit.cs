@@ -32,10 +32,18 @@ public class Unit : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
 
-        canMove = true;
-        inBox = false;
-        rigid.simulated = false;
-        //anim = GetComponent<Animator>();
+        if (rigid == null)
+        {
+            Debug.LogError("Rigidbody2D 컴포넌트를 찾을 수 없습니다.");
+        }
+        else
+        {
+            canMove = true;
+            inBox = false;
+            rigid.simulated = false;
+            //anim = GetComponent<Animator>();
+        }
+
     }
 
     void FixedUpdate() //지속적인 키 입력은 FixedUpdate
@@ -46,7 +54,6 @@ public class Unit : MonoBehaviour
 
     public void horizontalMove()
     {
-        Debug.Log(inBox);
         if (canMove && !inBox)
         {
             var movement = Input.GetAxis(InputManager.Instance.horizontal);
@@ -72,11 +79,7 @@ public class Unit : MonoBehaviour
         InputManager.Instance.OnAbuttonPressed += HandleAbuttonPressed;
         Debug.Log("구독 온");
     }
-    private void OnDisable() // A키 기능을 제거할 때 사용 
-    {
-        InputManager.Instance.OnAbuttonPressed -= HandleAbuttonPressed;
-        Debug.Log("구독 오프");
-    }
+
     public void HandleAbuttonPressed(object sender, EventArgs e) // A 키 누르면 뭐 할건데?
     {
         // 드롭 하려면 오브젝트가 있어야하는데, null 이라면 return으로 나가고, 생성받고 다시와라.
@@ -89,13 +92,15 @@ public class Unit : MonoBehaviour
 
     public void Drop()
     {
+        InputManager.Instance.OnAbuttonPressed -= HandleAbuttonPressed;
+        Debug.Log("구독 오프");
+
         canMove = false; // 드롭된 오브젝트 좌우 컨트롤 불가
         inBox = true;
         rigid.simulated = true; // 드롭 
                                 //오브젝트 드롭 sfx 추가
 
         UnitManager.Instance.lastUnitPrefab = null; // 드롭 됐으니 오브젝트 널 처리
-        OnDisable(); // 드롭된 오브젝트 드롭기능 제거 
     }
 
 

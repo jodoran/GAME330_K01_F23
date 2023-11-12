@@ -31,7 +31,7 @@ public class InputManager : SingletonMonoBehaviour<InputManager>
         if (Input.GetButtonDown(Akey))
         {
             OnAbuttonPressed?.Invoke(this, EventArgs.Empty);
-            if (OnAbuttonPressed == null) // 이벤트가 NULL 이면 
+            if (OnAbuttonPressed == null) // 드롭 순간 null 전환됨
                 Debug.Log("No subscribers for event");
         }
     }

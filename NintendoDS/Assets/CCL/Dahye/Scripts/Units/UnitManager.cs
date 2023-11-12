@@ -15,11 +15,11 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
 
     [SerializeField] private Transform unitGroups;
 
-    [SerializeField] internal Unit myUnit;
-    [SerializeField] internal UnitScriptableObject[] mySO;
+    [SerializeField] private Unit myUnit;
+    [SerializeField] private UnitScriptableObject[] mySO;
 
     public Unit lastUnitPrefab;
-
+    //[SerializeField, HideInInspector]
 
     void Start()
     {
@@ -33,10 +33,18 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
         // 유닛그룹은 스폰위치를 담당하기도 한다. 
 
         GameObject prefabToSpawn = GetRandomUnitPrefab();
+        if (prefabToSpawn == null)
+            return null;
 
         GameObject instant = Instantiate(prefabToSpawn, unitGroups);
 
         Unit instantUnit = instant.GetComponent<Unit>();
+
+        if (instantUnit == null) // 런타임 오류 방지
+        {
+            Debug.LogError("Instantiated object does not have a Unit component.");
+            return null;
+        }
 
         return instantUnit;
     }
@@ -73,7 +81,7 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
             yield return null; // 무한반복 방지. 드롭 이후 나가라
 
         }
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
         NextUnit();
     }
 
