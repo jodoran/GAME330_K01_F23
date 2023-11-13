@@ -14,9 +14,24 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private float dropSpeed = -1;
 
+    [Tooltip("Explosion Layer")]
+    [SerializeField]
+    private LayerMask layerMaskHit;
+
+    [Tooltip("Merge Explosion Area")]
+    [SerializeField]
+    private float impactField;
+
+    [Tooltip("Merge Explosion Force")]
+    [SerializeField]
+    private float impactForce;
+
+    //private Vector2 contactPos;
+
     private UnitLevel Level; // 유닛 레벨
     private new Rigidbody2D rigidbody;
     private CircleCollider2D circleCollider;
+
     private bool isMovable = false; // 움직일 수 있는가?
 
     /// <summary>
@@ -153,6 +168,8 @@ public class Unit : MonoBehaviour
         }
     }
 
+
+
     /// <summary>
     /// 객체를 숨기는 행위.
     /// </summary>
@@ -203,6 +220,7 @@ public class Unit : MonoBehaviour
         this.rigidbody.velocity = Vector2.zero;
         this.rigidbody.angularVelocity = 0;
 
+
         StartCoroutine(LevelUpRoutine(contactPos));
     }
 
@@ -214,7 +232,27 @@ public class Unit : MonoBehaviour
     IEnumerator LevelUpRoutine(Vector2 contactPos)
     {
         yield return new WaitForSeconds(0.005f);
-
+        Explosion();
         UnitManager.Instance.MergeComplate(this.Level + 1, new Vector3(contactPos.x, contactPos.y, 0));
     }
+
+    void Explosion()
+    {
+        Collider2D[] unitObjs = Physics2D.OverlapCircleAll(transform.position, impactField, layerMaskHit);
+        foreach (Collider2D obj in unitObjs)
+        {
+            Vector2 dir = obj.transform.position - transform.position;
+
+            obj.GetComponent<Rigidbody2D>().AddForce(dir * impactForce);
+            Debug.Log("Explode!" + impactForce);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, impactField);
+    }
+
+
 }
