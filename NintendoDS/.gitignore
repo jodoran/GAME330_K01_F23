@@ -60,7 +60,7 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
-*.mp4
+
 
 # Crashlytics generated file
 crashlytics-build.properties
@@ -77,3 +77,7 @@ Library Temp Logs UserSettings obj
 *.DotSettings .vsconfig
 *.vs
 .DS_Store [Tt]humbs.db
+
+# Dahye Nintendo
+*.mp4
+*.mp4.meta
