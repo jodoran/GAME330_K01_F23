@@ -2,10 +2,18 @@ using UnityEngine;
 
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
+    [Header("Audio Source")]
     [Tooltip("BGM Audio Source")]
     [SerializeField] private AudioSource MusicPlayer = null;
+
     [Tooltip("SFX Audio Source")]
     [SerializeField] private AudioSource EffectSound = null;
+
+    [Space(10)]
+    [Header("Audio Clip")]
+    public AudioClip BGM;
+    public AudioClip DropSfx;
+    public AudioClip MergeSfx;
 
     float MusicVolume = 1f;
     float EffectVolume = 1f;
@@ -30,11 +38,10 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         MusicPlayer.Stop();
     }
 
-    public void PlayRun(AudioSource audioSource, bool bLoop)
+    public void PlaySFX(AudioClip sfx)
     {
-        audioSource.loop = bLoop;
-        audioSource.volume = 1.0f;
-        audioSource.Play();
+        EffectSound.PlayOneShot(sfx);
+        EffectSound.Play();
     }
 
     public void SetMusicVolume(float v)
@@ -72,6 +79,5 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
         audio.PlayOneShot(eff, EffectVolume);
     }
-    // «¡∏Æ∆’¿∫ æ»Ω·µµ¥Ô
 
 }

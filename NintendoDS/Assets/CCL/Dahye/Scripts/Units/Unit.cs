@@ -125,6 +125,7 @@ public class Unit : MonoBehaviour
 
         // A키를 눌럿다는 사실을 유닛 매니저에게 알려서 다음 유닛을 생성시킨다.
         UnitManager.Instance.DropComplete();
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.DropSfx);
     }
 
     /// <summary>
@@ -236,6 +237,7 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(0.005f);
         Explosion();
         UnitManager.Instance.MergeComplate(this.Level + 1, new Vector3(contactPos.x, contactPos.y, 0));
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.MergeSfx);
     }
 
     void Explosion()
