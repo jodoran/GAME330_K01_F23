@@ -31,6 +31,7 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
 
         nextLevelUnit.Init(unitLevel, true);
 
+        //Score
         GameManager.Instance.AddScore((int)Mathf.Pow(levelScore(unitLevel), 2));
     }
 

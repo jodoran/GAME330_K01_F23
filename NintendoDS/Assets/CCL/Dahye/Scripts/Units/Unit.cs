@@ -28,12 +28,13 @@ public class Unit : MonoBehaviour
 
     //private Vector2 contactPos;
 
-    private UnitLevel Level; // 유닛 레벨
-    private new Rigidbody2D rigidbody;
-    private CircleCollider2D circleCollider;
+    UnitLevel Level; // 유닛 레벨
+    new Rigidbody2D rigidbody;
+    CircleCollider2D circleCollider;
+    SpriteRenderer spriteRenderer;
 
     private bool isMovable = false; // 움직일 수 있는가?
-
+    private float deadTime;
     /// <summary>
     /// 처음에는 움직일 수 없고, 시뮬레이션이 아닌 상태
     /// </summary>
@@ -44,6 +45,7 @@ public class Unit : MonoBehaviour
         this.rigidbody.simulated = false;
         this.rigidbody.velocity = new Vector3(0, dropSpeed, 0);
         this.circleCollider = GetComponent<CircleCollider2D>();
+        this.spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -253,6 +255,32 @@ public class Unit : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, impactField);
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Finish")
+        {
+            deadTime += Time.deltaTime;
+            if (deadTime > 2)
+            {
+                spriteRenderer.color = Color.red;
+            }
+            if (deadTime > 5)
+            {
+                GameManager.Instance.GameOver();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Finish")
+        {
+            deadTime = 0;
+            spriteRenderer.color = Color.white;
+        }
+    }
+
 
 
 }

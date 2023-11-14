@@ -13,8 +13,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         - 선 라인과 유닛 태그 충돌 시  게임오버 진행 (after job)
      */
 
-    // public bool IsGameOver;
     // public bool IsRestart;
+    public bool IsGameOver;
     public int Score;
 
     /// <summary>
@@ -31,11 +31,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     }
 
-    public bool IsGameOver() // 게임오버 조건
+    public void GameOver() // 게임오버 조건
     {
+        if (IsGameOver)
+            return;
+        IsGameOver = true;
+        Debug.Log("게임오버");
 
 
-        return false;
     }
 
 
