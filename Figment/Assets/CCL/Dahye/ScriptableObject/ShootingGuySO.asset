@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyType: 0
   Prefeb: {fileID: 2900874152454569099, guid: 43a02c63c5a43a246a8f4574e4557f34, type: 3}
-  moveSpeed: 1
-  hp: 10
-  damage: 10
+  moveSpeed: 15
+  hp: 50
+  damage: 200
   maxCount: 0
   deadsfx: {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}
   wave1st: 10
