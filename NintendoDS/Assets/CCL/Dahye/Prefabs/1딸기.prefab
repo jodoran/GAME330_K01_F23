@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6813519080821623276}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 798621061
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1778391379, guid: 3b438c3cf68567645b73a56ff85f647b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.72810173, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 9cf50f94bc98cbb4986eff961925f192, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -146,9 +146,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.20862044}
+  m_Offset: {x: 0, y: -0.02}
   serializedVersion: 2
-  m_Radius: 0.7086204
+  m_Radius: 0.31
 --- !u!114 &1562126935548945920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,5 +165,5 @@ MonoBehaviour:
   layerMaskHit:
     serializedVersion: 2
     m_Bits: 64
-  impactField: 0.58
+  impactField: 0.46
   impactForce: 100
