@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/MainScene.unity
     guid: 07b5e427c20c30b4493be962adb5afc4
+  - enabled: 1
+    path: Assets/CCL/Subi/Subi_Scene/loading.unity
+    guid: ea384f08a03980843ad577d0ee619e26
   m_configObjects: {}
