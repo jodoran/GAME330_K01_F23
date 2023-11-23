@@ -247,7 +247,7 @@ public class Unit : MonoBehaviour
         {
             Vector2 dir = obj.transform.position - transform.position;
 
-            obj.GetComponent<Rigidbody2D>().AddForce(dir * impactForce);
+            obj.GetComponent<Rigidbody2D>().AddForce(dir * impactForce * 100);
             Debug.Log("Explode!" + impactForce);
         }
     }
