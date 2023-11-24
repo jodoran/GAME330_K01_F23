@@ -158,6 +158,7 @@ public class Unit : MonoBehaviour
         {
             // 충돌 포인트를 검색한다.
             Vector2 contactPos = collision.GetContact(0).point;
+            Explosion();
 
             // 자신과, 충돌한 객체를 숨긴다.
             this.Hide(otherUnit.transform.position);
@@ -235,7 +236,6 @@ public class Unit : MonoBehaviour
     IEnumerator LevelUpRoutine(Vector2 contactPos)
     {
         yield return new WaitForSeconds(0.005f);
-        Explosion();
         UnitManager.Instance.MergeComplate(this.Level + 1, new Vector3(contactPos.x, contactPos.y, 0));
         SoundManager.Instance.PlaySFX(SoundManager.Instance.MergeSfx);
     }
@@ -246,7 +246,8 @@ public class Unit : MonoBehaviour
         foreach (Collider2D obj in unitObjs)
         {
             Vector2 dir = obj.transform.position - transform.position;
-
+            //var force = dir * impactForce * 100;
+            //GetComponent<SpriteRenderer>().color = Color.red;
             obj.GetComponent<Rigidbody2D>().AddForce(dir * impactForce * 100);
             Debug.Log("Explode!" + impactForce);
         }
