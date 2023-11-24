@@ -166,4 +166,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   impactField: 2
-  impactForce: 10
+  impactForce: 0.1
