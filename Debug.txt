@@ -1,0 +1,5 @@
+Bug
+
+Hit even after the unit dies.
+
+If there is a short range in front of the unit, the range of the rear unit will be the same as that of the front unit.
