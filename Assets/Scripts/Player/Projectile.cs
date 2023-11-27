@@ -7,30 +7,32 @@ public class Projectile : MonoBehaviour
     public MYType.Unit Type;
     public UnitTeam unitTeam;
     public float Speed;
-    public bool isHit;
-
     public int damageAmount;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Start()
     {
-        print("1");
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (unitTeam == UnitTeam.Blue)
+        {
+            rb.velocity = transform.right * Speed;
+        }
+        else if (unitTeam == UnitTeam.Red)
+        {
+            rb.velocity = -transform.right * Speed;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
         // Check if the projectile hits a unit with a different team
         UnitController unitController = collision.gameObject.GetComponent<UnitController>();
-        if (unitController != null && unitController.unitTeam != unitTeam && !isHit)
+        if (unitController != null && unitController.unitTeam != unitTeam)
         {
-            print("2");
             // Deal damage to the hit unit
             unitController.TakeDamage(damageAmount);
 
-            // Set isHit to true to prevent multiple damage on the same target
-            isHit = true;
-
-            // Optionally, destroy the projectile after hitting a target
+            // Destroy the projectile upon hitting a target
             Destroy(gameObject);
-        }
-        else
-        {
-            print("3");
         }
     }
 }

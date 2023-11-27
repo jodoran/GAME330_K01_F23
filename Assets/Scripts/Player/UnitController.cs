@@ -13,28 +13,29 @@ public class UnitController : MonoBehaviour
 {
     Animator animator;
 
+    [Header("==========Type=========")]
     public MYType.Unit playerType;
     public UnitTeam unitTeam;
 
     public GameObject Dust;
-    //public ParticleSystem Dust;
-    public float moveSpeed;
-    public float detectionDistance;
 
     [Header("==========Unit=========")]
     public int HP;
     public int Atk;
+    public float moveSpeed;
+    public float detectionDistance;
+    public float minAtkRange;
+    public float maxAtkRange;
+
     private bool battleState;
     private bool isAttacking = false;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        //Dust = GetComponent<ParticleSystem>();
 
         animator.SetTrigger("doMove");
         Dust.SetActive(true);
-        //Dust.Play(Dust);
     }
 
     public void Update()
@@ -50,12 +51,10 @@ public class UnitController : MonoBehaviour
             float moveDirection = (unitTeam == UnitTeam.Blue) ? 1f : -1f;
             transform.Translate(Vector2.right * moveDirection * moveSpeed * Time.deltaTime);
             Dust.SetActive(true);
-            //Dust.Play(Dust);
         }
         else
         {
             Dust.SetActive(false);
-            //Dust.Stop(Dust);
         }
     }
 
@@ -78,16 +77,46 @@ public class UnitController : MonoBehaviour
             if (enemyUnit != null && enemyUnit.unitTeam != unitTeam)
             {
                 battleState = true;
-                
+
                 if (enemyUnit.unitTeam == UnitTeam.Blue)
                 {
                     //Debug.Log("빨간 적군을 감지했습니다! 공격을 시작합니다.");
-                    StartCoroutine(nameof(Attack));
+                    //StartCoroutine(nameof(Attack));
+                    switch (playerType)
+                    {
+                        case MYType.Unit.Sword:
+                            StartCoroutine(nameof(Attack));
+                            break;
+                        case MYType.Unit.Guard:
+                            StartCoroutine(nameof(Attack));
+                            break;
+                        case MYType.Unit.Range:
+                            StartCoroutine(nameof(Shoot));
+                            break;
+                        case MYType.Unit.Wizard:
+                            StartCoroutine(nameof(Shoot));
+                            break;
+                    }
                 }
                 else if (enemyUnit.unitTeam == UnitTeam.Red)
                 {
                     //Debug.Log("파란 적군을 감지했습니다! 공격을 시작합니다.");
-                    StartCoroutine(nameof(Attack));
+                    //StartCoroutine(nameof(Attack));
+                    switch (playerType)
+                    {
+                        case MYType.Unit.Sword:
+                            StartCoroutine(nameof(Attack));
+                            break;
+                        case MYType.Unit.Guard:
+                            StartCoroutine(nameof(Attack));
+                            break;
+                        case MYType.Unit.Range:
+                            StartCoroutine(nameof(Shoot));
+                            break;
+                        case MYType.Unit.Wizard:
+                            StartCoroutine(nameof(Shoot));
+                            break;
+                    }
                 }
                 if (HP <= 0)
                 {
@@ -114,7 +143,73 @@ public class UnitController : MonoBehaviour
         animator.SetTrigger("doHit");
     }
 
+    void FireProjectile(string projectilePrefabName)
+    {
+        // Instantiate the projectile prefab
+        GameObject projectilePrefab = Resources.Load<GameObject>(projectilePrefabName);
+
+        if (projectilePrefab != null)
+        {
+            Vector3 curPos = new Vector3(transform.position.x, transform.position.y + 8, transform.position.z);
+            GameObject projectile = Instantiate(projectilePrefab, curPos, Quaternion.identity);
+
+            // Set the projectile's team to match the unit's team
+            Projectile projectileScript = projectile.GetComponent<Projectile>();
+            if (projectileScript != null)
+            {
+                projectileScript.unitTeam = unitTeam;
+            }
+        }
+    }
+
     IEnumerator Attack()
+    {
+        // Check if the unit is defeated
+        if (HP <= 0)
+        {
+            // Handle defeat logic, e.g., play death animation, destroy object, etc.
+            isAttacking = true;
+            animator.SetTrigger("doDie");
+            StartCoroutine(DestroyAfterDelay(1.0f));
+            yield break;
+        }
+
+        if (!isAttacking)
+        {
+            // Set the attacking flag to true
+            isAttacking = true;
+
+            // Assuming there is an enemy unit detected
+            RaycastHit2D hit = Physics2D.Raycast(transform.position,
+                                                 (unitTeam == UnitTeam.Blue) ? Vector2.right : Vector2.left,
+                                                 detectionDistance);
+
+            if (hit.collider != null)
+            {
+                UnitController enemyUnit = hit.collider.gameObject.GetComponent<UnitController>();
+
+                if (enemyUnit != null && enemyUnit.unitTeam != unitTeam)
+                {
+                    // Attack the enemy
+                    animator.SetTrigger("doAttack");
+                    AttackTarget(enemyUnit);
+
+                    // Wait for some time before returning to move state
+                    float randomWaitTime = Random.Range(minAtkRange, maxAtkRange);
+                    yield return new WaitForSeconds(randomWaitTime);
+                }
+            }
+
+            // Reset the attacking flag to false
+            isAttacking = false;
+
+            // Reset to move state
+            animator.SetTrigger("doMove");
+            battleState = false;
+        }
+    }
+
+    IEnumerator Shoot()
     {
         // Check if the unit is defeated
         if (HP <= 0)
@@ -144,10 +239,32 @@ public class UnitController : MonoBehaviour
                 {
                     // Attack the enemy
                     animator.SetTrigger("doAttack");
-                    AttackTarget(enemyUnit);
+                    switch (playerType)
+                    {
+                        case MYType.Unit.Range:
+                            if (unitTeam == UnitTeam.Blue)
+                            {
+                                FireProjectile("ArrowBlue");
+                            }
+                            else if (unitTeam == UnitTeam.Red)
+                            {
+                                FireProjectile("ArrowRed");
+                            }
+                            break;
+                        case MYType.Unit.Wizard:
+                            if (unitTeam == UnitTeam.Blue)
+                            {
+                                FireProjectile("MagicBlue");
+                            }
+                            else if (unitTeam == UnitTeam.Red)
+                            {
+                                FireProjectile("MagicRed");
+                            }
+                            break;
+                    }
 
                     // Wait for some time before returning to move state
-                    float randomWaitTime = Random.Range(1.0f, 3.0f);
+                    float randomWaitTime = Random.Range(minAtkRange, maxAtkRange);
                     yield return new WaitForSeconds(randomWaitTime);
                 }
             }
@@ -168,25 +285,5 @@ public class UnitController : MonoBehaviour
 
         // Destroy the game object
         Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        print("1");
-        // Check if the projectile hits a unit with a different team
-        UnitController unitController = collision.gameObject.GetComponent<UnitController>();
-        if (unitController != null && unitController.unitTeam != unitTeam)
-        {
-            print("2");
-            // Deal damage to the hit unit
-            unitController.TakeDamage(Atk);
-
-            // Optionally, destroy the projectile after hitting a target
-            Destroy(gameObject);
-        }
-        else
-        {
-            print("3");
-        }
     }
 }
