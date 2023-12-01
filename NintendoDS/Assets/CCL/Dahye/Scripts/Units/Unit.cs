@@ -75,17 +75,12 @@ public class Unit : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 정교한 Update()
-    /// </summary>
     void FixedUpdate()
     {
         horizontalMove();
     }
 
-    /// <summary>
-    /// 키보드로 유닛을 움직인다.
-    /// </summary>
+
     private void horizontalMove()
     {
         // 움직일수 없으면 리턴
@@ -107,12 +102,6 @@ public class Unit : MonoBehaviour
         // 실제 움직임 작동 코드
         transform.position = newPosition;
     }
-
-    /// <summary>
-    /// A button을 누르면 input manager가 이 함수를 호출한다.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void dropping(object sender, EventArgs e) // 구독자
     {
         Debug.Log("dropping unit");
@@ -128,12 +117,9 @@ public class Unit : MonoBehaviour
         SoundManager.Instance.PlaySFX(SoundManager.Instance.DropSfx);
     }
 
-    /// <summary>
-    /// 충돌이 시작되면!
-    /// </summary>
-    /// <param name="collision"></param>
-    void OnCollisionEnter2D(Collision2D collision) // �浹 ��
+    void OnCollisionEnter2D(Collision2D collision)
     {
+
         // 이 아래 함수는 유닛과 유닛이 충돌했을 경우에만 실행하도록, 유닛 - 유닛 충돌이 아니라면 함수를 끝낸다.
         if (!collision.collider.CompareTag("Unit"))
             return;
@@ -169,15 +155,52 @@ public class Unit : MonoBehaviour
 
             // 충돌했으면 다음 레벨을 시작한다.
             this.generateNextLevelUnit(contactPos);
+
         }
+
+
+
+
+
+        //bool detectedCollision = false;
+
+        //if (detectedCollision)
+        //    return;
+
+        //if (!collision.collider.CompareTag("Unit"))
+        //    return;
+
+        //Unit otherUnit = collision.gameObject.GetComponent<Unit>();
+        //if (otherUnit == null)
+        //{
+        //    Debug.Log("Collision null unit");
+        //    return;
+        //}
+
+        //if (otherUnit.Level != this.Level)
+        //    return;
+
+
+        //detectedCollision = true;
+
+        //if (detectedCollision)
+        //{
+        //    Vector2 contactPos = collision.GetContact(0).point;
+        //    Explosion();
+
+        //    this.Hide(otherUnit.transform.position);
+        //    otherUnit.Hide(this.transform.position);
+
+        //    Debug.Log("collision point : " + contactPos);
+
+        //    this.generateNextLevelUnit(contactPos);
+
+
+        //}
+        //detectedCollision = false;
+
     }
 
-
-
-    /// <summary>
-    /// 객체를 숨기는 행위.
-    /// </summary>
-    /// <param name="targetPos"></param>
     public void Hide(Vector3 targetPos)
     {
         // 숨기는 객체는 시뮬레이션하지 않으며, 충돌도 일어나지 않습니다.
@@ -187,12 +210,6 @@ public class Unit : MonoBehaviour
         StartCoroutine(HideRoutine(targetPos));
 
     }
-
-    /// <summary>
-    /// 객체를 숨길 때 행할 행동 : 두 객체를 점점 가까이 하다가 삭제합니다.
-    /// </summary>
-    /// <param name="targetPos"></param>
-    /// <returns></returns>
     IEnumerator HideRoutine(Vector3 targetPos)
     {
         int frameCount = 0;
@@ -213,10 +230,7 @@ public class Unit : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    /// <summary>
-    /// 다음 레벨 유닛 생성 (머지로 인한 생성)
-    /// </summary>
-    /// <param name="contactPos"></param>
+
     private void generateNextLevelUnit(Vector2 contactPos)
     {
         Debug.Log("generate next level unit");
@@ -228,11 +242,6 @@ public class Unit : MonoBehaviour
         StartCoroutine(LevelUpRoutine(contactPos));
     }
 
-    /// <summary>
-    /// 다음 레벨 유닛 생성 (머지로 인한 생성, 코루틴)
-    /// </summary>
-    /// <param name="contactPos"></param>
-    /// <returns></returns>
     IEnumerator LevelUpRoutine(Vector2 contactPos)
     {
         yield return new WaitForSeconds(0.005f);

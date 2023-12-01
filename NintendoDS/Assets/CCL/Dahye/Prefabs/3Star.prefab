@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7286733489342901613}
   - component: {fileID: 3188763598056085718}
   - component: {fileID: 1338436286405811488}
-  - component: {fileID: -1050310383798298025}
+  - component: {fileID: -47652775402277669}
   m_Layer: 6
-  m_Name: "2\uD3EC\uB3C4"
+  m_Name: 3Star
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6813519080821623276}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 798621061
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4e1bd2e1af01a274abda2557c374fa8c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 134cf0e51d3c3e045a1ee5a29068c188, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -146,10 +146,10 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
---- !u!114 &-1050310383798298025
+  m_Radius: 0.27
+--- !u!114 &-47652775402277669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

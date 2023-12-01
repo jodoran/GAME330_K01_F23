@@ -2,26 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    /*  Score 
-     *  GameOver Condition 
-     *  Restart 
-     *  - void AddScore(int score)
-        - 카운트 추가용
-        - bool IsGameOver( )
-        - 게임 진행상황 여부 판단
-        - void Restart(bool isRestart)
-        - 선 라인과 유닛 태그 충돌 시  게임오버 진행 (after job)
-     */
-
-    // public bool IsRestart;
     public bool IsGameOver;
     public int Score;
 
 
     public Text scoreText; // Unity Inspector에서 할당할 UI Text 요소
-    /// <summary>
-    /// 카운트 추가용
-    /// </summary>
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
 
     public void AddScore(int score)
     {
@@ -34,7 +24,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         if (scoreText != null)
         {
-            scoreText.text =  Score.ToString(); // Score를 UI Text에 표시
+            scoreText.text = Score.ToString(); // Score를 UI Text에 표시
         }
     }
 
