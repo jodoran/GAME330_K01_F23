@@ -34,7 +34,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         if (scoreText != null)
         {
-            scoreText.text = "[" + Score.ToString() + "]"; // Score를 UI Text에 표시
+            scoreText.text =  Score.ToString(); // Score를 UI Text에 표시
         }
     }
 
