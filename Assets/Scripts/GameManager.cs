@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public Transform spawnpoint;
-    public UnitController curBlueCastle;
-    public UnitController curRedCastle;
     public GameObject victory;
     public GameObject defeat;
     public GameObject retry;
@@ -24,6 +22,9 @@ public class GameManager : MonoBehaviour
     private Coroutine sizeDeltaChangeCoroutine;
     private Coroutine checkCastleCoroutine;
     private bool gameEnded = false;
+    private bool hasBtnUpBeenCalled = false;
+
+    private MainCamera mainCamera;
 
     [Header("==========Cost==========")]
     public TextMeshProUGUI costText;
@@ -36,8 +37,22 @@ public class GameManager : MonoBehaviour
 
     private const int maxCost = 10;
 
+    [Header("==========HP==========")]
+    public UnitController curBlueCastle;
+    public UnitController curRedCastle;
+    public RectTransform blueHPBar;
+    public RectTransform redHPBar;
+    public TextMeshProUGUI blueHPText;
+    public TextMeshProUGUI redHPText;
+
+    private const int maxBlueHP = 500;
+    private const int maxRedHP = 500;
+
     public void Start()
     {
+        //#.InputSystem
+        mainCamera = FindObjectOfType<MainCamera>();
+
         costTextAnimator = costText.GetComponent<Animator>();
         defeatAnimator = defeat.GetComponent<Animator>();
         retryAnimator = retry.GetComponent<Animator>();
@@ -47,6 +62,77 @@ public class GameManager : MonoBehaviour
         StartCoroutine(IncreaseCostCoroutine());
         checkCastleCoroutine = StartCoroutine(CheckCastleHPCoroutine());
         UpdateCost();
+    }
+
+    public void Update()
+    {
+        UpdateBlueHPBar();
+        UpdateRedHPBar();
+
+        GameInput();
+    }
+
+    public void GameInput()
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if (horizontalInput == 0f && !hasBtnUpBeenCalled)
+        {
+            mainCamera.BtnUp();
+            hasBtnUpBeenCalled = true;
+        }
+        else if (horizontalInput != 0f)
+        {
+            hasBtnUpBeenCalled = false;
+        }
+
+        switch (horizontalInput)
+        {
+            case 1f: // Right
+                //Debug.Log("Right");
+                mainCamera.Right();
+                break;
+            case -1f: // Left
+                //Debug.Log("Left");
+                mainCamera.Left();
+                break;
+            //case 0f: // NotPressed
+            //    //Debug.Log("NotPressed");
+            //    mainCamera.BtnUp();
+            //    break;
+        }
+
+        switch (Input.GetAxisRaw("Vertical"))
+        {
+            case 1f: // UP
+                Debug.Log("Up");
+                break;
+            case -1f: // Down
+                Debug.Log("Down");
+                break;
+            case 0f: // NotPressed
+                break;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("Jump button pressed");
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Debug.Log("Fire1 button pressed");
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Debug.Log("Fire2 button pressed");
+        }
+
+        if (Input.GetButtonDown("Fire3"))
+        {
+            Debug.Log("Fire3 button pressed");
+        }
     }
 
     public void SpawnUnit()
@@ -112,6 +198,24 @@ public class GameManager : MonoBehaviour
         UpdateCost();
     }
 
+    public void UpdateBlueHPBar()
+    {
+        float normalizedHP = Mathf.Clamp01((float)curBlueCastle.HP / maxBlueHP);
+        float newWidth = normalizedHP * maxBlueHP * 5;
+
+        blueHPBar.sizeDelta = new Vector2(newWidth, blueHPBar.sizeDelta.y);
+        blueHPText.text = "" + curBlueCastle.HP;
+    }
+
+    public void UpdateRedHPBar()
+    {
+        float normalizedHP = Mathf.Clamp01((float)curRedCastle.HP / maxRedHP);
+        float newWidth = normalizedHP * maxRedHP * 5;
+
+       redHPBar.sizeDelta = new Vector2(newWidth, redHPBar.sizeDelta.y);
+       redHPText.text = "" + curRedCastle.HP;
+    }
+
     public void UpdateCost()
     {
         // Update the TextMeshPro text to display the current cost
@@ -175,6 +279,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Defeat");
                 Time.timeScale = 0f;
                 defeat.SetActive(true);
+                retry.SetActive(true);
                 //defeatAnimator.SetTrigger("Show");
                 StopCoroutine(checkCastleCoroutine);
                 gameEnded = true;
@@ -185,6 +290,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Victory");
                 Time.timeScale = 0f;
                 victory.SetActive(true);
+                retry.SetActive(true);
                 //victoryAnimator.SetTrigger("Show");
                 StopCoroutine(checkCastleCoroutine);
                 gameEnded = true;

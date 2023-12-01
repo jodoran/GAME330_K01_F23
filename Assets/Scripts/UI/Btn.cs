@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class Btn : MonoBehaviour
+public class Btn : MonoBehaviour, IDSTapListener
 {
     Animator anim;
 
     public MYType.Unit Type;
     public GameManager gm;
 
+    bool IsPressed = false;
+
     public void Start()
     {
+        gm = GameObject.FindFirstObjectByType<GameManager>();
         anim = GetComponent<Animator>();
     }
 
@@ -49,5 +54,29 @@ public class Btn : MonoBehaviour
     public void NotEnoughCost()
     {
         anim.SetTrigger("NotEnoughCost");
+    }
+
+    public void OnScreenTapDown(Vector2 tapPosition)
+    {
+        if (!IsPressed)
+        {
+            if (DSTapRouter.RectangleContainsDSPoint(GetComponent<RectTransform>(), tapPosition))
+            {
+                IsPressed = true;
+                GetComponent<EventTrigger>().OnPointerDown(null);
+            }
+        }
+    }
+
+    public void OnScreenDrag(Vector2 tapPosition)
+    {
+    }
+
+    public void OnScreenTapUp(Vector2 tapPosition)
+    {
+        if (IsPressed)
+        {
+            IsPressed = false;
+        }
     }
 }

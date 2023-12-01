@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class MainCamera : MonoBehaviour
+public class MainCamera : MonoBehaviour, IDSTapListener
 {
     public int speed;
     public float minX; // min x location
     public float maxX; // max x location
     public float h;
     public bool isBtnDown;
+
+    bool IsPressed = false;
 
     public void Update()
     {
@@ -20,21 +23,21 @@ public class MainCamera : MonoBehaviour
     {
         h = 1;
         isBtnDown = true;
-        print("Right");
+        //print("Right");
     }
 
     public void Left()
     {
         h = -1;
         isBtnDown = true;
-        print("Left");
+        //print("Left");
     }
 
     public void BtnUp()
     {
         h = 0;
         isBtnDown = false;
-        print("BtnUp");
+        //print("BtnUp");
     }
 
     public void Move()
@@ -48,6 +51,40 @@ public class MainCamera : MonoBehaviour
             curPos.x = Mathf.Clamp(curPos.x, minX, maxX);
 
             transform.position = curPos;
+        }
+    }
+
+    public void OnScreenTapDown(Vector2 tapPosition)
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = tapPosition;
+
+        // UI 버튼이 터치되었는지 확인
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject.GetComponent<UnityEngine.UI.Button>() != null)
+            {
+                //print(result.gameObject);
+                IsPressed = true;
+                result.gameObject.GetComponent<EventTrigger>().OnPointerDown(null);
+                //GetComponent<EventTrigger>().OnPointerDown(null);
+            }
+        }
+    }
+
+    public void OnScreenDrag(Vector2 tapPosition)
+    {
+    }
+
+    public void OnScreenTapUp(Vector2 tapPosition)
+    {
+        if (IsPressed)
+        {
+            IsPressed = false;
+            BtnUp();
         }
     }
 }

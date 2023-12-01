@@ -6,12 +6,12 @@ public class ParallaxScroll : MonoBehaviour
 {
     public float parallaxEffectMultiplier = 0.5f;
 
-    private Transform cameraTransform;
+    public Transform cameraTransform;
     private Vector3 lastCameraPosition;
 
     private void Start()
     {
-        cameraTransform = Camera.main.transform;
+        //cameraTransform = Camera.main.transform;
         lastCameraPosition = cameraTransform.position;
     }
 
