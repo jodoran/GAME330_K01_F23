@@ -16,10 +16,12 @@ public class UnitController : MonoBehaviour
     [Header("==========Type=========")]
     public MYType.Unit playerType;
     public UnitTeam unitTeam;
+    public LayerMask targetMask;
 
     public GameObject Dust;
 
     [Header("==========Unit=========")]
+    public int unitCost;
     public int HP;
     public int Atk;
     public float moveSpeed;
@@ -27,15 +29,15 @@ public class UnitController : MonoBehaviour
     public float minAtkRange;
     public float maxAtkRange;
 
-    private bool battleState;
+    public bool battleState;
     private bool isAttacking = false;
 
     void Start()
     {
         animator = GetComponent<Animator>();
 
-        animator.SetTrigger("doMove");
-        Dust.SetActive(true);
+        Move();
+        Detact();
     }
 
     public void Update()
@@ -46,6 +48,9 @@ public class UnitController : MonoBehaviour
 
     public void Move()
     {
+        if (playerType == MYType.Unit.Castle)
+            return;
+
         if (!battleState)
         {
             float moveDirection = (unitTeam == UnitTeam.Blue) ? 1f : -1f;
@@ -60,69 +65,78 @@ public class UnitController : MonoBehaviour
 
     public void Detact()
     {
+        if (playerType == MYType.Unit.Castle)
+            return;
+
         //#.Raycast 방향 설정
         Vector2 raycastDirection = (unitTeam == UnitTeam.Blue) ? Vector2.right : Vector2.left;
 
         //#.현재 방향으로만 Raycast를 쏴서 적군을 감지하는 로직
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, raycastDirection, detectionDistance);
+        RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, raycastDirection, detectionDistance, targetMask);
 
         //#.Ray를 시각적으로 그리기
         Debug.DrawRay(transform.position, raycastDirection * detectionDistance, Color.green);
 
-        if (hit.collider != null)
+        UnitController nearestEnemy = null;
+        foreach (var hitItem in hit)
         {
-            UnitController enemyUnit = hit.collider.gameObject.GetComponent<UnitController>();
-            battleState = false;
-
-            if (enemyUnit != null && enemyUnit.unitTeam != unitTeam)
+            if (hitItem.collider != null)
             {
-                battleState = true;
+                UnitController enemyUnit = hitItem.collider.gameObject.GetComponent<UnitController>();
+                //battleState = false;
 
-                if (enemyUnit.unitTeam == UnitTeam.Blue)
+                if (enemyUnit != null && enemyUnit.unitTeam != unitTeam)
                 {
-                    //Debug.Log("빨간 적군을 감지했습니다! 공격을 시작합니다.");
-                    //StartCoroutine(nameof(Attack));
-                    switch (playerType)
+                    if (nearestEnemy == null)
                     {
-                        case MYType.Unit.Sword:
-                            StartCoroutine(nameof(Attack));
-                            break;
-                        case MYType.Unit.Guard:
-                            StartCoroutine(nameof(Attack));
-                            break;
-                        case MYType.Unit.Range:
-                            StartCoroutine(nameof(Shoot));
-                            break;
-                        case MYType.Unit.Wizard:
-                            StartCoroutine(nameof(Shoot));
-                            break;
+                        nearestEnemy = enemyUnit;
+                        //nearestEnemy.GetComponent<SpriteRenderer>().color  = Color.blue;
+                    }
+                    else if (Vector3.Distance(transform.position, enemyUnit.transform.position) <
+                            Vector3.Distance(transform.position, nearestEnemy.transform.position))
+                    {
+                        nearestEnemy = enemyUnit;
                     }
                 }
-                else if (enemyUnit.unitTeam == UnitTeam.Red)
+                else
                 {
-                    //Debug.Log("파란 적군을 감지했습니다! 공격을 시작합니다.");
-                    //StartCoroutine(nameof(Attack));
-                    switch (playerType)
-                    {
-                        case MYType.Unit.Sword:
-                            StartCoroutine(nameof(Attack));
-                            break;
-                        case MYType.Unit.Guard:
-                            StartCoroutine(nameof(Attack));
-                            break;
-                        case MYType.Unit.Range:
-                            StartCoroutine(nameof(Shoot));
-                            break;
-                        case MYType.Unit.Wizard:
-                            StartCoroutine(nameof(Shoot));
-                            break;
-                    }
-                }
-                if (HP <= 0)
-                {
-                    return;
+                    continue;
                 }
             }
+        }
+
+        if(nearestEnemy != null)
+        {
+            battleState = true;
+
+            //Debug.Log("빨간 적군을 감지했습니다! 공격을 시작합니다.");
+            //StartCoroutine(nameof(Attack));
+            switch (playerType)
+            {
+                case MYType.Unit.Sword:
+                    StartCoroutine(nameof(Attack));
+                    break;
+                case MYType.Unit.Guard:
+                    StartCoroutine(nameof(Attack));
+                    break;
+                case MYType.Unit.Range:
+                    StartCoroutine(nameof(Shoot));
+                    //print("Distance : " + detectionDistance + " " + Vector2.Distance(transform.position, nearestEnemy.transform.position));
+                    break;
+                case MYType.Unit.Wizard:
+                    StartCoroutine(nameof(Shoot));
+                    //print("Distance : " + detectionDistance + " " + Vector2.Distance(transform.position, nearestEnemy.transform.position));
+                    break;
+            }
+
+            if (HP <= 0)
+            {
+                return;
+            }
+        }
+        else
+        {
+            battleState = false;
         }
     }
 
@@ -136,13 +150,17 @@ public class UnitController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (playerType == MYType.Unit.Castle)
+        {
+            animator.SetFloat("HP", HP);
+        }
+
         // Reduce HP by the damage amount
         HP -= damage;
 
         // Play hit animation
         animator.SetTrigger("doHit");
     }
-
     void FireProjectile(string projectilePrefabName)
     {
         // Instantiate the projectile prefab
@@ -150,7 +168,7 @@ public class UnitController : MonoBehaviour
 
         if (projectilePrefab != null)
         {
-            Vector3 curPos = new Vector3(transform.position.x, transform.position.y + 8, transform.position.z);
+            Vector3 curPos = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
             GameObject projectile = Instantiate(projectilePrefab, curPos, Quaternion.identity);
 
             // Set the projectile's team to match the unit's team
@@ -170,8 +188,7 @@ public class UnitController : MonoBehaviour
             // Handle defeat logic, e.g., play death animation, destroy object, etc.
             isAttacking = true;
             animator.SetTrigger("doDie");
-            StartCoroutine(DestroyAfterDelay(1.0f));
-            yield break;
+            StartCoroutine(DestroyAfterDelay(0.5f));
         }
 
         if (!isAttacking)
@@ -179,14 +196,41 @@ public class UnitController : MonoBehaviour
             // Set the attacking flag to true
             isAttacking = true;
 
-            // Assuming there is an enemy unit detected
-            RaycastHit2D hit = Physics2D.Raycast(transform.position,
-                                                 (unitTeam == UnitTeam.Blue) ? Vector2.right : Vector2.left,
-                                                 detectionDistance);
+            Vector2 raycastDirection = (unitTeam == UnitTeam.Blue) ? Vector2.right : Vector2.left;
 
-            if (hit.collider != null)
+            RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, raycastDirection, detectionDistance, targetMask);
+
+            UnitController nearestEnemy = null;
+            foreach (var hitItem in hit)
             {
-                UnitController enemyUnit = hit.collider.gameObject.GetComponent<UnitController>();
+                if (hitItem.collider != null)
+                {
+                    UnitController enemyUnit = hitItem.collider.gameObject.GetComponent<UnitController>();
+                    //battleState = false;
+
+                    if (enemyUnit != null && enemyUnit.unitTeam != unitTeam)
+                    {
+                        if (nearestEnemy == null)
+                        {
+                            nearestEnemy = enemyUnit;
+                            //nearestEnemy.GetComponent<SpriteRenderer>().color = Color.blue;
+                        }
+                        else if (Vector3.Distance(transform.position, enemyUnit.transform.position) <
+                                Vector3.Distance(transform.position, nearestEnemy.transform.position))
+                        {
+                            nearestEnemy = enemyUnit;
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+
+            if (nearestEnemy != null)
+            {
+                UnitController enemyUnit = nearestEnemy;
 
                 if (enemyUnit != null && enemyUnit.unitTeam != unitTeam)
                 {
@@ -205,7 +249,7 @@ public class UnitController : MonoBehaviour
 
             // Reset to move state
             animator.SetTrigger("doMove");
-            battleState = false;
+            //battleState = false;
         }
     }
 
@@ -217,8 +261,7 @@ public class UnitController : MonoBehaviour
             // Handle defeat logic, e.g., play death animation, destroy object, etc.
             isAttacking = true;
             animator.SetTrigger("doDie");
-            StartCoroutine(DestroyAfterDelay(3.0f));
-            yield break;
+            StartCoroutine(DestroyAfterDelay(0.5f));
         }
 
         if (!isAttacking)
@@ -227,13 +270,45 @@ public class UnitController : MonoBehaviour
             isAttacking = true;
 
             // Assuming there is an enemy unit detected
-            RaycastHit2D hit = Physics2D.Raycast(transform.position,
-                                                 (unitTeam == UnitTeam.Blue) ? Vector2.right : Vector2.left,
-                                                 detectionDistance);
+            //RaycastHit2D hit = Physics2D.Raycast(transform.position,
+            //                                     (unitTeam == UnitTeam.Blue) ? Vector2.right : Vector2.left,
+            //                                     detectionDistance);
 
-            if (hit.collider != null)
+            Vector2 raycastDirection = (unitTeam == UnitTeam.Blue) ? Vector2.right : Vector2.left;
+
+            RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, raycastDirection, detectionDistance, targetMask);
+
+            UnitController nearestEnemy = null;
+            foreach (var hitItem in hit)
             {
-                UnitController enemyUnit = hit.collider.gameObject.GetComponent<UnitController>();
+                if (hitItem.collider != null)
+                {
+                    UnitController enemyUnit = hitItem.collider.gameObject.GetComponent<UnitController>();
+                    //battleState = false;
+
+                    if (enemyUnit != null && enemyUnit.unitTeam != unitTeam)
+                    {
+                        if (nearestEnemy == null)
+                        {
+                            nearestEnemy = enemyUnit;
+                            //nearestEnemy.GetComponent<SpriteRenderer>().color = Color.blue;
+                        }
+                        else if (Vector3.Distance(transform.position, enemyUnit.transform.position) <
+                                Vector3.Distance(transform.position, nearestEnemy.transform.position))
+                        {
+                            nearestEnemy = enemyUnit;
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+
+            if (nearestEnemy != null)
+            {
+                UnitController enemyUnit = nearestEnemy;
 
                 if (enemyUnit != null && enemyUnit.unitTeam != unitTeam)
                 {
@@ -274,7 +349,7 @@ public class UnitController : MonoBehaviour
 
             // Reset to move state
             animator.SetTrigger("doMove");
-            battleState = false;
+            //battleState = false;
         }
     }
 
@@ -285,5 +360,6 @@ public class UnitController : MonoBehaviour
 
         // Destroy the game object
         Destroy(gameObject);
+        StopAllCoroutines();
     }
 }
