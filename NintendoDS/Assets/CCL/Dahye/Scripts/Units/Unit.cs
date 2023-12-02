@@ -35,6 +35,7 @@ public class Unit : MonoBehaviour
 
     public bool isMerged;
 
+
     private bool isMovable = false; // 움직일 수 있는가?
     private float deadTime;
     /// <summary>
@@ -212,6 +213,7 @@ public class Unit : MonoBehaviour
     IEnumerator LevelUpRoutine(Vector2 contactPos)
     {
         yield return new WaitForSeconds(0.005f);
+        UnitManager.Instance.maxLevel = Mathf.Max((int)Level, UnitManager.Instance.maxLevel);
         UnitManager.Instance.MergeComplate(this.Level + 1, new Vector3(contactPos.x, contactPos.y, 0));
         SoundManager.Instance.PlaySFX(SoundManager.Instance.MergeSfx);
     }

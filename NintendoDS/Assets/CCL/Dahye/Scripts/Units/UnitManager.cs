@@ -7,6 +7,7 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
     [SerializeField] private Unit myUnit;
     [SerializeField] private UnitScriptableObject[] mySO;
 
+    public int maxLevel;
     private bool isDropped = true;
 
     void Start()
@@ -82,7 +83,7 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
     /// <returns></returns>
     private int getNextUnitLevelIndex()
     {
-        return UnityEngine.Random.Range(0, 5);
+        return UnityEngine.Random.Range(0, maxLevel);
     }
     /// <summary>
     /// 유닛 프리펩을 생성
