@@ -33,6 +33,8 @@ public class Unit : MonoBehaviour
     CircleCollider2D circleCollider;
     SpriteRenderer spriteRenderer;
 
+    public bool isMerged;
+
     private bool isMovable = false; // 움직일 수 있는가?
     private float deadTime;
     /// <summary>
@@ -41,6 +43,7 @@ public class Unit : MonoBehaviour
     void Awake()
     {
         this.isMovable = false;
+        this.isMerged = false;
         this.rigidbody = GetComponent<Rigidbody2D>();
         this.rigidbody.simulated = false;
         this.rigidbody.velocity = new Vector3(0, dropSpeed, 0);
@@ -140,69 +143,33 @@ public class Unit : MonoBehaviour
         float otherX = otherUnit.transform.position.x;
         float otherY = otherUnit.transform.position.y;
 
-        if (meY < otherY || (meY == otherY && meX > otherX))
+        if (!isMerged && !otherUnit.isMerged && (int)Level < 10)
         {
-            // 충돌 포인트를 검색한다.
-            Vector2 contactPos = collision.GetContact(0).point;
-            Explosion();
+            if (meY < otherY || (meY == otherY && meX > otherX))
+            {
+                // 충돌 포인트를 검색한다.
+                Vector2 contactPos = collision.GetContact(0).point;
+                Explosion();
 
-            // 자신과, 충돌한 객체를 숨긴다.
-            this.Hide(otherUnit.transform.position);
-            otherUnit.Hide(this.transform.position);
+                // 자신과, 충돌한 객체를 숨긴다.
+                this.Hide(otherUnit.transform.position);
+                otherUnit.Hide(this.transform.position);
 
-            // 충돌 지점 출력
-            Debug.Log("collision point : " + contactPos);
+                // 충돌 지점 출력
+                Debug.Log("collision point : " + contactPos);
 
-            // 충돌했으면 다음 레벨을 시작한다.
-            this.generateNextLevelUnit(contactPos);
+                // 충돌했으면 다음 레벨을 시작한다.
+                this.generateNextLevelUnit(contactPos);
+
+            }
 
         }
-
-
-
-
-
-        //bool detectedCollision = false;
-
-        //if (detectedCollision)
-        //    return;
-
-        //if (!collision.collider.CompareTag("Unit"))
-        //    return;
-
-        //Unit otherUnit = collision.gameObject.GetComponent<Unit>();
-        //if (otherUnit == null)
-        //{
-        //    Debug.Log("Collision null unit");
-        //    return;
-        //}
-
-        //if (otherUnit.Level != this.Level)
-        //    return;
-
-
-        //detectedCollision = true;
-
-        //if (detectedCollision)
-        //{
-        //    Vector2 contactPos = collision.GetContact(0).point;
-        //    Explosion();
-
-        //    this.Hide(otherUnit.transform.position);
-        //    otherUnit.Hide(this.transform.position);
-
-        //    Debug.Log("collision point : " + contactPos);
-
-        //    this.generateNextLevelUnit(contactPos);
-
-
-        //}
-        //detectedCollision = false;
 
     }
 
     public void Hide(Vector3 targetPos)
     {
+        isMerged = true;
         // 숨기는 객체는 시뮬레이션하지 않으며, 충돌도 일어나지 않습니다.
         this.rigidbody.simulated = false;
         this.circleCollider.enabled = false;
