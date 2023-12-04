@@ -80,4 +80,15 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         audio.PlayOneShot(eff, EffectVolume);
     }
 
+    public void PauseBGM()
+    {
+        MusicPlayer.Pause();
+    }
+
+    public void ResumeBGM()
+    {
+        MusicPlayer.UnPause();
+    }
+
+
 }

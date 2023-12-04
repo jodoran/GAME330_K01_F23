@@ -10,6 +10,12 @@ public class PausePlayButton : MonoBehaviour, IDSTapListener
     public Sprite playSprite;
 
     private bool isPaused = false;
+    private SoundManager soundManager;
+
+    void Start()
+    {
+        soundManager = FindObjectOfType<SoundManager>();
+    }
 
     public void OnScreenTapDown(Vector2 tapPosition)
     {
@@ -24,8 +30,17 @@ public class PausePlayButton : MonoBehaviour, IDSTapListener
     {
         isPaused = !isPaused;
         Time.timeScale = isPaused ? 0 : 1;
-        Debug.Log(isPaused);
 
+        if (isPaused)
+        {
+            soundManager.PauseBGM(); // BGM 일시정지
+        }
+        else
+        {
+            soundManager.ResumeBGM(); // BGM 재개
+        }
+
+        Debug.Log(isPaused);
         button.image.sprite = isPaused ? playSprite : pauseSprite;
     }
 
