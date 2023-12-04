@@ -6,7 +6,7 @@ public class Loading : MonoBehaviour
 {
     void Start()
     {
-        StartCoroutine(ChangeSceneAfterTime(4, "Home"));
+        StartCoroutine(ChangeSceneAfterTime(10, "MainScene"));
     }
 
     IEnumerator ChangeSceneAfterTime(float seconds, string sceneName)
@@ -15,3 +15,4 @@ public class Loading : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 }
+
