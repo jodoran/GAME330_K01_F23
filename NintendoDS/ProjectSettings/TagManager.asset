@@ -52,3 +52,6 @@ TagManager:
   - name: Circle
     uniqueID: 798621061
     locked: 0
+  - name: Front
+    uniqueID: 53141221
+    locked: 0

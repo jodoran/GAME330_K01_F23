@@ -13,7 +13,8 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
     void Start()
     {
         Debug.Log("Scriptable Object Length : " + mySO.Length);
-        nextUnit();
+        if (!GameManager.Instance.IsGameOver)
+            nextUnit();
     }
 
     /// <summary>

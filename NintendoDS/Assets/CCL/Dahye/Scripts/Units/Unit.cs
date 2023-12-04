@@ -36,7 +36,7 @@ public class Unit : MonoBehaviour
     public bool isMerged;
 
 
-    private bool isMovable = false; // 움직일 수 있는가?
+    private bool isMovable = false;
     private float deadTime;
     /// <summary>
     /// 처음에는 움직일 수 없고, 시뮬레이션이 아닌 상태
@@ -90,6 +90,8 @@ public class Unit : MonoBehaviour
         // 움직일수 없으면 리턴
         if (!this.isMovable)
             return;
+        if (GameManager.Instance.IsGameOver)
+            return;
 
         // axis를 받아서 그만큼 움직인다.
         var movement = Input.GetAxis(InputManager.Instance.horizontal);
@@ -106,6 +108,8 @@ public class Unit : MonoBehaviour
     }
     private void dropping(object sender, EventArgs e) // 구독자
     {
+        if (GameManager.Instance.IsGameOver)
+            return;
         Debug.Log("dropping unit");
         // 호출은 한번만 이므로, 구독을 해제한다.
         InputManager.Instance.OnAbuttonPressed -= dropping;
@@ -245,7 +249,7 @@ public class Unit : MonoBehaviour
             {
                 spriteRenderer.color = Color.red;
             }
-            if (deadTime > 5)
+            if (deadTime > 3)
             {
                 GameManager.Instance.GameOver();
             }
