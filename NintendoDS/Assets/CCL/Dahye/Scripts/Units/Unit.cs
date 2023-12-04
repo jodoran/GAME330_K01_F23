@@ -95,11 +95,9 @@ public class Unit : MonoBehaviour
         var movement = Input.GetAxis(InputManager.Instance.horizontal);
         Vector3 newPosition = transform.position + new Vector3(movement, 0, 0) * Time.deltaTime * speed;
 
-        // Before moving, check if the new position would collide with a wall
         RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(movement, 0), Mathf.Abs(movement) * Time.deltaTime * speed);
         if (hit.collider != null && hit.collider.CompareTag("Wall"))
         {
-            // If a wall is hit, don't move
             return;
         }
 
@@ -226,7 +224,7 @@ public class Unit : MonoBehaviour
             Vector2 dir = obj.transform.position - transform.position;
             //var force = dir * impactForce * 100;
             //GetComponent<SpriteRenderer>().color = Color.red;
-            obj.GetComponent<Rigidbody2D>().AddForce(dir * impactForce * 100);
+            obj.GetComponent<Rigidbody2D>().AddForce(dir * impactForce * 5);
             Debug.Log("Explode!" + impactForce);
         }
     }
