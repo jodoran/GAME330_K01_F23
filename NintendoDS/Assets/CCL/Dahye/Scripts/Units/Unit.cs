@@ -239,6 +239,7 @@ public class Unit : MonoBehaviour
     {
         if (collision.tag == "Finish")
         {
+            Debug.Log("Line Touched");
             deadTime += Time.deltaTime;
             if (deadTime > 2)
             {

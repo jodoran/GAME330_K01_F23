@@ -7,6 +7,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
 
     public Text scoreText; // Unity Inspector에서 할당할 UI Text 요소
+    public UIanim UIanim;
 
     private void Awake()
     {
@@ -28,16 +29,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
-    private void UIRestartMassage() // 게임 결과 및 재시작 UI 
-    {
-
-    }
-
     public void GameOver() // 게임오버 조건
     {
         if (IsGameOver)
             return;
         IsGameOver = true;
+        UIanim.GameOverUI();
         Debug.Log("gameover게임오버");
 
 
