@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4597,6 +4597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxEffectMultiplier: 1
+  cameraTransform: {fileID: 808574385}
 --- !u!1 &1301764510
 GameObject:
   m_ObjectHideFlags: 0
@@ -4696,6 +4697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxEffectMultiplier: 0.25
+  cameraTransform: {fileID: 808574385}
 --- !u!1 &1308943819
 GameObject:
   m_ObjectHideFlags: 0
@@ -8649,6 +8651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parallaxEffectMultiplier: 0.5
+  cameraTransform: {fileID: 808574385}
 --- !u!1001 &1084658511899482636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8734,6 +8737,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RW
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152848350657510149, guid: 86aadb317cbe76943ada4651ceab1292,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7340572865120074282, guid: 86aadb317cbe76943ada4651ceab1292,
         type: 3}
@@ -9373,7 +9381,7 @@ PrefabInstance:
     - target: {fileID: 8192167051666692029, guid: 39414e2a0e221184d98e6db6bce96849,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
