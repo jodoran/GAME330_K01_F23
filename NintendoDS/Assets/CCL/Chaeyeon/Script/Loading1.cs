@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class Loading : MonoBehaviour
+public class Loading1 : MonoBehaviour
 {
     void Start()
     {
-        StartCoroutine(ChangeSceneAfterTime(3, "loading2"));
+        StartCoroutine(ChangeSceneAfterTime(3, "Home"));
     }
 
     IEnumerator ChangeSceneAfterTime(float seconds, string sceneName)
