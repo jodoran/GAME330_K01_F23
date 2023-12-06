@@ -84,7 +84,7 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
     /// <returns></returns>
     private int getNextUnitLevelIndex()
     {
-        return UnityEngine.Random.Range(0, maxLevel);
+        return UnityEngine.Random.Range(0, Mathf.Min(maxLevel, 5));
     }
     /// <summary>
     /// 유닛 프리펩을 생성
