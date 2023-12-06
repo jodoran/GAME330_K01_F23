@@ -245,12 +245,14 @@ public class Unit : MonoBehaviour
         {
             Debug.Log("Line Touched");
             deadTime += Time.deltaTime;
-            if (deadTime > 2)
+            if (deadTime > .5)
             {
                 spriteRenderer.color = Color.red;
             }
-            if (deadTime > 3)
+            if (deadTime > 1)
             {
+                //this.gameObject.SetActive(false);
+                Destroy(gameObject);
                 GameManager.Instance.GameOver();
             }
         }
@@ -264,7 +266,6 @@ public class Unit : MonoBehaviour
             spriteRenderer.color = Color.white;
         }
     }
-
 
 
 }

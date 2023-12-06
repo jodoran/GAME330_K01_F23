@@ -4,7 +4,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     public bool IsGameOver;
     public int Score;
-    
+
 
 
     public Text scoreText;
@@ -14,7 +14,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void Awake()
     {
-        Application.targetFrameRate = 60;
+        //Application.targetFrameRate = 60;
     }
 
     public void AddScore(int score)
@@ -45,8 +45,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         UIanim.GameOverUI();
         Debug.Log("gameover게임오버");
 
-
     }
+
 
 
 

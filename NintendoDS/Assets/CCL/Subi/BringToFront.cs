@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 public class BringToFront : MonoBehaviour
 {
-
+    public Canvas canvas;
     void Start()
     {
         // Canvas 컴포넌트 가져오기

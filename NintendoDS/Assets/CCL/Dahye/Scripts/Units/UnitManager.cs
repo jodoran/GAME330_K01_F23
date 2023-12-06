@@ -116,8 +116,6 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
 
         // 랜덤 인덱스로 계산된 (생성된 unitPrefabs의) 레벨 타입을 Init 함수에 전달합니다.
         unitInstant.Init(this.mySO[unitRandomIndex].UnitLevel, false);
-        Debug.Log(unitInstant);
-
         return unitInstant;
     }
 
