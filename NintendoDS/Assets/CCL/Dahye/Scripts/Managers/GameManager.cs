@@ -4,9 +4,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     public bool IsGameOver;
     public int Score;
+    
 
 
-    public Text scoreText; // Unity Inspector에서 할당할 UI Text 요소
+    public Text scoreText;
+    public Text scoreText2;// Unity Inspector에서 할당할 UI Text 요소
     public UIanim UIanim;
     public Unit Unit;
 
@@ -27,6 +29,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if (scoreText != null)
         {
             scoreText.text = Score.ToString(); // Score를 UI Text에 표시
+        }
+
+        if (scoreText2 != null)
+        {
+            scoreText2.text = Score.ToString(); // Score를 UI Text에 표시
         }
     }
 
