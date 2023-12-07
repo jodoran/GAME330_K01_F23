@@ -110,7 +110,6 @@ public class Unit : MonoBehaviour
     {
         if (GameManager.Instance.IsGameOver)
             return;
-        Debug.Log("dropping unit");
         // 호출은 한번만 이므로, 구독을 해제한다.
         InputManager.Instance.OnAbuttonPressed -= dropping;
 

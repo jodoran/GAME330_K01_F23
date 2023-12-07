@@ -62,9 +62,8 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
     /// <returns></returns>
     public GameObject LevelPrefab(UnitLevel level)
     {
-        // condition ? true : false;
-
-        return level > UnitLevel.Level11 ? mySO[(int)UnitLevel.Level11].UnitPrefabs : mySO[(int)level].UnitPrefabs;
+        return level > UnitLevel.Level11 ?
+               mySO[(int)UnitLevel.Level11].UnitPrefabs : mySO[(int)level].UnitPrefabs;
     }
 
 
@@ -108,14 +107,13 @@ public class UnitManager : SingletonMonoBehaviour<UnitManager>
 
         this.isDropped = false;
 
+        // ...
         var unitPrefabs = getUnitPrefab(unitRandomIndex);
 
         var unitInstant = Instantiate(unitPrefabs, unitGroups).GetComponent<Unit>();
-        if (unitInstant == null)
-            return null;
+        if (unitInstant == null) return null;
 
-        // 랜덤 인덱스로 계산된 (생성된 unitPrefabs의) 레벨 타입을 Init 함수에 전달합니다.
-        unitInstant.Init(this.mySO[unitRandomIndex].UnitLevel, false);
+        unitInstant.Init(this.mySO[unitRandomIndex].UnitLevel, false);      // 랜덤 인덱스로 계산된 (생성된 unitPrefabs의) 레벨 타입을 Init 함수에 전달합니다.
         return unitInstant;
     }
 

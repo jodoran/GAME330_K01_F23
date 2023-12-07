@@ -1,6 +1,5 @@
 using UnityEngine;
 
-//외부 접근가능 
 public enum UnitLevel
 {
     Level1,
@@ -24,7 +23,5 @@ public class UnitScriptableObject : ScriptableObject
     public GameObject UnitPrefabs;
     public string UnitName;
     public int Score;
-    // 애니메이션 
-
 }
 
