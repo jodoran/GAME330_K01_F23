@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/MainScene.unity
     guid: 07b5e427c20c30b4493be962adb5afc4
+  - enabled: 1
+    path: Assets/_Scenes/howtoplayscene.unity
+    guid: 95211fc5126dbf549a6964b46866ef04
   m_configObjects: {}
