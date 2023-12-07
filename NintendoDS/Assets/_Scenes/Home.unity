@@ -2134,7 +2134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 976885617}
-  - component: {fileID: 976885616}
+  - component: {fileID: 976885618}
   m_Layer: 0
   m_Name: SceneControl
   m_TagString: Untagged
@@ -2142,19 +2142,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &976885616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 976885615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1907d7b348765a74c88308dc7b1488e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneName: 
 --- !u!4 &976885617
 Transform:
   m_ObjectHideFlags: 0
@@ -2170,6 +2157,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &976885618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976885615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1907d7b348765a74c88308dc7b1488e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: 
 --- !u!1 &1005098144
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,7 +2627,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976885616}
+      - m_Target: {fileID: 976885618}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: loadScene
         m_Mode: 5
@@ -7917,7 +7917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1907d7b348765a74c88308dc7b1488e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: MainScene
+  SceneName: howtoplayscene
 --- !u!114 &1678681637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7962,7 +7962,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976885616}
+      - m_Target: {fileID: 976885618}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: loadScene
         m_Mode: 5
@@ -7971,7 +7971,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MainScene
+          m_StringArgument: howtoplayscene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1678681638
@@ -8054,7 +8054,7 @@ GameObject:
   - component: {fileID: 1701575710}
   - component: {fileID: 1701575709}
   m_Layer: 0
-  m_Name: QuitGAme
+  m_Name: QuitGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
