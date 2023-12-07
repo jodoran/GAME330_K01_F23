@@ -78,6 +78,6 @@ Library Temp Logs UserSettings obj
 *.vs
 .DS_Store [Tt]humbs.db
 
-# Dahye Nintendo
-*.mp4
-*.mp4.meta
+//# Dahye Nintendo
+//*.mp4
+//*.mp4.meta
