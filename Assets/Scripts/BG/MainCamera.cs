@@ -65,11 +65,14 @@ public class MainCamera : MonoBehaviour, IDSTapListener
 
         foreach (RaycastResult result in results)
         {
-            if (result.gameObject.GetComponent<UnityEngine.UI.Button>() != null)
+            UnityEngine.UI.Button button = result.gameObject.GetComponent<UnityEngine.UI.Button>();
+            EventTrigger eventTrigger = result.gameObject.GetComponent<EventTrigger>();
+
+            if (button != null && eventTrigger != null)
             {
                 //print(result.gameObject);
                 IsPressed = true;
-                result.gameObject.GetComponent<EventTrigger>().OnPointerDown(null);
+                eventTrigger.OnPointerDown(null);
                 //GetComponent<EventTrigger>().OnPointerDown(null);
             }
         }
