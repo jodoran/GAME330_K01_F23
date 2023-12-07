@@ -9,15 +9,15 @@ EditorBuildSettings:
     path: Assets/CCL/Chaeyeon/Scene/Home.unity
     guid: 77d17f0b460086146a4ffa4a7dd22374
   - enabled: 1
-    path: Assets/_Scenes/MainScene.unity
-    guid: 07b5e427c20c30b4493be962adb5afc4
-  - enabled: 1
     path: Assets/_Scenes/loading.unity
     guid: ea384f08a03980843ad577d0ee619e26
+  - enabled: 1
+    path: Assets/_Scenes/loading2.unity
+    guid: 40ba7ec01dd709241bd6fccf5fb7e515
   - enabled: 1
     path: Assets/_Scenes/Home.unity
     guid: 61dd1516d05dc024ab0818e4f4afce03
   - enabled: 1
-    path: Assets/_Scenes/loading2.unity
-    guid: 40ba7ec01dd709241bd6fccf5fb7e515
+    path: Assets/_Scenes/MainScene.unity
+    guid: 07b5e427c20c30b4493be962adb5afc4
   m_configObjects: {}
