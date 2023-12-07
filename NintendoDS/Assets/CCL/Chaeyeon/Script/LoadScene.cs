@@ -6,19 +6,19 @@ using UnityEngine.UI;
 
 public class LoadScene : MonoBehaviour, IDSTapListener
 {
-    public string SceneName;
+    public string sceneName;
 
 
-    public void loadScene(string SceneName)
+    public void loadScene(string sceneName)
     {
-        SceneManager.LoadScene(SceneName);
+        SceneManager.LoadScene(sceneName);
     }
 
     public void OnScreenTapDown(Vector2 tapPosition)
     {
         if (DSTapRouter.RectangleContainsDSPoint(GetComponent<RectTransform>(), tapPosition))
         {
-            SceneManager.LoadScene(SceneName);
+            SceneManager.LoadScene(sceneName);
 
         }
     }
@@ -30,6 +30,6 @@ public class LoadScene : MonoBehaviour, IDSTapListener
 
     public void OnScreenTapUp(Vector2 tapPosition)
     {
-//throw new System.NotImplementedException();
+    //throw new System.NotImplementedException();
     }
 }
