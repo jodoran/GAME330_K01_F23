@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoadScene : MonoBehaviour, IDSTapListener
+public class LoadScene1 : MonoBehaviour, IDSTapListener
 {
     public string SceneName;
 
@@ -18,7 +18,7 @@ public class LoadScene : MonoBehaviour, IDSTapListener
     {
         if (DSTapRouter.RectangleContainsDSPoint(GetComponent<RectTransform>(), tapPosition))
         {
-            loadScene("Home");
+            loadScene("MainScene");
 
         }
     }

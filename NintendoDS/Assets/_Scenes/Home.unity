@@ -2169,7 +2169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1907d7b348765a74c88308dc7b1488e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: 
+  sceneName: 
 --- !u!1 &1005098144
 GameObject:
   m_ObjectHideFlags: 0
@@ -2689,7 +2689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1907d7b348765a74c88308dc7b1488e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: MainScene
+  sceneName: 
 --- !u!1 &1426984929
 GameObject:
   m_ObjectHideFlags: 0
@@ -7917,7 +7917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1907d7b348765a74c88308dc7b1488e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: howtoplayscene
+  sceneName: 
 --- !u!114 &1678681637
 MonoBehaviour:
   m_ObjectHideFlags: 0
