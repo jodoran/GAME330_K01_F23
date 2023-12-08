@@ -16,8 +16,10 @@ public class LoadScene1 : MonoBehaviour, IDSTapListener
 
     public void OnScreenTapDown(Vector2 tapPosition)
     {
+        print("hi");
         if (DSTapRouter.RectangleContainsDSPoint(GetComponent<RectTransform>(), tapPosition))
         {
+            print("load");
             loadScene("MainScene");
 
         }
