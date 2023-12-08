@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class MainCamera : MonoBehaviour, IDSTapListener
 {
+    public GameManager gm;
     public int speed;
     public float minX; // min x location
     public float maxX; // max x location
@@ -13,6 +14,9 @@ public class MainCamera : MonoBehaviour, IDSTapListener
     public bool isBtnDown;
 
     bool IsPressed = false;
+
+    [Header("==========Audio=========")]
+    public AudioClip clip;
 
     public void Update()
     {
@@ -68,11 +72,12 @@ public class MainCamera : MonoBehaviour, IDSTapListener
             UnityEngine.UI.Button button = result.gameObject.GetComponent<UnityEngine.UI.Button>();
             EventTrigger eventTrigger = result.gameObject.GetComponent<EventTrigger>();
 
-            if (button != null && eventTrigger != null)
+            if (button != null && eventTrigger != null && !gm.isPause)
             {
                 //print(result.gameObject);
                 IsPressed = true;
                 eventTrigger.OnPointerDown(null);
+                SoundManager.instance.SFXPlay("Btn", clip);
                 //GetComponent<EventTrigger>().OnPointerDown(null);
             }
         }

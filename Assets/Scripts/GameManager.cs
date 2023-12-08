@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 
 public class GameManager : MonoBehaviour
 {
@@ -48,8 +49,24 @@ public class GameManager : MonoBehaviour
     private const int maxBlueHP = 500;
     private const int maxRedHP = 500;
 
+    [Header("==========Screen=========")]
+    public GameObject Menu;
+    public GameObject Upscreen;
+    public GameObject Downscreen;
+
+    private Animator store;
+    private Animator upscreen;
+    private Animator downscreen;
+    private bool isOpen = false;
+    public bool isPause = false;
+
+    [Header("==========Audio=========")]
+    public AudioClip[] clip;
+
     public void Start()
     {
+        Time.timeScale = 1;
+
         //#.InputSystem
         mainCamera = FindObjectOfType<MainCamera>();
 
@@ -75,6 +92,9 @@ public class GameManager : MonoBehaviour
     public void GameInput()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
+        store = Menu.GetComponent<Animator>();
+        upscreen = Upscreen.GetComponent<Animator>();
+        downscreen = Downscreen.GetComponent<Animator>();
 
         if (horizontalInput == 0f && !hasBtnUpBeenCalled)
         {
@@ -116,12 +136,31 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+
             Debug.Log("Jump button pressed");
+            if (isOpen)
+            {
+                store.SetTrigger("Close");
+            }
+            else
+            {
+                store.SetTrigger("Open");
+            }
+
+            isOpen = !isOpen;
+            SoundManager.instance.SFXPlay("Btn", clip[4]);
         }
 
         if (Input.GetButtonDown("Fire1"))
         {
             Debug.Log("Fire1 button pressed");
+            if (isOpen)
+            {
+                store.SetTrigger("Close");
+                isOpen = !isOpen;
+            }
+
+            SoundManager.instance.SFXPlay("Btn", clip[4]);
         }
 
         if (Input.GetButtonDown("Fire2"))
@@ -133,6 +172,25 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Fire3 button pressed");
         }
+
+        if (Input.GetButtonDown("Select"))
+        {
+            if (isPause)
+            {
+                upscreen.SetTrigger("Resume");
+                downscreen.SetTrigger("Resume");
+                Time.timeScale = 1;
+            }
+            else
+            {
+                upscreen.SetTrigger("Pause");
+                downscreen.SetTrigger("Pause");
+                Time.timeScale = 0;
+            }
+
+            isPause = !isPause;
+            SoundManager.instance.SFXPlay("Btn", clip[4]);
+        }
     }
 
     public void SpawnUnit()
@@ -140,6 +198,7 @@ public class GameManager : MonoBehaviour
         // Check if there is enough cost to spawn the unit
         if (cost >= unitPrefab[Index].GetComponent<UnitController>().unitCost)
         {
+            SoundManager.instance.SFXPlay("Purchase", clip[1]);
             //GameObject newUnit = Instantiate(unitPrefab[Index], spawnpoint.position, Quaternion.identity);
 
             // Reduce the cost by the unit's cost
@@ -150,18 +209,22 @@ public class GameManager : MonoBehaviour
                 case 0:
                     GameObject newWarrior = Instantiate(unitPrefab[Index], spawnpoint.position, Quaternion.identity);
                     cost -= newWarrior.GetComponent<UnitController>().unitCost;
+                    Btn[Index].Purchase();
                     break;
                 case 1:
                     GameObject newGuard = Instantiate(unitPrefab[Index], spawnpoint.position, Quaternion.identity);
                     cost -= newGuard.GetComponent<UnitController>().unitCost;
+                    Btn[Index].Purchase();
                     break;
                 case 2:
                     GameObject newArcher = Instantiate(unitPrefab[Index], spawnpoint.position, Quaternion.identity);
                     cost -= newArcher.GetComponent<UnitController>().unitCost;
+                    Btn[Index].Purchase();
                     break;
                 case 3:
                     GameObject newWizard = Instantiate(unitPrefab[Index], spawnpoint.position, Quaternion.identity);
                     cost -= newWizard.GetComponent<UnitController>().unitCost;
+                    Btn[Index].Purchase();
                     break;
                 case 4:
                     Debug.Log("Castle");
@@ -178,6 +241,7 @@ public class GameManager : MonoBehaviour
                         {
                             generateTime--;
                             generateText.text = "" + generateTime + "s";
+                            Btn[Index].Purchase();
                         }
                         else
                         {
@@ -193,6 +257,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Not enough cost to spawn this unit!");
             Btn[Index].NotEnoughCost();
             costTextAnimator.SetTrigger("NotEnoughCost");
+            SoundManager.instance.SFXPlay("NotEnoughCost", clip[0]);
         }
 
         UpdateCost();
@@ -277,6 +342,7 @@ public class GameManager : MonoBehaviour
             if (curBlueCastle.HP <= 0)
             {
                 Debug.Log("Defeat");
+                SoundManager.instance.SFXPlay("Defeat", clip[3]);
                 Time.timeScale = 0f;
                 defeat.SetActive(true);
                 retry.SetActive(true);
@@ -288,6 +354,7 @@ public class GameManager : MonoBehaviour
             else if (curRedCastle.HP <= 0)
             {
                 Debug.Log("Victory");
+                SoundManager.instance.SFXPlay("Victory", clip[2]);
                 Time.timeScale = 0f;
                 victory.SetActive(true);
                 retry.SetActive(true);
@@ -340,6 +407,7 @@ public class GameManager : MonoBehaviour
     public void Reset()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
     public void BacktoTitle()
@@ -351,6 +419,6 @@ public class GameManager : MonoBehaviour
     public void Title()
     {
         print("BacktoTitle");
-        //SceneManager.LoadScene("Title");
+        SceneManager.LoadScene("Title");
     }
 }

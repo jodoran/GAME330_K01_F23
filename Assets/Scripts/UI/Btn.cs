@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,6 +55,11 @@ public class Btn : MonoBehaviour, IDSTapListener
     public void NotEnoughCost()
     {
         anim.SetTrigger("NotEnoughCost");
+    }
+
+    public void Purchase()
+    {
+        anim.SetTrigger("Purchase");
     }
 
     public void OnScreenTapDown(Vector2 tapPosition)

@@ -32,12 +32,19 @@ public class UnitController : MonoBehaviour
     public bool battleState;
     private bool isAttacking = false;
 
+    [Header("==========Audio=========")]
+    public AudioClip[] clip;
+
     void Start()
     {
         animator = GetComponent<Animator>();
-
-        Move();
-        Detact();
+        
+        if(playerType != MYType.Unit.Castle)
+        {
+            animator.SetTrigger("doMove");
+            Move();
+            Detact();
+        }
     }
 
     public void Update()
@@ -60,6 +67,14 @@ public class UnitController : MonoBehaviour
         else
         {
             Dust.SetActive(false);
+        }
+
+        if (HP <= 0)
+        {
+            // Handle defeat logic, e.g., play death animation, destroy object, etc.
+            isAttacking = true;
+            animator.SetTrigger("doDie");
+            StartCoroutine(DestroyAfterDelay(0.5f));
         }
     }
 
@@ -105,7 +120,7 @@ public class UnitController : MonoBehaviour
             }
         }
 
-        if(nearestEnemy != null)
+        if (nearestEnemy != null)
         {
             battleState = true;
 
@@ -153,6 +168,7 @@ public class UnitController : MonoBehaviour
         if (playerType == MYType.Unit.Castle)
         {
             animator.SetFloat("HP", HP);
+            SoundManager.instance.SFXPlay("Castle", clip[0]);
         }
 
         // Reduce HP by the damage amount
@@ -195,6 +211,16 @@ public class UnitController : MonoBehaviour
         {
             // Set the attacking flag to true
             isAttacking = true;
+
+            switch (playerType)
+            {
+                case MYType.Unit.Sword:
+                    SoundManager.instance.SFXPlay("Sword", clip[0]);
+                    break;
+                case MYType.Unit.Guard:
+                    SoundManager.instance.SFXPlay("Shield", clip[0]);
+                    break;
+            }
 
             Vector2 raycastDirection = (unitTeam == UnitTeam.Blue) ? Vector2.right : Vector2.left;
 
@@ -268,6 +294,16 @@ public class UnitController : MonoBehaviour
         {
             // Set the attacking flag to true
             isAttacking = true;
+
+            switch (playerType)
+            {
+                case MYType.Unit.Range:
+                    SoundManager.instance.SFXPlay("Arrow", clip[0]);
+                    break;
+                case MYType.Unit.Wizard:
+                    SoundManager.instance.SFXPlay("Magic", clip[0]);
+                    break;
+            }
 
             // Assuming there is an enemy unit detected
             //RaycastHit2D hit = Physics2D.Raycast(transform.position,
@@ -357,7 +393,7 @@ public class UnitController : MonoBehaviour
     {
         // Wait for the specified delay
         yield return new WaitForSeconds(delay);
-
+        SoundManager.instance.SFXPlay("Die", clip[1]);
         // Destroy the game object
         Destroy(gameObject);
         StopAllCoroutines();

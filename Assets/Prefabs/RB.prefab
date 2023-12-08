@@ -113,6 +113,9 @@ MonoBehaviour:
   minAtkRange: 0
   maxAtkRange: 0
   battleState: 0
+  clip:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!61 &299888177602295754
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -157,7 +160,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 42.87, y: 28.1}
+  m_Size: {x: 42.87, y: 80}
   m_EdgeRadius: 0
 --- !u!95 &3673124920271704429
 Animator:

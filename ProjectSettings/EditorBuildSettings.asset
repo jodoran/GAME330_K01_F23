@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: 9d7f35f44af67d241920af46560e4175
+  - enabled: 1
     path: Assets/Scenes/NintendoDSTowerDefense.unity
     guid: 07b5e427c20c30b4493be962adb5afc4
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 29e7b9fbf0d48ce409e6b4c204e1cf3f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

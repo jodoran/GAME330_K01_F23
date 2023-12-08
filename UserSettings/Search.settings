@@ -8,9 +8,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.8DF93126" = ""
+	"last_search.8DF93126" = "Shader"
 	"OpenInspectorPreview.8DF93126" = "0"
-	"currentGroup.8DF93126" = null
+	"currentGroup.8DF93126" = "all"
 }
 providers = {
 	log = {
@@ -67,6 +67,8 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"Shader"
+	"Shader Graph"
 ]
 searchItemFavorites = [
 ]
