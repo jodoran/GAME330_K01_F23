@@ -5746,7 +5746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: 7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 489a06224e3d6604ea96d4289e855a91, type: 2}
   m_sharedMaterial: {fileID: 5913372433054561466, guid: 489a06224e3d6604ea96d4289e855a91,
@@ -7706,7 +7706,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 489a06224e3d6604ea96d4289e855a91, type: 2}
   m_sharedMaterial: {fileID: 5913372433054561466, guid: 489a06224e3d6604ea96d4289e855a91,
@@ -9168,7 +9168,7 @@ GameObject:
   - component: {fileID: 1291797712}
   - component: {fileID: 1291797711}
   m_Layer: 5
-  m_Name: defeat
+  m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10297,10 +10297,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 0.8
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1400, y: 1200}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -12188,7 +12188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Touch to Resume
+  m_text: Press SELECT to Resume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 489a06224e3d6604ea96d4289e855a91, type: 2}
   m_sharedMaterial: {fileID: 5913372433054561466, guid: 489a06224e3d6604ea96d4289e855a91,
@@ -12216,8 +12216,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13067,7 +13067,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 489a06224e3d6604ea96d4289e855a91, type: 2}
   m_sharedMaterial: {fileID: 5913372433054561466, guid: 489a06224e3d6604ea96d4289e855a91,
@@ -13519,7 +13519,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 489a06224e3d6604ea96d4289e855a91, type: 2}
   m_sharedMaterial: {fileID: 5913372433054561466, guid: 489a06224e3d6604ea96d4289e855a91,
@@ -14157,7 +14157,7 @@ GameObject:
   - component: {fileID: 1910893855}
   - component: {fileID: 1910893854}
   m_Layer: 5
-  m_Name: victory
+  m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

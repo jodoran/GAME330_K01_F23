@@ -176,7 +176,7 @@ MonoBehaviour:
   Dust: {fileID: 4383704127408134272}
   unitCost: 3
   HP: 10
-  Atk: 3
+  Atk: 4
   moveSpeed: 14
   detectionDistance: 15
   minAtkRange: 1

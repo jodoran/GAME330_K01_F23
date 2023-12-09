@@ -298,6 +298,11 @@ public class GameManager : MonoBehaviour
         sizeDeltaChangeCoroutine = StartCoroutine(SmoothSizeDeltaChange(new Vector2((50 * cost), CostBar.sizeDelta.y), sizeDeltaChangeDuration));
     }
 
+    public void purchase ()
+    {
+        SoundManager.instance.SFXPlay("Purchase", clip[1]);
+    }
+
     public IEnumerator IncreaseCostCoroutine()
     {
         while (true)
@@ -419,6 +424,7 @@ public class GameManager : MonoBehaviour
     public void Title()
     {
         print("BacktoTitle");
+        Time.timeScale = 1;
         SceneManager.LoadScene("Title");
     }
 }

@@ -16,7 +16,7 @@ public class Btn : MonoBehaviour, IDSTapListener
 
     public void Start()
     {
-        gm = GameObject.FindFirstObjectByType<GameManager>();
+        //gm = GameObject.FindFirstObjectByType<GameManager>();
         anim = GetComponent<Animator>();
     }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class TutorialMainCamera : MonoBehaviour, IDSTapListener
 {
@@ -100,5 +101,25 @@ public class TutorialMainCamera : MonoBehaviour, IDSTapListener
     public void Next()
     {
         TutorialManager.instance.Next();
+        if (!TutorialManager.instance.upScreen04.activeSelf)
+        {
+            TutorialManager.instance.tutorial = true;
+        }
+        SoundManager.instance.SFXPlay("Btn", clip);
+    }
+
+    public void Back()
+    {
+        if (!IsPressed)
+            return;
+        IsPressed = true;
+        SoundManager.instance.SFXPlay("Btn", clip);
+        Invoke(nameof(Title), 1);
+    }
+
+    public void Title()
+    {
+        SceneManager.LoadScene("Title");
+        IsPressed = false;
     }
 }

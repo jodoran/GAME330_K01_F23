@@ -32,7 +32,7 @@ public class AIManager : MonoBehaviour
             cost = Mathf.Min(cost + 1, maxCost);
 
             // Check if there is enough cost to spawn a unit
-            if (cost >= 3)
+            if (cost >= 4)
             {
                 // Select a random unit index based on cost
                 int randomUnitIndex = SelectRandomUnitIndex();

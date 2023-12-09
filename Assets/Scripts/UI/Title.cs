@@ -27,12 +27,17 @@ public class Title : MonoBehaviour, IDSTapListener
         switch (type)
         {
             case TitleType.Start:
+                if (!IsPressed)
+                    return;
                 Debug.Log("Start");
+                IsPressed = true;
                 Time.timeScale = 1;
                 SoundManager.instance.SFXPlay("Btn", clip[0]);
                 Invoke(nameof(StarttheGame), 1f);
                 break;
             case TitleType.Tutorial:
+                if (!IsPressed)
+                    return;
                 Debug.Log("Tutorial");
                 Time.timeScale = 1;
                 SoundManager.instance.SFXPlay("Btn", clip[0]);
@@ -49,11 +54,13 @@ public class Title : MonoBehaviour, IDSTapListener
     public void StarttheGame()
     {
         SceneManager.LoadScene("NintendoDSTowerDefense");
+        IsPressed = false;
     }
 
     public void Tutorial()
     {
         SceneManager.LoadScene("Tutorial");
+        IsPressed = false;
     }
 
     public void OnScreenDrag(Vector2 tapPosition)
